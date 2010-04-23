@@ -1,0 +1,12 @@
+A place for the BioScala project under the most liberal of licenses: the BSD
+license.
+
+The idea is to create a tight bioinformatics package that builds on all Bio*
+libraries available on the JAVA Virtual Machine (JVM) - including BioJAVA and
+BioRuby.
+
+Please fork from here.
+
+Pjotr Prins
+
+
