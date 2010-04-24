@@ -1,5 +1,5 @@
-A place for the BioScala project under the most liberal of licenses: the BSD
-license.
+A place for the BioScala project under the liberal BSD license. The license for
+SCALA itself is also BSD-type.
 
 The idea is to create a tight bioinformatics package that builds on all Bio*
 libraries available on the JAVA Virtual Machine (JVM) - including BioJAVA and
