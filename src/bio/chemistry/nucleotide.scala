@@ -9,40 +9,39 @@
  *
  */
 
-package bio
+package bio {
 
-abstract class Nucleotide
-abstract class Purine extends Nucleotide
-abstract class Pyrimidine extends Nucleotide
+  sealed abstract class Nucleotide
 
-package DNA {
-    object A extends Purine {
+  package DNA {
+    case object A extends Nucleotide {
       override def toString() = "a"
     }
-    object G extends Purine {
+    case object G extends Nucleotide {
       override def toString() = "g"
     }
-    object T extends Pyrimidine {
+    case object T extends Nucleotide {
       override def toString() = "t"
     }
-    object C extends Pyrimidine {
+    case object C extends Nucleotide {
       override def toString() = "c"
     }
-}
-package RNA {
-    object A extends Purine {
+  }
+
+  package RNA {
+    case object A extends Nucleotide {
       override def toString() = "a"
     }
-    object G extends Purine {
+    case object G extends Nucleotide {
       override def toString() = "g"
     }
-    object U extends Pyrimidine {
+    case object U extends Nucleotide {
       override def toString() = "u"
     }
-    object C extends Pyrimidine {
+    case object C extends Nucleotide {
       override def toString() = "c"
     }
+  }
+
 }
-
-
 // vim: set ts=4 sw=4 et:
