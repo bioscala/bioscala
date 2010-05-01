@@ -12,14 +12,14 @@ package bio {
   }
 
   package DNA {
-    class DNASequence(str: String) extends Sequence(str) {
-      override val nucleotides = str.toList.map { nt => NucleotideConvert.fromChar(nt) }
+    class Sequence(str: String) extends bio.Sequence {
+      val nucleotides = str.toList.map { nt => NucleotideConvert.fromChar(nt) }
       override def toString() = { nucleotides mkString }
     }
   }
 
   package RNA {
-    class RNASequence(str: String) extends Sequence {
+    class Sequence(str: String) extends bio.Sequence {
       val nucleotides = str.toList.map { nt => NucleotideConvert.fromChar(nt) }
       override def toString() = { nucleotides mkString }
     }
