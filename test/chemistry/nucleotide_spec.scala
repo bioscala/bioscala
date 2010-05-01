@@ -22,6 +22,8 @@ class DNANucleotideSpec extends FlatSpec with ShouldMatchers {
 	  val a = A
 	  (a) should equal (A)
 	  (a == A) should equal (true)
+		(a.toString == C.toString) should be === false
+
 	}
 }
 
