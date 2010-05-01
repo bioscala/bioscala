@@ -3,6 +3,8 @@ import bio._
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
 
+package bio.test {
+
 class DNANucleotideSpec extends FlatSpec with ShouldMatchers {
   import bio.DNA._
   
@@ -55,4 +57,6 @@ class RNANucleotideSpec extends FlatSpec with ShouldMatchers {
     g.toString should equal ("g")
     u.toString should equal ("u")
   }
+}
+
 }
