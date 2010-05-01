@@ -29,6 +29,12 @@ class DNANucleotideSpec extends FlatSpec with ShouldMatchers {
     } 
     m should equal (true)
 	}
+
+  "Nucleotides" should "be listable" in {
+    val seq = List[Nucleotide](A,G,C,T,T,A)
+    seq(0) should equal (A)
+    (seq mkString) should be === "agctta"
+  }
 }
 
 class RNANucleotideSpec extends FlatSpec with ShouldMatchers {
