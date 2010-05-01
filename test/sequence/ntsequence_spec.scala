@@ -13,6 +13,16 @@ package bio.test {
       s.toString should equal ("agctaacg")
     }
 
+    "DNA sequence" should "not accept strange input" in {
+      evaluating { 
+        val s = new Sequence("acgtz") // fails
+        s.mkString
+      } should produce [IllegalArgumentException]
+      // Just for fun, using a standard list with uppercase is not safe
+      val l = "acgtz".toList.map { nt => nt.toUpperCase }
+      l.mkString should equal ("ACGTZ")
+    }
+
   }
 
   // class RNASequenceSpec extends FlatSpec with ShouldMatchers {

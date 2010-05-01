@@ -11,7 +11,11 @@
 
 package bio {
 
-  sealed abstract class Nucleotide
+  sealed abstract class Nucleotide {
+    def fromChar(c : Char) : Char = {
+      c
+    }
+  }
 
   package DNA {
     case object A extends Nucleotide {
@@ -26,6 +30,7 @@ package bio {
     case object C extends Nucleotide {
       override def toString() = "c"
     }
+
   }
 
   package RNA {
