@@ -17,6 +17,7 @@ package bio {
     }
   }
 
+
   package DNA {
     case object A extends Nucleotide {
       override def toString() = "a"
@@ -31,6 +32,17 @@ package bio {
       override def toString() = "c"
     }
 
+    object NucleotideConvert {
+      def fromChar(c: Char): Nucleotide = { 
+        c.toLowerCase match {
+          case 'a' => A
+          case 'c' => C
+          case 'g' => G
+          case 't' => T
+          case  _  => throw new IllegalArgumentException
+        }
+      }
+    }
   }
 
   package RNA {
