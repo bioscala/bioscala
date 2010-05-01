@@ -23,9 +23,5 @@ package bio {
       val nucleotides = str.toList.map { nt => NucleotideConvert.fromChar(nt) }
       override def toString() = { nucleotides mkString }
     }
-    // class RNASequence(str: String) extends Sequence(str) {
-    //   val nucleotides = str.toList.map { nt => NucleotideConvert.fromChar(nt) }
-    //   override def toString() = { nucleotides mkString }
-    // }
   }
 }
