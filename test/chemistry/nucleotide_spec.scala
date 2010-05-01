@@ -34,6 +34,11 @@ class DNANucleotideSpec extends FlatSpec with ShouldMatchers {
     val seq = List[Nucleotide](A,G,C,T,T,A)
     seq(0) should equal (A)
     (seq mkString) should be === "agctta"
+    val seq2 = A :: seq
+    (seq2 mkString) should be === "aagctta"
+    // Introducing a widened type
+    val seq3 = "z" :: seq
+    (seq3 mkString) should be === "zagctta"
   }
 }
 
