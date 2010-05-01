@@ -8,18 +8,24 @@ import bio._
 
 package bio {
 
-  package DNA {
+  abstract class Sequence {
+  }
 
-    class Sequence(str: String) {
-      val a = A
-      val nucleotides = str.toList.map { nt => NucleotideConvert.fromChar(nt) }
+  package DNA {
+    class DNASequence(str: String) extends Sequence(str) {
+      override val nucleotides = str.toList.map { nt => NucleotideConvert.fromChar(nt) }
       override def toString() = { nucleotides mkString }
-      def mkString() = { toString() }
     }
   }
 
-  // package RNA {
-  //   class Sequence extends List[Nucleotide]
-  // }
-
+  package RNA {
+    class RNASequence(str: String) extends Sequence {
+      val nucleotides = str.toList.map { nt => NucleotideConvert.fromChar(nt) }
+      override def toString() = { nucleotides mkString }
+    }
+    // class RNASequence(str: String) extends Sequence(str) {
+    //   val nucleotides = str.toList.map { nt => NucleotideConvert.fromChar(nt) }
+    //   override def toString() = { nucleotides mkString }
+    // }
+  }
 }

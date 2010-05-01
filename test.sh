@@ -8,3 +8,4 @@ fsc -deprecation -cp $classpath test/sequence/ntsequence_spec.scala
 scala -cp $classpath org.scalatest.tools.Runner -p . -o -s bio.test.DNANucleotideSpec
 scala -cp $classpath org.scalatest.tools.Runner -p . -o -s bio.test.RNANucleotideSpec
 scala -cp $classpath org.scalatest.tools.Runner -p . -o -s bio.test.DNASequenceSpec
+scala -cp $classpath org.scalatest.tools.Runner -p . -o -s bio.test.RNASequenceSpec
