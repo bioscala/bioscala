@@ -9,7 +9,7 @@ import bio._
 package bio {
 
   abstract class Sequence(fromChar: (Char) => Nucleotide,str: String) {
-    val nucleotides = str.toList.map { c => fromChar(c) }
+    val nucleotides = str.toList.map { fromChar(_) }
     override def toString() = { nucleotides mkString }
   }
 
