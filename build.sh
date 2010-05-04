@@ -2,10 +2,18 @@
 #
 #  Compile script (temporary)
 
-echo "Compile library"
+classpath=.:/usr/share/java/jruby.jar:~/.scala/jruby-complete-1.5.0.RC1.jar
+
+echo "Compile Rubyadapters"
+mkdir -p bio/ruby
+cd src/bio/ruby
+jrubyc --java rbsequence.rb
+echo "package bio.ruby;"|cat - RbSequence.java > x.java && mv x.java RbSequence.java
+javac -cp $classpath RbSequence.java
+mv RbSequence.class ../../../bio/ruby/
+
+exit 1
+
+echo "Compile Scala library"
 fsc -deprecation src/bio/chemistry/nucleotide.scala src/bio/sequence/*.scala
-
-# echo "Compile tests"
-# fsc -cp ~/.scala/scalatest-1.0.jar test/chemistry/nucleotide_spec.scala 
-
 

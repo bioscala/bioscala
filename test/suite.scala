@@ -2,12 +2,6 @@
 import org.scalatest.SuperSuite
 import bio.test._
 
-// import bio.test.DNANucleotideSpec
-// import bio.test.RNANucleotideSpec
-// import bio.test.DNASequenceSpec
-// import bio.test.RNASequenceSpec
-//
-
 package bio.test {
 
 class FullBioTestSuite extends SuperSuite(
@@ -15,7 +9,8 @@ class FullBioTestSuite extends SuperSuite(
     new DNANucleotideSpec,
     new RNANucleotideSpec,
     new DNASequenceSpec,
-    new RNASequenceSpec
+    new RNASequenceSpec,
+    new BioRubySpec
   )
 )
 
