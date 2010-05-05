@@ -32,6 +32,15 @@ package bio {
     }
 
     object NucleotideConvert {
+      /** 
+       * Nucleotide factory: create a Nucleotide object from its
+       * character representation. For example:
+       *
+       * <pre>
+       *   import bio.DNA._
+       *   val nt = NucleotideConvert.fromChar('a')
+       * </pre>
+       */
       def fromChar(c: Char): Nucleotide = { 
         c.toLowerCase match {
           case 'a' => A
@@ -59,6 +68,15 @@ package bio {
     }
 
     object NucleotideConvert {
+      /** 
+       * Nucleotide factory: create a Nucleotide object from its
+       * character representation. For example:
+       *
+       * <pre>
+       *   import bio.RNA._
+       *   val nt = NucleotideConvert.fromChar('a')
+       * </pre>
+       */
       def fromChar(c: Char): Nucleotide = { 
         c.toLowerCase match {
           case 'a' => A
