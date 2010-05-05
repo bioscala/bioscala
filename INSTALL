@@ -3,6 +3,10 @@
 To try BioScala build the class files and add them to the class path. A jar 
 file will be provided in the future.
 
+For BioScala install Scala, JRuby and the JAVA compiler. On Debian:
+
+  apt-get install scala jruby sun-java6-jdk
+
 Other dependencies are:
 
 * BioRuby:   Unpack the BioRuby source and point the Ruby load path to the
@@ -11,10 +15,11 @@ Other dependencies are:
                export RUBYLIB=~/local/lib/bioruby/lib
 
 * JRuby:     Install jruby and add the big jruby-complete.jar file to the 
-             class path
+             class path, like jruby-complete-1.5.0.RC1.jar (check the version
+						 of your JRuby with the -v switch: jruby -v)
 
 * BioJAVA:   Add the biojava.jar file to the class path
 
 * scalatest: Add the scalatest.jar file to the class path
 
-
+With this in place you should have access to all functionality.
