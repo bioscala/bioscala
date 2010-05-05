@@ -13,10 +13,9 @@ import bio._
 
 package bio {
 
-  abstract class Sequence(fromChar: (Char) => Nucleotide,str: String) {
+  abstract class Sequence(fromChar: (Char) => Nucleotide,str: String) extends SequenceTranslation {
     val nucleotides = str.toList.map { fromChar(_) }
 
-    def translate() = { toString }
     /** @return Nucleotide List as a String */
     override def toString() = { nucleotides mkString }
   }
