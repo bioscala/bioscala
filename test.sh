@@ -2,7 +2,7 @@
 
 # scalac_options="-deprecation -verbose"
 scalac_options="-deprecation"
-classpath=~/.scala/scalatest-1.0.jar:/usr/share/java/jruby.jar:~/.scala/jruby-complete-1.5.0.RC1.jar
+classpath=~/.scala/scalatest-1.0.jar:/usr/share/java/jruby.jar:~/.scala/jruby-complete-1.5.0.RC1.jar:~/.scala/biojava.jar
 
 echo "Compile tests"
 fsc $scalac_options -cp $classpath test/ruby/bioruby_spec.scala 

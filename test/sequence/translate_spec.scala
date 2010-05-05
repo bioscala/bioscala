@@ -9,11 +9,11 @@ package bio.test {
     import bio.DNA._
     
     "DNA sequence" should "translate to protein" in {
-      new Sequence("agctaacga").translate should equal ("CGT")
+      new Sequence("agctaacga").translate should equal ("S*R")
     }
 
     "RNA sequence" should "translate to protein" in {
-      new Sequence("agctaacga").translate should equal ("CGT")
+      new Sequence("agcuaacga").translate should equal ("CGT")
     }
   }    
 }

@@ -2,7 +2,7 @@
 #
 #  Compile script (temporary)
 
-classpath=.:/usr/share/java/jruby.jar:~/.scala/jruby-complete-1.5.0.RC1.jar
+classpath=~/.scala/scalatest-1.0.jar:/usr/share/java/jruby.jar:~/.scala/jruby-complete-1.5.0.RC1.jar:~/.scala/biojava.jar
 
 echo "Compile Rubyadapters"
 mkdir -p bio/ruby

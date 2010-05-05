@@ -21,10 +21,14 @@ package bio {
   }
 
   package DNA {
-    class Sequence(str: String) extends bio.Sequence(NucleotideConvert.fromChar,str) 
+    class Sequence(str: String) extends bio.Sequence(NucleotideConvert.fromChar,str) {
+    def transcribe = { SequenceTranscription.transcribe(nucleotides) }
+    }
   }
 
   package RNA {
-    class Sequence(str: String) extends bio.Sequence(NucleotideConvert.fromChar,str)
+    class Sequence(str: String) extends bio.Sequence(NucleotideConvert.fromChar,str) {
+    def transcribe = { nucleotides }
+    }
   }
 }
