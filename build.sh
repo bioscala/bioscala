@@ -12,8 +12,6 @@ echo "package bio.ruby;"|cat - RbSequence.java > x.java && mv x.java RbSequence.
 javac -cp $classpath RbSequence.java
 mv RbSequence.class ../../../bio/ruby/
 
-exit 1
-
 echo "Compile Scala library"
 fsc -deprecation src/bio/chemistry/nucleotide.scala src/bio/sequence/*.scala
 

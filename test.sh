@@ -7,7 +7,7 @@ classpath=~/.scala/scalatest-1.0.jar:/usr/share/java/jruby.jar:~/.scala/jruby-co
 echo "Compile tests"
 fsc $scalac_options -cp $classpath test/ruby/bioruby_spec.scala 
 fsc $scalac_options -cp $classpath test/chemistry/nucleotide_spec.scala 
-fsc $scalac_options -cp $classpath test/sequence/ntsequence_spec.scala 
+fsc $scalac_options -cp $classpath test/sequence/*_spec.scala 
 fsc $scalac_options -cp $classpath test/suite.scala 
 
 # Run the tests. The -o switch sends output to stdout.
