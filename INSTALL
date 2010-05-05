@@ -1,0 +1,20 @@
+= INSTALL BioScala =
+
+To try BioScala build the class files and add them to the class path. A jar 
+file will be provided in the future.
+
+Other dependencies are:
+
+* BioRuby:   Unpack the BioRuby source and point the Ruby load path to the
+             lib folder therein, e.g.:
+
+               export RUBYLIB=~/local/lib/bioruby/lib
+
+* JRuby:     Install jruby and add the big jruby-complete.jar file to the 
+             class path
+
+* BioJAVA:   Add the biojava.jar file to the class path
+
+* scalatest: Add the scalatest.jar file to the class path
+
+
