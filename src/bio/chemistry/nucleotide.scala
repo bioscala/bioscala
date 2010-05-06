@@ -46,7 +46,7 @@ package bio {
           case 'c' => C
           case 'g' => G
           case 't' => T
-          case  _  => throw new IllegalArgumentException
+          case  _  => throw new IllegalArgumentException("Unexpected value for nucleotide "+c)
         }
       }
     }
@@ -82,7 +82,7 @@ package bio {
           case 'c' => C
           case 'g' => G
           case 'u' => U
-          case  _  => throw new IllegalArgumentException
+          case  _  => throw new IllegalArgumentException("Unexpected value for nucleotide "+c)
         }
       }
     }

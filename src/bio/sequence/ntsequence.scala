@@ -22,13 +22,17 @@ package bio {
 
   package DNA {
     class Sequence(str: String) extends bio.Sequence(NucleotideConvert.fromChar,str) {
-    def transcribe = { SequenceTranscription.transcribe(nucleotides) }
+      def transcribe = { 
+        val trans = SequenceTranscription.transcribe(nucleotides) 
+        val rna = new RNA.Sequence(trans.mkString)
+        rna
+      }
     }
   }
 
   package RNA {
     class Sequence(str: String) extends bio.Sequence(NucleotideConvert.fromChar,str) {
-    def transcribe = { nucleotides }
+      def transcribe = { new RNA.Sequence(this.toString) }
     }
   }
 }

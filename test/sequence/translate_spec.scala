@@ -6,14 +6,21 @@ import org.scalatest.matchers.ShouldMatchers
 package bio.test {
 
   class SequenceTranslateSpec extends FlatSpec with ShouldMatchers {
-    import bio.DNA._
     
-    "DNA sequence" should "translate to protein" in {
-      new Sequence("agctaacga").translate should equal ("S*R")
+    "Transcribe DNA sequence" should "become RNA" in {
+      new DNA.Sequence("agctaacga").transcribe.toString should equal (new RNA.Sequence("agcuaacga").toString)
     }
 
-    "RNA sequence" should "translate to protein" in {
-      new Sequence("agcuaacga").translate should equal ("CGT")
+    "Transcribe RNA sequence" should "do nothing" in {
+      new RNA.Sequence("agcuaacga").transcribe should equal (new RNA.Sequence("agcuaacga"))
+    }
+
+    "Translate DNA sequence" should "translate to protein" in {
+      new DNA.Sequence("agctaacga").translate should equal ("S*R")
+    }
+
+    "Translate RNA sequence" should "translate to protein" in {
+      new RNA.Sequence("agcuaacga").translate should equal ("S*R")
     }
   }    
 }

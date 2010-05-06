@@ -9,25 +9,22 @@ import bio._
 
 package bio {
 
-  trait SequenceTranscription {
+  object SequenceTranscription {
     /** 
      * Transcribe DNA to RNA
-     * @return an RNA::Sequence object
      */
-    def transcribe(seq: Sequence): RNA.Sequence = {
-      new RNA.Sequence(
-        seq.nucleotides.map { nt => 
-          nt match {
-            case DNA.A => RNA.A
-            case DNA.C => RNA.C
-            case DNA.G => RNA.G
-            case DNA.T => RNA.U
-            case  _  => throw new IllegalArgumentException
-          }
-        }.toString
-      )
+    def transcribe(nucleotides: List[Nucleotide]): List[Nucleotide] = {
+      nucleotides.map { nt => 
+        nt match {
+          case DNA.A => RNA.A
+          case DNA.C => RNA.C
+          case DNA.G => RNA.G
+          case DNA.T => RNA.U
+          case  _  => throw new IllegalArgumentException("non DNA nucleotide: "+nt)
+        }
+      }
     }
-    def toRNA(seq: Sequence): RNA.Sequence = { transcribe(seq) }
+    def toRNA = { transcribe(_) }
   }
 
 }
