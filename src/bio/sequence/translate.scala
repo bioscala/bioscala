@@ -8,13 +8,9 @@ import bio._
 
 package bio {
 
-  trait SequenceTranslation {
-    def translate = {
-      val nt = toString
-      println(nt)
-      val dna = DNATools.createDNA(nt);
-      println(dna.seqString)
-      val rna = DNATools.toRNA(dna);
+  object SequenceTranslation {
+    def translate(nucleotides: List[Nucleotide]): String = {
+      val rna = RNATools.createRNA(nucleotides.mkString);
       println(rna.seqString)
       val aa = RNATools.translate(rna);
       println(aa.seqString)

@@ -12,7 +12,7 @@ package bio.test {
     }
 
     "Transcribe RNA sequence" should "do nothing" in {
-      new RNA.Sequence("agcuaacga").transcribe should equal (new RNA.Sequence("agcuaacga"))
+      new RNA.Sequence("agcuaacga").transcribe.toString should equal (new RNA.Sequence("agcuaacga").toString)
     }
 
     "Translate DNA sequence" should "translate to protein" in {

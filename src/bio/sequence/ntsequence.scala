@@ -13,8 +13,12 @@ import bio._
 
 package bio {
 
-  abstract class Sequence(fromChar: (Char) => Nucleotide,str: String) extends SequenceTranslation {
+  abstract class Sequence(fromChar: (Char) => Nucleotide,str: String) {
     val nucleotides = str.toList.map { fromChar(_) }
+
+    def transcribe(): Sequence
+    def translate() = { SequenceTranslation.translate(
+                          transcribe nucleotides) }
 
     /** @return Nucleotide List as a String */
     override def toString() = { nucleotides mkString }
@@ -22,7 +26,8 @@ package bio {
 
   package DNA {
     class Sequence(str: String) extends bio.Sequence(NucleotideConvert.fromChar,str) {
-      def transcribe = { 
+      override def transcribe = { 
+        println("Transcribing ",nucleotides)
         val trans = SequenceTranscription.transcribe(nucleotides) 
         val rna = new RNA.Sequence(trans.mkString)
         rna
@@ -32,7 +37,7 @@ package bio {
 
   package RNA {
     class Sequence(str: String) extends bio.Sequence(NucleotideConvert.fromChar,str) {
-      def transcribe = { new RNA.Sequence(this.toString) }
+      override def transcribe = { new RNA.Sequence(this.toString) }
     }
   }
 }
