@@ -11,9 +11,9 @@ package bio {
   object SequenceTranslation {
     def translate(nucleotides: List[Nucleotide]): String = {
       val rna = RNATools.createRNA(nucleotides.mkString);
-      println(rna.seqString)
+      // println(rna.seqString)
       val aa = RNATools.translate(rna);
-      println(aa.seqString)
+      // println(aa.seqString)
       aa.seqString
     }
   }
