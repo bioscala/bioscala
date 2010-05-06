@@ -1,4 +1,5 @@
 *.class
+lib/
 doc/apidoc/
 target/
 lib_managed/

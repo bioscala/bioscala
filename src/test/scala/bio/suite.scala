@@ -1,16 +1,19 @@
 
+
 import org.scalatest.SuperSuite
 import bio.test._
 
 package bio.test {
 
-class ReducedBioTestSuite extends SuperSuite(
+/*
+ * class ReducedBioTestSuite extends SuperSuite(
   List(
     new DNASequenceSpec,
     new RNASequenceSpec,
     new SequenceTranslateSpec
   )
 )
+ */
 
 class FullBioTestSuite extends SuperSuite(
   List(
