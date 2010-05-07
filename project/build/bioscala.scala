@@ -9,7 +9,7 @@ class BioScalaProject(info: ProjectInfo) extends DefaultProject(info)
   val scalatest = "org.scalatest" % "scalatest" % "1.0"                                               
   override def testOptions = ExcludeTests("bio.test.FullBioTestSuite" :: Nil) :: super.testOptions.toList
   // Modify this line to run single tests
-  override def includeTest(s: String) = { s == "bio.test.BioRubySpec" }
+  // override def includeTest(s: String) = { s == "bio.test.BioRubySpec" }
 }
 
 
