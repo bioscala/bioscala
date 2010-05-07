@@ -32,10 +32,12 @@ package bio {
       bio.Sequence(nucleotidelist, attributelist) {
       def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
+
       override def transcribe = { 
         val transcribed = SequenceTranscription.transcribe(nucleotides) 
         new RNA.Sequence(transcribed)
       }
+      def complement = SequenceTranscription.complement(nucleotides)
     }
   }
 
