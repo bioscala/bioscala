@@ -9,11 +9,12 @@ import bio._
 package bio {
 
   object SequenceTranslation {
+    /** 
+     * Translate nucleotides to amini acids
+     */
     def translate(nucleotides: List[Nucleotide]): String = {
       val rna = RNATools.createRNA(nucleotides.mkString);
-      // println(rna.seqString)
       val aa = RNATools.translate(rna);
-      // println(aa.seqString)
       aa.seqString
     }
   }
