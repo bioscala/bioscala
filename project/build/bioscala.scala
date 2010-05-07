@@ -10,6 +10,17 @@ class BioScalaProject(info: ProjectInfo) extends DefaultProject(info)
   override def testOptions = ExcludeTests("bio.test.FullBioTestSuite" :: Nil) :: super.testOptions.toList
   // Modify this line to run single tests
   // override def includeTest(s: String) = { s == "bio.test.BioRubySpec" }
+  val properties = System.getProperties()
+
+
+  // This user only runs a subset of tests:
+  val user = properties.get("user.name")
+  override def includeTest(s: String) = { 
+    if (user == "wrk") 
+      s.indexOf("Sequence")>0 || s.indexOf("Nucleotide")>0 
+    else
+      true
+    }
 }
 
 
