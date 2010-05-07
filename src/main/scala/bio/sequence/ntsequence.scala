@@ -13,19 +13,25 @@ import bio._
 
 package bio {
 
-  abstract class Sequence(fromChar: (Char) => Nucleotide,str: String) {
-    lazy val nucleotides = str.toList.map { fromChar(_) }
+  abstract class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Int]) {
+    lazy val nucleotides = nucleotidelist
+    lazy val attributes  = attributelist
 
     def transcribe(): Sequence
     def translate() = { SequenceTranslation.translate(
                           transcribe nucleotides) }
 
     /** @return Nucleotide List as a String */
-    override def toString() = { nucleotides mkString }
+    override def toString = nucleotides mkString
+    /** @return Nucleotide List */
+    def toList = nucleotides
   }
 
   package DNA {
-    class Sequence(str: String) extends bio.Sequence(NucleotideConvert.fromChar,str) {
+    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Int]) extends
+      bio.Sequence(nucleotidelist, attributelist) {
+      def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
+      def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
       override def transcribe = { 
         println("Transcribing ",nucleotides)
         val trans = SequenceTranscription.transcribe(nucleotides) 
@@ -36,7 +42,10 @@ package bio {
   }
 
   package RNA {
-    class Sequence(str: String) extends bio.Sequence(NucleotideConvert.fromChar,str) {
+    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Int]) extends
+      bio.Sequence(nucleotidelist, attributelist) {
+      def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
+      def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
       override def transcribe = { new RNA.Sequence(this.toString) }
     }
   }

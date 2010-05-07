@@ -8,14 +8,25 @@ package bio.test {
   class SequenceSpec extends FlatSpec with ShouldMatchers {
     import bio.DNA._
     "A Sequence" should "instantiate from a String" in {
-      val s1 = new Sequence("agctaacg")
-      s1.toString should equal ("agctaacg")
+      val s = new Sequence("agctaacg")
+      s.toString should equal ("agctaacg")
     }
+    "A Sequence" should "generate a list of Nucleotides" in {
+      val list = new Sequence("agctaacg").toList
+      list.first should equal (A)
+    }
+    "A Sequence" should "instantiate from a List[Nucleotide]" in {
+      val list = new Sequence("agctaacg").toList
+      val s = new Sequence(list)
+      s.toString should equal ("agctaacg")
+    }
+    /*
     "A Sequence" should "instantiate from a Sequence" in {
       val s1 = new Sequence("agctaacg")
       val s2 = new Sequence(s1)
       s2.toString should equal ("agctaacg")
     }
+    */
   }
 
   class DNASequenceSpec extends FlatSpec with ShouldMatchers {

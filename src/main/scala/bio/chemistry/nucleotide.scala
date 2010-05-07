@@ -49,6 +49,8 @@ package bio {
           case  _  => throw new IllegalArgumentException("Unexpected value for nucleotide "+c)
         }
       }
+      def fromString(s: String): List[Nucleotide] = s.toList.map { fromChar(_) }
+      def fromList(list: List[Nucleotide]): List[Nucleotide] = list 
     }
   }
 
@@ -85,6 +87,8 @@ package bio {
           case  _  => throw new IllegalArgumentException("Unexpected value for nucleotide "+c)
         }
       }
+      def fromString(s: String): List[Nucleotide] = s.toList.map { fromChar(_) }
+      def fromList(list: List[Nucleotide]): List[Nucleotide] = list
     }
   }
 
