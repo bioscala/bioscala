@@ -50,7 +50,17 @@ package bio {
         }
       }
       def fromString(s: String): List[Nucleotide] = s.toList.map { fromChar(_) }
-      def fromList(list: List[Nucleotide]): List[Nucleotide] = list 
+      def fromList(list: List[Nucleotide]): List[Nucleotide] = {
+        list.map { 
+          _ match {
+            case A => A
+            case C => C
+            case G => G
+            case T => T 
+            case  _  => throw new IllegalArgumentException("Can not construct DNA from RNA")
+            }
+        }
+      }
     }
   }
 
@@ -88,7 +98,17 @@ package bio {
         }
       }
       def fromString(s: String): List[Nucleotide] = s.toList.map { fromChar(_) }
-      def fromList(list: List[Nucleotide]): List[Nucleotide] = list
+      def fromList(list: List[Nucleotide]): List[Nucleotide] = {
+        list.map { 
+          _ match {
+            case A => A
+            case C => C
+            case G => G
+            case U => U
+            case  _  => throw new IllegalArgumentException("Can not construct RNA from DNA")
+            }
+        }
+      }
     }
   }
 

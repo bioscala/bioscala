@@ -39,7 +39,7 @@ package bio.test {
       new Sequence("agTA").toString should equal ("agta")
     }
 
-    "DNA sequence" should "not accept strange input" in {
+    "DNA Sequence" should "not accept strange input" in {
       evaluating { 
         val s = new Sequence("acgtz") // fails
         s.toString
@@ -53,6 +53,13 @@ package bio.test {
       l.mkString should equal ("ACGTZ")
     }
 
+    "DNA Sequence" should "not be instantiated from RNA" in {
+      val rna = new RNA.Sequence("agucc")
+      evaluating {
+        val s = new Sequence(rna.toList)
+        true
+      } should produce [IllegalArgumentException]
+    }
   }
 
   class RNASequenceSpec extends FlatSpec with ShouldMatchers {
@@ -71,6 +78,13 @@ package bio.test {
       // Just for fun, using a standard list with uppercase is not safe
       val l = "acgtz".toList.map { nt => nt.toUpperCase }
       l.mkString should equal ("ACGTZ")
+    }
+    "RNA Sequence" should "not be instantiated from DNA" in {
+      val dna = new DNA.Sequence("agtcc")
+      evaluating {
+        val s = new Sequence(dna.toList)
+        true
+      } should produce [IllegalArgumentException]
     }
   }    
 }
