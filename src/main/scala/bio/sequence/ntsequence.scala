@@ -14,7 +14,7 @@ import bio._
 package bio {
 
   abstract class Sequence(fromChar: (Char) => Nucleotide,str: String) {
-    val nucleotides = str.toList.map { fromChar(_) }
+    lazy val nucleotides = str.toList.map { fromChar(_) }
 
     def transcribe(): Sequence
     def translate() = { SequenceTranslation.translate(
