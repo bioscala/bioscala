@@ -10,7 +10,7 @@ package bio {
 
   object SequenceTranslation {
     /** 
-     * Translate nucleotides to amini acids
+     * Translate nucleotides to amini acids (will change to returning List)
      */
     def translate(nucleotides: List[Nucleotide]): String = {
       val rna = RNATools.createRNA(nucleotides.mkString);
