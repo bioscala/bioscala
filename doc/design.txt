@@ -1,0 +1,49 @@
+= Designing the BioScala library =
+
+Scala is a strongly typed functional language, that allows for object
+oriented programming (OOP). Too functional purists this is something
+of a contradiction.  However, it does make sense for complex libraries
+- OOP allows for partitioning of data and code.
+
+Designing a library from scratch is a good opportunity to make
+fundamental choices. OOP can easily be driven too far and can make
+hierarchies of objects hard to maintain. With BioScala we opt for a
+functional approach:
+
+  BioScala aims for functional programming
+
+OOP is used in the most minimalistic fashion to partition
+functionality.
+
+  BioScala uses OOP in a minimalistic fashion
+
+Maybe an example will help. With functional programming we emphasize
+immutable values and no side effects. We also design functions in a
+way that they use basic objects, when possible.
+
+So, it makes sense to have a Nucleotide class - which allows for
+strong type checking. A Sequence has a list of nucleotides and a list
+of attributes, like ID and descriptions.
+
+Now we are to add transcription. Should it be part of the Sequence
+class? In classic OOP design: yes. However, with BioScala we don't
+think transcription is a part of a Sequence object. Rather than
+cluttering Sequence - which is an object - we create a
+SequenceTranslation object, which carries no state. The translate
+method is without side effects. It takes as input a list of
+nucleotide, and returns a fresh transcribed list of nucleotides.
+
+For convenience we add a transcribe method to Sequence, which
+delegates to the new function. Someone may wish to say
+'seq.transcribe' - it should return a new transcribed Sequence.
+
+The main difference with a traditional OOP delegator pattern, like you
+would write in Ruby or JAVA, is that the list of nucleotides get
+passed to the function, as input. Traditionally a Sequence object
+would be passed in.
+
+What is the advantage? First, SequenceTranslation is not aware about
+Sequence objects. So you can create an alternative implementation
+easily. Second, the transcribe method is cleaner - it does not refer
+to Seqence object internals.
+
