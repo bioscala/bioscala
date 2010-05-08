@@ -20,13 +20,11 @@ package bio.test {
       val s = new Sequence(list)
       s.toString should equal ("agctaacg")
     }
-    /*
     "A Sequence" should "instantiate from a Sequence" in {
       val s1 = new Sequence("agctaacg")
       val s2 = new Sequence(s1)
       s2.toString should equal ("agctaacg")
     }
-    */
   }
 
   class DNASequenceSpec extends FlatSpec with ShouldMatchers {

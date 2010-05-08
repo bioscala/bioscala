@@ -17,6 +17,7 @@ package bio {
     lazy val nucleotides = nucleotidelist
     lazy val attributes  = attributelist
 
+    // transcribe() is defined in the base class because it is used by translate()
     def transcribe(): Sequence
     def translate() = { SequenceTranslation.translate(
                           transcribe nucleotides) }
