@@ -33,6 +33,7 @@ package bio {
       bio.Sequence(nucleotidelist, attributelist) {
       def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
+      def this(seq: Sequence) = this(seq.nucleotides, Nil)
 
       override def transcribe = { 
         val transcribed = SequenceTranscription.transcribe(nucleotides) 
@@ -47,6 +48,7 @@ package bio {
       bio.Sequence(nucleotidelist, attributelist) {
       def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
+      def this(seq: Sequence) = this(seq.nucleotides, Nil)
 
       override def transcribe = { new RNA.Sequence(this.toList) }
     }

@@ -58,6 +58,11 @@ package bio.test {
         true
       } should produce [IllegalArgumentException]
     }
+    "DNA Sequence" should "instantiate from a Sequence" in {
+      val s1 = new Sequence("agctaacg")
+      val s2 = new Sequence(s1)
+      s2.toString should equal ("agctaacg")
+    }
   }
 
   class RNASequenceSpec extends FlatSpec with ShouldMatchers {
@@ -83,6 +88,11 @@ package bio.test {
         val s = new Sequence(dna.toList)
         true
       } should produce [IllegalArgumentException]
+    }
+    "RNA Sequence" should "instantiate from a Sequence" in {
+      val s1 = new Sequence("agcuaacg")
+      val s2 = new Sequence(s1)
+      s2.toString should equal ("agcuaacg")
     }
   }    
 }
