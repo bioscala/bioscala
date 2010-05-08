@@ -29,28 +29,35 @@ package bio {
   }
 
   package DNA {
-    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Int]) extends
-      bio.Sequence(nucleotidelist, attributelist) {
+    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Int]) extends bio.Sequence(nucleotidelist, attributelist) {
       def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
       def this(seq: Sequence) = this(seq.nucleotides, Nil)
 
+      /**
+       * @return transcribed DNA.Sequence as RNA.Sequence
+       */
       override def transcribe = { 
         val transcribed = SequenceTranscription.transcribe(nucleotides) 
         new RNA.Sequence(transcribed)
       }
+      /**
+       * @return complementary DNA.Sequence
+       */
       def complement = SequenceTranscription.complement(nucleotides)
     }
   }
 
   package RNA {
-    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Int]) extends
-      bio.Sequence(nucleotidelist, attributelist) {
+    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Int]) extends bio.Sequence(nucleotidelist, attributelist) {
       def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
       def this(seq: Sequence) = this(seq.nucleotides, Nil)
 
-      override def transcribe = { new RNA.Sequence(this.toList) }
+      /**
+       * @return itself (source is immutable)
+       */
+      override def transcribe = { this }
     }
   }
 }
