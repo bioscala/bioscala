@@ -17,7 +17,7 @@ package bio {
   abstract class StatusMessage
 
   abstract class Attribute {
-    def send(msg: Message): Tuple2[StatusMessage,Any]
+    // def send(msg: Message): Tuple2[StatusMessage,Any]
   }
 
   package attribute {
@@ -27,21 +27,20 @@ package bio {
     case object getDescription extends Message
     // ==== StatusMessage
     case object Ok extends StatusMessage
-    case object Unknown extends StatusMessage
+    case object UnknownMessage extends StatusMessage
     case object Error extends StatusMessage
 
     // ==== Attributes
     class Id(str: String) extends Attribute {
-      lazy val id = str
+      lazy val data = str
       // lazy val respondmsg = respond
 
-      override def send(msg: Message): Tuple2[StatusMessage,Any] = {
-        println(msg)
-        msg match {
-          case getId => (Ok,id)
-          // case getDescription => (Ok,id)
-          case _ => (Uknown,msg)
-        }
+      def send(msg: Message): Tuple2[StatusMessage,String] = {
+        if (msg == getId) { (Ok,data) }
+        else { (UnknownMessage,"")}
+
+          // case getDescription => (Ok,data)
+          // case _ => (UnknownMessage,"")
       }
     }
     // class Id(str: String) extends StringAttribute(str,getId)

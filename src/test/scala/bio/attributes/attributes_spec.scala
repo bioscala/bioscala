@@ -11,7 +11,7 @@ package bio.test {
 
     "ID Attribute" should "instantiate from String" in {
       val id = new attribute.Id("testid")
-      id.id should equal ("testid")
+      id.data should equal ("testid")
     }
     "ID Attribute" should "respond to send Id" in {
       val id = new Id("testid")
@@ -21,7 +21,7 @@ package bio.test {
     "ID Attribute" should "not respond to send Description" in {
       val id = new Id("testid")
       val msg = id.send(getDescription) 
-      msg should equal (Unknown,getDescription)
+      msg should equal (UnknownMessage,"")
     }
   }
 }
