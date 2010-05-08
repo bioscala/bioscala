@@ -17,7 +17,7 @@ package bio {
   abstract class StatusMessage
 
   abstract class Attribute {
-    // def send(msg: Message): Tuple2[StatusMessage,Any]
+    def send(msg: Message): Tuple2[StatusMessage,Any]
   }
 
   package attribute {
@@ -35,7 +35,7 @@ package bio {
       lazy val data = str
       // lazy val respondmsg = respond
 
-      def send(msg: Message): Tuple2[StatusMessage,String] = {
+      override def send(msg: Message): Tuple2[StatusMessage,String] = {
         if (msg == getId) { (Ok,data) }
         else { (UnknownMessage,"")}
 
