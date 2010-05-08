@@ -16,7 +16,7 @@ package bio.test {
     "ID Attribute" should "respond to getid" in {
       val id = new Id("testid")
       val msg = id.send(Id) 
-      msg should equal (Ok,true)
+      msg should equal (Ok,"testid")
     }
   }
 }

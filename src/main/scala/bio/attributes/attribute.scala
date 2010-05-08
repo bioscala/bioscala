@@ -29,10 +29,7 @@ package bio {
     class Id(str: String) extends Attribute {
       lazy val id = str
 
-      def send(msg: Message): Tuple2[Message,Boolean] = {
-       val ret = (Ok,true)
-       ret
-      }
+      def send(msg: Message): Tuple2[Message,String] = (Ok,id)
     }
   }
 }
