@@ -6,7 +6,7 @@
  * Contrasting with most Bio* implementations, the Sequence
  * class represents the contained nucleotides as a List, not as a
  * String. Also a Sequence may be represented by multiple ID's and
- * descriptions.
+ * descriptions in the form of attributes.
  */
 
 import bio._
