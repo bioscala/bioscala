@@ -14,22 +14,23 @@
 package bio {
 
   abstract class Attribute {
-    // def send(msg: Tuple2[Message,Unit]): Tuple2[Message,Unit]
+    def send(msg: Message): Tuple2[StatusMessage,Any]
   }
 
   abstract class Message
+  abstract class StatusMessage
 
   package attribute {
 
     // ====Messages
     case object Id extends Message
-    case object Ok extends Message
+    case object Ok extends StatusMessage
 
     // ==== Attributes
     class Id(str: String) extends Attribute {
       lazy val id = str
 
-      def send(msg: Message): Tuple2[Message,String] = (Ok,id)
+      override def send(msg: Message): Tuple2[StatusMessage,String] = (Ok,id)
     }
   }
 }
