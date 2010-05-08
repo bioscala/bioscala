@@ -31,9 +31,9 @@ package bio {
     case object Error extends StatusMessage
 
     // ==== Attributes
-    class Id(str: String) extends Attribute {
+    class StringAttribute(str: String, respondTo: Message) extends Attribute {
       lazy val data = str
-      // lazy val respondmsg = respond
+      lazy val respondMsg = respondTo
 
       override def send(msg: Message): Tuple2[StatusMessage,String] = {
         if (msg == getId) { (Ok,data) }
@@ -43,7 +43,7 @@ package bio {
           // case _ => (UnknownMessage,"")
       }
     }
-    // class Id(str: String) extends StringAttribute(str,getId)
+    class Id(str: String) extends StringAttribute(str,getId)
     // class Description(str: String) extends StringAttribute(str,getDescription)
   }
 }
