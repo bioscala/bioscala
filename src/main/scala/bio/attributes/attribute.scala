@@ -36,7 +36,7 @@ package bio {
       lazy val respondMsg = respondTo
 
       override def send(msg: Message): Tuple2[StatusMessage,String] = {
-        if (msg == getId) { (Ok,data) }
+        if (msg == respondMsg) { (Ok,data) }
         else { (UnknownMessage,"")}
 
           // case getDescription => (Ok,data)
@@ -44,7 +44,7 @@ package bio {
       }
     }
     class Id(str: String) extends StringAttribute(str,getId)
-    // class Description(str: String) extends StringAttribute(str,getDescription)
+    class Description(str: String) extends StringAttribute(str,getDescription)
   }
 }
 
