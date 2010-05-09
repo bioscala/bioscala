@@ -30,6 +30,8 @@ package bio {
     /**
      * @return first (primary) ID in attribute list
      */
+    def idList = attribList(GetId, attributes)
+    def descriptionList = attribList(GetDescription, attributes)
     def id = attribFirst(GetId, attributes)
     /**
      * @return first (priamary) Description in attribute list
@@ -44,6 +46,16 @@ package bio {
       def this(id: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id)))
       def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str),List(Id(id),Description(descr)))
       def this(seq: Sequence) = this(seq.nucleotides, Nil)
+
+      def attrAdd(attribute: Attribute) = {
+        val attrlist = attribute :: attributes 
+        new Sequence(nucleotides, attrlist)
+      }
+      def attrAdd(attributelist: List[Attribute]) = {
+        val attrlist = attributes ::: attributelist
+        new Sequence(nucleotides, attrlist)
+      }
+
 
       /**
        * @return transcribed DNA.Sequence as RNA.Sequence
@@ -71,6 +83,17 @@ package bio {
        * @return itself (source is immutable)
        */
       override def transcribe = { this }
+
+      def attrAdd(attribute: Attribute) = {
+        val attrlist = attribute :: attributes 
+        new Sequence(nucleotides, attrlist)
+      }
+      def attrAdd(attributelist: List[Attribute]) = {
+        val attrlist = attributes ::: attributelist
+        new Sequence(nucleotides, attrlist)
+      }
+
+
     }
   }
 }
