@@ -23,8 +23,12 @@ package bio {
   package attribute {
 
     // ==== Message
-    case object getId extends Message
-    case object getDescription extends Message
+    case object GetId extends Message
+    case object GetDescription extends Message
+    case object GetXML extends Message 
+    case object GetFeature extends Message // NYI
+    case object GetGap extends Message // NYI
+    case object GetRDF extends Message // NYI
     // ==== StatusMessage
     case object Ok extends StatusMessage
     case object UnknownMessage extends StatusMessage
@@ -35,16 +39,26 @@ package bio {
       lazy val data = str
       lazy val respondMsg = respondTo
 
+      def toXML = {
+        val name = (getClass getName).split('.').last
+        "<"+name+">"+data+"</"+name+">"
+      }
+
       override def send(msg: Message): Tuple2[StatusMessage,String] = {
-        if (msg == respondMsg) { (Ok,data) }
-        else { (UnknownMessage,"")}
+        // if (msg == respondMsg) { (Ok,data) }
+        // else { (UnknownMessage,"")}
+        msg match {
+          case `respondMsg` => (Ok, data)
+          case GetXML   => (Ok, toXML)
+          case _ => (UnknownMessage, msg.getClass.getName)
+        }
 
           // case getDescription => (Ok,data)
           // case _ => (UnknownMessage,"")
       }
     }
-    class Id(str: String) extends StringAttribute(str,getId)
-    class Description(str: String) extends StringAttribute(str,getDescription)
+    class Id(str: String) extends StringAttribute(str,GetId)
+    class Description(str: String) extends StringAttribute(str,GetDescription)
   }
 }
 
