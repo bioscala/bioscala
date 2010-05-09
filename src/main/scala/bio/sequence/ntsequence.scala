@@ -14,7 +14,7 @@ import bio.attribute._
 
 package bio {
 
-  abstract class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) {
+  abstract class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends AttributeAccess {
     lazy val nucleotides = nucleotidelist
     lazy val attributes  = attributelist
 
@@ -27,32 +27,14 @@ package bio {
     override def toString = nucleotides mkString
     /** @return Nucleotide List */
     def toList = nucleotides
-      /**
-       * @return first ID in attribute list
-       */
-      def id = {
-        val ids = attributes.filter { a => 
-          a.send(GetId) match {
-            case (Ok,_) => true
-            case _ => false
-          }
-        }
-        val (Ok, msg) = ids.first.send(GetId)
-        msg
-      }
-      /**
-       * @return first Description in attribute list
-       */
-      def description = {
-        val ids = attributes.filter { a => 
-          a.send(GetDescription) match {
-            case (Ok,_) => true
-            case _ => false
-          }
-        }
-        val (Ok, msg) = ids.first.send(GetDescription)
-        msg
-      }
+    /**
+     * @return first (primary) ID in attribute list
+     */
+    def id = attribFirst(GetId, attributes)
+    /**
+     * @return first (priamary) Description in attribute list
+     */
+    def description = attribFirst(GetDescription, attributes)
   }
 
   package DNA {
