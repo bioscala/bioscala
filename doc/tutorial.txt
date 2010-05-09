@@ -51,6 +51,72 @@ to translate nucleotides to amino acids:
   scala> SequenceTranslation.translate(l)
   res3: String = KLT
 
+Create a Sequence with ID
+
+  scala> val seq = new DNA.Sequence("ID456","agctaacg")
+  scala> seq.id
+  String = ID456
+   
+ID and description
+
+  scala> val seq = new DNA.Sequence("ID456","My gene", "agctaacg")
+  scala> seq.description
+  String = My gene
+
+A Sequence, like in the real world, can have multiple ID's and
+descriptions. 
+
+  scala> import bio.attribute._
+  scala> val seq2 = seq.attrAdd(Id("Pubmed:456"))
+  scala> seq2.idList
+  List[bio.Attribute] = List(Pubmed:456, ID456)
+
+  scala> val seq3 = seq2.attrAdd(Description("Another description")) 
+  scala> seq3.descriptionList
+  List[bio.Attribute] = List(Another description, My gene)
+
+Note that Sequence is immutable. Every time you add an attribute a new
+copy gets created.
+
+== Sequence Attributes ==
+
+BioScala allows you to add any attribute to a Sequence object. You
+can even define your own attributes. Predefined attributes are one
+or more id's, descriptions, annotations, features, gaps etc.
+
+BioScala uses a message paradigm to access the list of attributes.
+This way an attribute can 'decide' to respond to a message. This also
+allows unanticipated usage of the Sequence object. Anyone can create
+special attributes that react to special messages.
+
+One example is that the BioScala Description attribute responds to
+the GetXML message. If you check the source code - it is not part of
+the core Sequence implementation, but part of the Description
+attribute(!) We can generate XML:
+
+    "Description Attribute" should "respond to GetXML" in {
+      val descr = new Description("Some desription")
+      val msg = descr.send(GetXML) 
+      msg should equal (Ok,"<Description>Some description</Description>")
+    }
+
+Do turn a Sequence into XML we can do
+
+  scala> val seq = new DNA.Sequence("ID356","Describe gene 356","agctgaatc")
+
+First we filter on attributes that understand the messsage GetXML
+
+  scala> val xml = seq.attribValues(GetXML,seq.attributes)
+
+Next we generate output
+
+  scala> xml.mkString should equal ("<Id>ID456</Id><Description>Gene 456</Description>")
+
+Again, the Sequence object did not need to understand XML to achieve this.
+Only the Id and Description objects understand to interpret the GetXML message.
+
+You can add *any* type of Attribute to a Sequence object.
+
 == Using BioJAVA from Scala ==
 
 One of the great features of Scala is that it runs on the JAVA virtual
@@ -105,7 +171,22 @@ After compiling above with jrubyc it can be invoked from Scala
 assuming you have the jruby-complete.jar file in the class path and BioRuby
 installed.
 
+== Further Reading ==
 
+Giving a full description of BioScala is beyond the objective of this
+tutorial. It is worthwhile checking the tests in the source tree -
+these are written as specifications and self explanatory. See
+the files in ./src/test/scala/bio. For example:
+
+    "A DNA Sequence" should "allow multiple IDs" in {
+      val s = new DNA.Sequence("ID456","Gene 456","agctaacg")
+      val s2 = s.attrAdd(List(Id("GEO:456"),Id("Pubmed:456")))
+      s2.idList === (List("ID456","Geo:456","Pubmed:456"))
+    }
+
+another source of documentation is the information presented by the
+BioJAVA project. JAVA code maps easily to Scala, see the section on
+BioJAVA in this document. 
 
 
 

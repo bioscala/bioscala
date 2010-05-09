@@ -32,11 +32,11 @@ package bio {
      */
     def idList = attribList(GetId, attributes)
     def descriptionList = attribList(GetDescription, attributes)
-    def id = attribFirst(GetId, attributes)
+    def id = attribFirst(GetId, attributes).toString
     /**
      * @return first (priamary) Description in attribute list
      */
-    def description = attribFirst(GetDescription, attributes)
+    def description = attribFirst(GetDescription, attributes).toString
   }
 
   package DNA {
@@ -55,7 +55,6 @@ package bio {
         val attrlist = attributes ::: attributelist
         new Sequence(nucleotides, attrlist)
       }
-
 
       /**
        * @return transcribed DNA.Sequence as RNA.Sequence
@@ -92,8 +91,6 @@ package bio {
         val attrlist = attributes ::: attributelist
         new Sequence(nucleotides, attrlist)
       }
-
-
     }
   }
 }

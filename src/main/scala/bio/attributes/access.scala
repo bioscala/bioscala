@@ -18,6 +18,15 @@ package bio {
           }
         }
       }
+      /** 
+       * @return the values of messages as a list
+       */
+      def attribValues(message: Message, attributes: List[Attribute]) = {
+        attribList(message, attributes) map { a =>
+          val (Ok, value) = a.send(message)
+          value
+        }
+      }
       /**
        * @return the first attribute matching message
        */

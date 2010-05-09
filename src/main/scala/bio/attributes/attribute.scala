@@ -46,16 +46,11 @@ package bio {
       }
 
       override def send(msg: Message): Tuple2[StatusMessage,String] = {
-        // if (msg == respondMsg) { (Ok,data) }
-        // else { (UnknownMessage,"")}
         msg match {
           case `respondMsg` => (Ok, data)
           case GetXML   => (Ok, toXML)
           case _ => (UnknownMessage, msg.getClass.getName)
         }
-
-          // case getDescription => (Ok,data)
-          // case _ => (UnknownMessage,"")
       }
     }
     case class Id(str: String) extends StringAttribute(str,GetId)

@@ -35,6 +35,11 @@ package bio.test {
       val s = new Sequence("ID456","Gene 456","agctaacg")
       s.description should equal ("Gene 456")
     }
+    "A Sequence" should "generate XML" in {
+      val s = new Sequence("ID456","Gene 456","agctaacg")
+      val xml = s.attribValues(GetXML,s.attributes)
+      xml.mkString should equal ("<Id>ID456</Id><Description>Gene 456</Description>")
+    }
   }
 
   class DNASequenceSpec extends FlatSpec with ShouldMatchers {
