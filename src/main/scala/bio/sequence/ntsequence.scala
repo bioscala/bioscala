@@ -10,10 +10,11 @@
  */
 
 import bio._
+import bio.attribute._
 
 package bio {
 
-  abstract class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Int]) {
+  abstract class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) {
     lazy val nucleotides = nucleotidelist
     lazy val attributes  = attributelist
 
@@ -26,12 +27,40 @@ package bio {
     override def toString = nucleotides mkString
     /** @return Nucleotide List */
     def toList = nucleotides
+      /**
+       * @return first ID in attribute list
+       */
+      def id = {
+        val ids = attributes.filter { a => 
+          a.send(GetId) match {
+            case (Ok,_) => true
+            case _ => false
+          }
+        }
+        val (Ok, msg) = ids.first.send(GetId)
+        msg
+      }
+      /**
+       * @return first Description in attribute list
+       */
+      def description = {
+        val ids = attributes.filter { a => 
+          a.send(GetDescription) match {
+            case (Ok,_) => true
+            case _ => false
+          }
+        }
+        val (Ok, msg) = ids.first.send(GetDescription)
+        msg
+      }
   }
 
   package DNA {
-    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Int]) extends bio.Sequence(nucleotidelist, attributelist) {
+    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence(nucleotidelist, attributelist) {
       def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
+      def this(id: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str),List(Id(id),Description(descr)))
       def this(seq: Sequence) = this(seq.nucleotides, Nil)
 
       /**
@@ -49,10 +78,12 @@ package bio {
   }
 
   package RNA {
-    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Int]) extends bio.Sequence(nucleotidelist, attributelist) {
+    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence(nucleotidelist, attributelist) {
       def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
       def this(seq: Sequence) = this(seq.nucleotides, Nil)
+      def this(id: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str),List(Id(id),Description(descr)))
 
       /**
        * @return itself (source is immutable)

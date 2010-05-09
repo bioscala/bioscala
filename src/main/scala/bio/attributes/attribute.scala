@@ -39,6 +39,7 @@ package bio {
       lazy val data = str
       lazy val respondMsg = respondTo
 
+      override def toString = data
       def toXML = {
         val name = (getClass getName).split('.').last
         "<"+name+">"+data+"</"+name+">"
@@ -57,8 +58,8 @@ package bio {
           // case _ => (UnknownMessage,"")
       }
     }
-    class Id(str: String) extends StringAttribute(str,GetId)
-    class Description(str: String) extends StringAttribute(str,GetDescription)
+    case class Id(str: String) extends StringAttribute(str,GetId)
+    case class Description(str: String) extends StringAttribute(str,GetDescription)
   }
 }
 
