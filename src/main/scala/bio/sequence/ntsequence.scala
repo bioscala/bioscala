@@ -47,10 +47,16 @@ package bio {
       def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str),List(Id(id),Description(descr)))
       def this(seq: Sequence) = this(seq.nucleotides, Nil)
 
+      /**
+       * Add an attribute to Sequence and return a new Sequence object
+       */
       def attrAdd(attribute: Attribute) = {
         val attrlist = attribute :: attributes 
         new Sequence(nucleotides, attrlist)
       }
+      /**
+       * Add a list of attributes to Sequence and return a new Sequence object
+       */
       def attrAdd(attributelist: List[Attribute]) = {
         val attrlist = attributes ::: attributelist
         new Sequence(nucleotides, attrlist)
