@@ -1,7 +1,7 @@
 /**
- * A gapped Sequence represents 'emptiness', like used in an alignment. 
- * GappedSequence contains a list of mixed Nucleotides + Gaps.
- * <p>
+ * A gapped Sequence represents a Sequence with stretches of 'emptiness', like
+ * used in an alignment.  GappedSequence contains a list of mixed Nucleotides +
+ * Gaps.  <p>
  * When a part of a Sequence has unknown nucleotides/amino acids use
  * DegenerateSequence.
  *
@@ -13,10 +13,13 @@ import bio.attribute._
 
 package bio {
 
-  class GappedSequence (nucleotidelist: List[Symbol], attributelist: List[Attribute]) extends AttributeAccess {
-    lazy val nucleotides = nucleotidelist
-    lazy val attributes  = attributelist
-    // def this(str: String) = this(GappedConvert.fromString(str),Nil)
+  class GappedSequence (seqlist: List[Symbol], attributelist: List[Attribute]) extends bio.Sequence[Symbol](seqlist,attributelist) {
+  }
+
+  package DNA {
+    class GappedSequence (seqlist: List[Symbol], attributelist: List[Attribute]) extends bio.GappedSequence(seqlist,attributelist) {
+      def this(str: String) = this(GappedNucleotideConvert.fromString(str),Nil)
+    }
   }
 }
 

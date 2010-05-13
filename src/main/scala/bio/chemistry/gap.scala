@@ -30,4 +30,27 @@ package bio {
         }
       }
   }
+  package DNA {
+    object GappedNucleotideConvert {
+      /** 
+       * Create a Gap object from its character representation.
+       */
+      def fromChar(c: Char): Symbol = { 
+        c.toLowerCase match {
+          case '-' => EmptyGap
+          case  _  => 
+            NucleotideConvert.fromChar(c)
+        }
+      }
+      def fromString(s: String): List[Symbol] = s.toList.map { fromChar(_) }
+      def fromList(list: List[Symbol]): List[Symbol] = {
+        list.map { 
+          _ match {
+            case EmptyGap => EmptyGap
+            case  _  => throw new IllegalArgumentException("Unexpected type")
+            }
+          }
+        }
+    }
+  }
 }
