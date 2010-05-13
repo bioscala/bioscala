@@ -7,7 +7,8 @@ package bio.test {
 
   class FastaReaderSpec extends FlatSpec with ShouldMatchers {
     "FastaReader" should "reads from file" in {
-      true
+      f = new FastaReader[DNA.Nucleotide]("../../../../../test/data/nt.fa")
+      @@
     }
   }
 }

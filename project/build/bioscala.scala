@@ -16,8 +16,9 @@ class BioScalaProject(info: ProjectInfo) extends DefaultProject(info)
   // This user only runs a subset of tests:
   val user = properties.get("user.name")
   override def includeTest(s: String) = { 
-    if (user == "wrk") 
-      s.indexOf("Sequence")>0 || s.indexOf("Attribute")>0 
+    if (user == "wrk") {
+      s.indexOf("Sequence")>0 || s.indexOf("Reader")>0 || s.indexOf("Alignment")>0
+    }
     else
       true
     }

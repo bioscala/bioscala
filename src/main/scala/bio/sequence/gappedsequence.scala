@@ -1,7 +1,8 @@
 /**
  * A gapped Sequence represents a Sequence with stretches of 'emptiness', like
  * used in an alignment.  GappedSequence contains a list of mixed Nucleotides +
- * Gaps.  <p>
+ * Gaps.  
+ * <p>
  * When a part of a Sequence has unknown nucleotides/amino acids use
  * DegenerateSequence.
  *
