@@ -7,6 +7,13 @@
  * the contained nucleotides as a List, not as a String. Also a Sequence may be
  * represented by multiple ID's and descriptions in the form of flexible
  * attributes.
+ * <p>
+ * As each nucleotide is a real object, it may contain additional information.
+ * <p>
+ * For gapped and degenerate sequences see the relevant traits.
+ *
+ * @see GappedSequence 
+ * @see DegenerateSequence
  */
 
 import bio._
