@@ -14,7 +14,8 @@
 
 package bio {
 
-  sealed abstract class Nucleotide 
+  abstract class Symbol
+  sealed abstract class Nucleotide extends Symbol
 
   package DNA {
     case object A extends Nucleotide {

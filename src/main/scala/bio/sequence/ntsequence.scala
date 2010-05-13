@@ -41,7 +41,7 @@ package bio {
     def descriptionList = attribList(GetDescription, attributes)
     def id = attribFirst(GetId, attributes).toString
     /**
-     * @return first (priamary) Description in attribute list
+     * @return first (primary) Description in attribute list
      */
     def description = attribFirst(GetDescription, attributes).toString
   }

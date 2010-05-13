@@ -8,4 +8,15 @@
  * @see DegenerateSequence
  */
 
+import bio._
+import bio.attribute._
+
+package bio {
+
+  class GappedSequence (nucleotidelist: List[Symbol], attributelist: List[Attribute]) extends AttributeAccess {
+    lazy val nucleotides = nucleotidelist
+    lazy val attributes  = attributelist
+    // def this(str: String) = this(GappedConvert.fromString(str),Nil)
+  }
+}
 

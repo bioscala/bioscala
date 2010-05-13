@@ -5,7 +5,7 @@
 
 package bio {
 
-  sealed abstract class Gap
+  sealed abstract class Gap extends Symbol
   case object EmptyGap extends Gap {
     override def toString = "-"
   }
