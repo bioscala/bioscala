@@ -11,7 +11,7 @@ package bio.test {
     "An Alignment" should "instantiate from a list" in {
       val s1 = new DNA.GappedSequence("agc--taacg---")
       val s2 = new DNA.GappedSequence("agc---aaca---")
-      val a = new Alignment(List(s1,s2),Nil)
+      val a = new Alignment(List(s1,s2))
       true
     }
   }

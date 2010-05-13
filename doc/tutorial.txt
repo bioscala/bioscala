@@ -117,6 +117,14 @@ Only the Id and Description objects understand to interpret the GetXML message.
 
 You can add *any* type of Attribute to a Sequence object.
 
+== Alignment ==
+
+Alignment is a container for GappedSequence(s):
+
+  scala> val s1 = new DNA.GappedSequence("agc--taacg---")
+  scala> val s2 = new DNA.GappedSequence("agc---aaca---")
+  scala> val a = new Alignment(List(s1,s2))
+
 == Using BioJAVA from Scala ==
 
 One of the great features of Scala is that it runs on the JAVA virtual

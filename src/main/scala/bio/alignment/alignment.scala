@@ -13,6 +13,8 @@ package bio {
   class Alignment(sequencelist: List[GappedSequence], attributelist: List[Attribute]) {
     val list = sequencelist
     val attributes = attributelist
+
+    def this(list: List[GappedSequence]) = this(list,Nil)
   }
 
 }
