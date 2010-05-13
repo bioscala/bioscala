@@ -6,9 +6,11 @@ import org.scalatest.matchers.ShouldMatchers
 package bio.test {
 
   class FastaReaderSpec extends FlatSpec with ShouldMatchers {
-    "FastaReader" should "reads from file" in {
-      f = new FastaReader[DNA.Nucleotide]("../../../../../test/data/nt.fa")
-      @@
+    "FastaReader" should "read from file" in {
+      val f = new FastaReader("./test/data/fasta/nt.fa")
+      f.foreach { s => println(s) }
+
+      true
     }
   }
 }

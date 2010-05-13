@@ -7,11 +7,22 @@ import java.io._
 
 package bio {
 
-  class FastaReader[T](filename: String) {
-    val f = new FileWriter(filename)
+  class FastaReader(filename: String) extends Iterator[String] {
+    private lazy val reader = new BufferedReader(new FileReader(filename))
 
-    def foreach = {}
- 
+    def hasNext() = reader.ready
+    def next() = reader.readLine
+    /*
+    def foreach(f:String => Unit) = {
+       try {
+         while (reader.ready) {
+           val s = reader.readLine
+           return s
+         }
+       }
+       finally reader.close
+    }
+    */
   }
 
 }
