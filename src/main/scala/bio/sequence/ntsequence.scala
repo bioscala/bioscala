@@ -10,10 +10,10 @@
  * <p>
  * As each nucleotide is a real object, it may contain additional information.
  * <p>
- * For gapped and degenerate sequences see the relevant traits.
+ * For gapped and ambiguous sequences see the relevant traits.
  *
  * @see GappedSequence 
- * @see DegenerateSequence
+ * @see IUPACSequence
  */
 
 import bio._
