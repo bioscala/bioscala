@@ -123,7 +123,39 @@ Alignment is a container for GappedSequence(s):
 
   scala> val s1 = new DNA.GappedSequence("agc--taacg---")
   scala> val s2 = new DNA.GappedSequence("agc---aaca---")
-  scala> val a = new Alignment(List(s1,s2))
+  scala> val aln = new Alignment(List(s1,s2))
+
+Each Sequence can have arbitrary attributes - see the description of
+Sequence above - but also at the alignment level you can have
+attributes. For example if you want to keep track of a predicted domain,
+an attribute derived of type AlignmentColumn may work. 
+
+  scala> class Domain(first: Int,last: Int) extends AlignmentColumn(first,last)
+  scala> val domain = new Domain(20,30)
+  scala> val aln2 = aln.attrAdd(domain)
+
+Note that Alignment is immutable, so we create a new version by
+adding an attribute.
+
+Or if you want to highlight a cut-out of the alignment you may derive
+from AlignmentBlock.
+
+Likewise, if you want to keep track of a removed column you may also
+consider creating an Alignment attribute based on AlignmentColumn. The
+featured GetCleanAlignment message would simply not generate output:
+
+  scala> class Removed(first: Int,last: Int) extends AlignmentColumn(first,last)
+  scala> val aln3 = aln.attrAdd(new Removed(20,30))
+  scala> aln3.toText(GetCleanAlignment)
+
+Thus, like Sequence feature attributes, you can handle
+arbitrary attributes in a flexible way using the same type of message
+paradigm that Sequence uses. Say you want to create HTML output of
+the alignment, where domains are highlighted, you can simply
+implement a GetDomainHTML message that gets sent to all attributes to
+respond with a highlight. E.g.
+
+  scala> println aln.toHTML(GetDomainHTML) // not yet implemented
 
 == Using BioJAVA from Scala ==
 
