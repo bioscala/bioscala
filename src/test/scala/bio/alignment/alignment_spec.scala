@@ -13,7 +13,7 @@ package bio.test {
       val s2 = new DNA.GappedSequence("agc---aaca---")
       val a = new Alignment(List(s1,s2))
       // a.toList should equal List("agc--taacg---","agc---aaca---")
-      false
+      false should equal (true)
     }
     "An Alignment" should "take attributes" in {
       val s1 = new DNA.GappedSequence("agc--taacg---")
@@ -24,7 +24,7 @@ package bio.test {
       // a.addAttr(d1)
       // a.addAttr(d2)
       // a.toList should equal List("agc--taacg---","agc---aaca---")
-      false
+      false should equal (true)
     }
   }
 }

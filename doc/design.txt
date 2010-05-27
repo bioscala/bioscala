@@ -77,3 +77,10 @@ FastaReader does not load everything in memory.
 
 Reading files in RAM is a big NO, in this age of Big Data.
 
+== Support for ambiguous nucleotides ==
+
+BioScala has several nucleotide classes which support data that is
+pure (AGCT only), gapped (adds '-'), or has ambigous data like IUPAC.
+If you use DNA.IUPACSequence over DNA.Sequence, you'll get type
+checking for IUPAC.
+

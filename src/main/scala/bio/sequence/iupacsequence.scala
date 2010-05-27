@@ -33,11 +33,11 @@ package bio {
   }
 
   package DNA {
-    class IUPACSequence (seqlist: List[Symbol], attributelist: List[Attribute]) extends bio.GappedSequence(seqlist,attributelist) {
-      def this(list: List[Nucleotide]) = this(GappedNucleotideConvert.fromList(list),Nil)
-      def this(str: String) = this(GappedNucleotideConvert.fromString(str),Nil)
-      def this(id: String, str: String) = this(GappedNucleotideConvert.fromString(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(GappedNucleotideConvert.fromString(str),List(Id(id),Description(descr)))
+    class IUPACSequence (seqlist: List[Symbol], attributelist: List[Attribute]) extends bio.IUPACSequence(seqlist,attributelist) {
+      def this(list: List[Nucleotide]) = this(IUPACNucleotideConvert.fromList(list),Nil)
+      def this(str: String) = this(IUPACNucleotideConvert.fromString(str),Nil)
+      def this(id: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(IUPACNucleotideConvert.fromString(str),List(Id(id),Description(descr)))
       def this(sequence: Sequence) = this(sequence.seq, Nil)
 
     }

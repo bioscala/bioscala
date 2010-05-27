@@ -33,8 +33,10 @@ package bio {
         val line = reader.readLine
         if (line(0) == '>') {
           reader.reset
-          val id = tag.split(Array(' ','\t'))(0).drop(1).trim
-          return (id,tag,sequencelist)
+          // Remove prepending '>'
+          val tag2 = tag.drop(1).trim
+          val id = tag2.split(Array(' ','\t'))(0)
+          return (id,tag2,sequencelist)
         }
         sequencelist += line
       } while (reader.ready)
