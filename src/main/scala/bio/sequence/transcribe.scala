@@ -23,7 +23,7 @@ package bio {
             case C => RNA.C
             case G => RNA.G
             case T => RNA.U
-            case  _  => throw new IllegalArgumentException("non DNA nucleotide: "+nt)
+            case  _  => throw new IllegalArgumentException("non DNA nucleotide "+nt+" type "+nt.getClass.getName)
           }
         }
       }
@@ -34,13 +34,13 @@ package bio {
       def transcribe(nucleotides: List[Symbol]): List[Symbol] = toRNA(nucleotides)
 
       def complement(nucleotides: List[Nucleotide]) = {
-        nucleotides.map {
-          _ match {
+        nucleotides.map { nt =>
+          nt match {
               case A => T
               case T => A
               case C => G
               case G => C
-              case  _  => throw new IllegalArgumentException("non DNA nucleotide")
+              case  _  => throw new IllegalArgumentException("non DNA nucleotide "+nt+" type "+nt.getClass.getName)
           }
         }
       }

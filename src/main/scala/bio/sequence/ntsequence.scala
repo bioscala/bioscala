@@ -52,7 +52,7 @@ package bio {
        */
       def transcribe = { 
         val transcribed = SequenceTranscription.transcribe(seq) 
-        new RNA.Sequence(NucleotideConvert.fromList(transcribed))
+        new RNA.Sequence(RNA.NucleotideConvert.fromList(transcribed))
       }
       /**
        * @return complementary DNA.Sequence
