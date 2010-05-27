@@ -14,15 +14,21 @@ package bio.test {
     "Translate RNA sequence" should "translate to protein" in {
       new RNA.Sequence("agcuaacga").translate should equal ("S*R")
     }
-    "Translate DNA sequences from nt.fa" should "succeed" in {
+    "Translate ambiguous DNA" should "translate to AA with X" in {
+      new DNA.IUPACSequence("agctaacgn").translate should equal ("S*R")
+    }
+    "Translate ambiguous RNA" should "translate to AA with X" in {
+      new RNA.IUPACSequence("ancuaacgn").translate should equal ("X*R")
+    }
+    "Translate ambiguous DNA sequences from nt.fa" should "succeed" in {
       val f = new FastaReader("./test/data/fasta/nt.fa")
       val seqs = f.map { res => 
         val (id,tag,dna) = res
-        println(dna)
+        // println(dna)
         new DNA.IUPACSequence(id,tag,dna).translate
         }.toList
-      println(seqs)
-      seqs.head should equal ("PUT-157a-Arabidopsis_thaliana-1")
+      // println(seqs)
+      seqs.head.take(14).toString should equal ("RFXRSSXXVLXIVI")
     }
 
   }    

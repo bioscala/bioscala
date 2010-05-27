@@ -23,6 +23,18 @@ package bio {
             case C => RNA.C
             case G => RNA.G
             case T => RNA.U
+            // Ambiguous code:
+            case M => RNA.M
+            case R => RNA.R
+            case W => RNA.W
+            case S => RNA.S
+            case Y => RNA.Y
+            case K => RNA.K
+            case V => RNA.V
+            case H => RNA.H
+            case D => RNA.D
+            case B => RNA.B
+            case N => RNA.N
             case  _  => throw new IllegalArgumentException("non DNA nucleotide "+nt+" type "+nt.getClass.getName)
           }
         }
