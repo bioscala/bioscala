@@ -10,8 +10,6 @@ package bio.test {
       val f = new FastaReader("./test/data/fasta/nt.fa")
       val ids = f.map { res => 
         val (id,tag,dna) = res
-        // println(id,tag)
-        // println(dna) 
         id
         }.toList
 

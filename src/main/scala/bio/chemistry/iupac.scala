@@ -40,7 +40,7 @@ package bio {
     case object X extends IUPAC { override def toString = "x" }
     case object N extends IUPAC { override def toString = "n" }
 
-    object IUPACpedNucleotideConvert {
+    object IUPACNucleotideConvert {
       /** 
        * Create a IUPAC object from its character representation.
        */
