@@ -4,6 +4,19 @@ Virtual Machine (JVM) - including BioJAVA and BioRuby.
 
 This is the place for the BioScala project under the liberal BSD license. 
 
+This edition of BioScala has:
+
+  - Strongly typed DNA, RNA Sequence, gapped and IUPAC ambiguous Sequence
+  - Flexible Sequence attributes
+  - Transcription of DNA to RNA
+  - Translation of (ambiguous) RNA to AA (using BioJava3)
+  - Alignments and attributes (work in progress)
+  - An example of calling into BioRuby
+  - A tutorial in ./doc/tutorial.txt
+
+BioScala uses the simple build tool (sbt) and behaviour driven development/unit
+testing.
+
 Please fork from here.
 
 Pjotr Prins
