@@ -51,7 +51,7 @@ package bio {
         }
       }
       def fromString(s: String): List[Nucleotide] = s.toList.map { fromChar(_) }
-      def fromList(list: List[Nucleotide]): List[Nucleotide] = {
+      def fromList(list: List[Symbol]): List[Nucleotide] = {
         list.map { 
           _ match {
             case A => A

@@ -25,7 +25,7 @@ package bio.test {
       } should produce [IllegalArgumentException]
       true
     }
-    "FastaReader" should "convert to IUPACSequence" in {
+    "FastaReader" should "be able to convert to IUPACSequence" in {
       val f = new FastaReader("./test/data/fasta/nt.fa")
       val seqs = f.map { res => 
         val (id,tag,dna) = res

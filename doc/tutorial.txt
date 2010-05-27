@@ -115,7 +115,9 @@ Next we generate output
 Again, the Sequence object did not need to understand XML to achieve this.
 Only the Id and Description objects understand to interpret the GetXML message.
 
-You can add *any* type of Attribute to a Sequence object.
+You can add *any* type of Attribute to a Sequence object and to its
+contained nucleotides, or amino acids. An interesting attribute would
+be a QualityAttribute for every nucleotide.
 
 == Alignment ==
 
@@ -156,6 +158,9 @@ implement a GetDomainHTML message that gets sent to all attributes to
 respond with a highlight. E.g.
 
   scala> println aln.toHTML(GetDomainHTML) // not yet implemented
+
+Another interesting attribute for amino acid alignments would be
+a CodonAttribute containing nucleotides.
 
 == Using BioJAVA from Scala ==
 

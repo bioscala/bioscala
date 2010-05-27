@@ -9,38 +9,41 @@ import bio._
 
 package bio {
 
-  object SequenceTranscription {
-    /**
-     * Convert DNA to RNA - replacing DNA.T with RNA.U. The 5'-3' order
-     * is maintained
-     */
-    def toRNA(nucleotides: List[Nucleotide]): List[Nucleotide] = {
-      nucleotides.map { nt =>
-        nt match {
-          case DNA.A => RNA.A
-          case DNA.C => RNA.C
-          case DNA.G => RNA.G
-          case DNA.T => RNA.U
-          case  _  => throw new IllegalArgumentException("non DNA nucleotide: "+nt)
+  package DNA {
+
+    object SequenceTranscription {
+      /**
+       * Convert DNA to RNA - replacing DNA.T with RNA.U. The 5'-3' order
+       * is maintained
+       */
+      def toRNA(nucleotides: List[Symbol]): List[Symbol] = {
+        nucleotides.map { nt =>
+          nt match {
+            case A => RNA.A
+            case C => RNA.C
+            case G => RNA.G
+            case T => RNA.U
+            case  _  => throw new IllegalArgumentException("non DNA nucleotide: "+nt)
+          }
         }
       }
-    }
-    /**
-     * Transcribe DNA to RNA, the 5'-3' order is maintained (unlike BioJAVA)
-     */
-    def transcribe = toRNA(_)
+      /**
+       * Transcribe DNA to RNA, the 5'-3' order is maintained (unlike BioJAVA)
+       */
+      // def transcribe(nucleotides: List[Nucleotide]): List[Nucleotide] = toRNA(nucleotides)
+      def transcribe(nucleotides: List[Symbol]): List[Symbol] = toRNA(nucleotides)
 
-    def complement(nucleotides: List[Nucleotide]) = {
-      nucleotides.map {
-        _ match {
-            case DNA.A => DNA.T
-            case DNA.T => DNA.A
-            case DNA.C => DNA.G
-            case DNA.G => DNA.C
-            case  _  => throw new IllegalArgumentException("non DNA nucleotide")
+      def complement(nucleotides: List[Nucleotide]) = {
+        nucleotides.map {
+          _ match {
+              case A => T
+              case T => A
+              case C => G
+              case G => C
+              case  _  => throw new IllegalArgumentException("non DNA nucleotide")
+          }
         }
       }
     }
   }
-
 }

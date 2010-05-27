@@ -34,11 +34,21 @@ package bio {
 
   package DNA {
     class IUPACSequence (seqlist: List[Symbol], attributelist: List[Attribute]) extends bio.IUPACSequence(seqlist,attributelist) {
-      def this(list: List[Nucleotide]) = this(IUPACNucleotideConvert.fromList(list),Nil)
+      def this(list: List[Symbol]) = this(IUPACNucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(IUPACNucleotideConvert.fromString(str),Nil)
       def this(id: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id)))
       def this(id: String, descr: String, str: String) = this(IUPACNucleotideConvert.fromString(str),List(Id(id),Description(descr)))
       def this(sequence: Sequence) = this(sequence.seq, Nil)
+
+      /**
+       * @return transcribed DNA.Sequence as RNA.Sequence
+       */
+      def transcribe = { 
+        val transcribed = SequenceTranscription.transcribe(seq) 
+        new IUPACSequence(transcribed)
+      }
+   
+      def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
 
     }
   }

@@ -8,15 +8,26 @@ import bio._
 
 package bio {
 
-  object SequenceTranslation {
+  class SequenceTranslation[T] {
     /** 
-     * Translate nucleotides to amini acids (will change to returning List)
+     * Translate nucleotides to amino acids (will change to returning List)
      */
-    def translate(nucleotides: List[Nucleotide]): String = {
+    def translate(nucleotides: List[T]): String = {
       val rna = RNATools.createRNA(nucleotides.mkString);
       val aa = RNATools.translate(rna);
       aa.seqString
     }
   }
+
+  package DNA {
+
+    object SequenceTranslation extends SequenceTranslation[Nucleotide]
+    object SymbolSequenceTranslation extends SequenceTranslation[Symbol]
+  }
+  package RNA {
+
+    object SequenceTranslation extends SequenceTranslation[Nucleotide]
+  }
+
 
 }

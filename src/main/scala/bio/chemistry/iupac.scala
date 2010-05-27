@@ -18,7 +18,7 @@
  * H        A or C or T
  * D        A or G or T
  * B        C or G or T
- * X      G or A or T or C
+ * X      G or A or T or C (is really unknown AA, so convert to N)
  * N      G or A or T or C
  *
  */
@@ -37,7 +37,6 @@ package bio {
     case object H extends IUPAC { override def toString = "h" }
     case object D extends IUPAC { override def toString = "d" }
     case object B extends IUPAC { override def toString = "b" }
-    case object X extends IUPAC { override def toString = "x" }
     case object N extends IUPAC { override def toString = "n" }
 
     object IUPACNucleotideConvert {
@@ -57,7 +56,7 @@ package bio {
           case 'h' => H
           case 'd' => D
           case 'b' => B
-          case 'x' => X
+          case 'x' => N  // convert to N
           case 'n' => N
           case  _  => 
             NucleotideConvert.fromChar(c)
@@ -81,7 +80,6 @@ package bio {
             case H => H
             case D => D
             case B => B
-            case X => X
             case N => N
             case  _  => throw new IllegalArgumentException("Unexpected type")
             }
