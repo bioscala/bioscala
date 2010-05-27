@@ -33,7 +33,8 @@ package bio {
         val line = reader.readLine
         if (line(0) == '>') {
           reader.reset
-          return ("NOID",tag,sequencelist)
+          val id = tag.split(Array(' ','\t'))(0).drop(1).trim
+          return (id,tag,sequencelist)
         }
         sequencelist += line
       } while (reader.ready)

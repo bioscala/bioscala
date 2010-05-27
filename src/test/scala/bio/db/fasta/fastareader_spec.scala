@@ -8,13 +8,14 @@ package bio.test {
   class FastaReaderSpec extends FlatSpec with ShouldMatchers {
     "FastaReader" should "read from file" in {
       val f = new FastaReader("./test/data/fasta/nt.fa")
-      f.foreach { res => 
+      val ids = f.map { res => 
         val (id,tag,dna) = res
-        println(id,tag)
-        println(dna) 
-        }
+        // println(id,tag)
+        // println(dna) 
+        id
+        }.toList
 
-      true
+      ids.head should equal ("PUT-157a-Arabidopsis_thaliana-1")
     }
   }
 }

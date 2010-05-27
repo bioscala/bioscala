@@ -15,6 +15,7 @@ package bio {
     val attributes = attributelist
 
     def this(list: List[GappedSequence]) = this(list,Nil)
+    def toList = Nil
   }
 
 }
