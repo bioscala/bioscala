@@ -21,6 +21,14 @@
  * X      G or A or T or C (is really unknown AA, so convert to N)
  * N      G or A or T or C
  *
+ * For Amino Acids IUPAC adds to the base types (see aminoacid.scala):
+ *
+ * B.................Asx.................Aspartic acid or Asparagine
+ * Z.................Glx.................Glutamine or Glutamic acid
+ * X.................Xaa.................Any amino acid 
+ * 
+ *
+ *
  */
 
 package bio {
