@@ -229,7 +229,7 @@ package bio {
        * Create a IUPAC object from its character representation.
        */
       def fromChar(c: Char): Symbol = { 
-        c.toLowerCase match {
+        c.toUpperCase match {
           // case '-' => EmptyIUPAC
           case 'B' => B
           case 'Z' => Z

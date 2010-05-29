@@ -69,5 +69,14 @@ package bio {
 
     }
   }
+  package Protein {
+    class IUPACSequence (seqlist: List[Symbol], attributelist: List[Attribute]) extends bio.IUPACSequence(seqlist,attributelist) {
+      def this(list: List[Symbol]) = this(IUPACAminoAcidConvert.fromList(list),Nil)
+      def this(str: String) = this(IUPACAminoAcidConvert.fromString(str),Nil)
+      def this(id: String, str: String) = this(IUPACAminoAcidConvert.fromString(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(IUPACAminoAcidConvert.fromString(str),List(Id(id),Description(descr)))
+      def this(sequence: Sequence) = this(sequence.seq, Nil)
+    }
+  }
 }
 
