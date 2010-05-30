@@ -10,7 +10,7 @@ package bio {
 
   class SequenceTranslation[T] {
     /** 
-     * Translate nucleotides to amino acids
+     * Translate RNA to amino acids using the BioJAVA library.
      *
      * When ambiguous symbols are used (IUPAC) the codon should
      * translate to X. Which it apparently does with BioJava3.
@@ -30,13 +30,13 @@ package bio {
 
   package DNA {
 
-    object SequenceTranslation extends SequenceTranslation[Nucleotide]
-    object SymbolSequenceTranslation extends SequenceTranslation[NTSymbol]
+    object SequenceTranslation extends SequenceTranslation[RNA.Nucleotide]
+    object SymbolSequenceTranslation extends SequenceTranslation[RNA.NTSymbol]
   }
   package RNA {
 
-    object SequenceTranslation extends SequenceTranslation[Nucleotide]
-    object SymbolSequenceTranslation extends SequenceTranslation[NTSymbol]
+    object SequenceTranslation extends SequenceTranslation[RNA.Nucleotide]
+    object SymbolSequenceTranslation extends SequenceTranslation[RNA.NTSymbol]
   }
 
 }

@@ -29,8 +29,7 @@ package bio {
       def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str),List(Id(id),Description(descr)))
       def this(sequence: Sequence) = this(sequence.seq, Nil)
 
-      def translate() = { SequenceTranslation.translate(
-                            transcribe seq) }
+      def translate() = { SequenceTranslation.translate(transcribe seq) }
 
       /**
        * Add an attribute to Sequence and return a new Sequence object
