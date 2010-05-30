@@ -70,6 +70,9 @@ package bio {
     }
   }
   package Protein {
+    /*
+     * AminoAcid Sequence supporting ambiguous IUPAC symbols
+     */
     class IUPACSequence (seqlist: List[Symbol], attributelist: List[Attribute]) extends bio.IUPACSequence(seqlist,attributelist) {
       def this(list: List[Symbol]) = this(IUPACAminoAcidConvert.fromList(list),Nil)
       def this(str: String) = this(IUPACAminoAcidConvert.fromString(str),Nil)
