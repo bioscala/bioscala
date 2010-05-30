@@ -10,7 +10,7 @@ package bio {
 
   class SequenceTranslation[T] {
     /** 
-     * Translate nucleotides to amino acids (will change to returning List)
+     * Translate nucleotides to amino acids
      *
      * When ambiguous symbols are used (IUPAC) the codon should
      * translate to X. Which it apparently does with BioJava3.
@@ -20,11 +20,11 @@ package bio {
      * unlike the EMBOSS version, which will even translate 
      * a partial codon, when possible.
      */
-    def translate(nucleotides: List[T]): String = {
+    def translate(nucleotides: List[T]): List[Protein.AminoAcid] = {
       val remove = nucleotides.size % 3
       val rna = RNATools.createRNA(nucleotides.dropRight(remove).mkString);
       val aa = RNATools.translate(rna);
-      aa.seqString
+      Protein.IUPACAminoAcidConvert.fromString(aa.seqString)
     }
   }
 

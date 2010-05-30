@@ -139,6 +139,11 @@ package bio {
       val fullname="Valine"
       override def toString() = "V"
     }
+    case object * extends HydrophobicAminoAcid {
+      val name="*"
+      val fullname="Stop"
+      override def toString() = "*"
+    }
     object AminoAcidConvert {
       /** 
        * AminoAcid factory: create a AminoAcid object from its
@@ -172,11 +177,12 @@ package bio {
           case 'W' => W
           case 'Y' => Y
           case 'V' => V
+          case '*' => *
           case  _  => throw new IllegalArgumentException("Unexpected value for AminoAcid "+c)
         }
       }
       def fromString(s: String): List[AminoAcid] = s.toList.map { fromChar(_) }
-      def fromList(list: List[Symbol]): List[AminoAcid] = {
+      def fromList(list: List[AminoAcid]): List[AminoAcid] = {
         list.map { c =>
           c match {
             case R => R
@@ -200,6 +206,7 @@ package bio {
             case W => W
             case Y => Y
             case V => V
+            case * => *
             case  _  => throw new IllegalArgumentException("Can not construct AminoAcid from unknown "+c+" type (should be AminoAcid) "+c.getClass.getName)
              }
         }
@@ -228,7 +235,7 @@ package bio {
       /** 
        * Create a IUPAC object from its character representation.
        */
-      def fromChar(c: Char): Symbol = { 
+      def fromChar(c: Char): AminoAcid = { 
         c.toUpperCase match {
           // case '-' => EmptyIUPAC
           case 'B' => B
@@ -238,8 +245,8 @@ package bio {
             AminoAcidConvert.fromChar(c)
         }
       }
-      def fromString(s: String): List[Symbol] = s.toList.map { fromChar(_) }
-      def fromList(list: List[Symbol]): List[Symbol] = {
+      def fromString(s: String): List[AminoAcid] = s.toList.map { fromChar(_) }
+      def fromList(list: List[AminoAcid]): List[AminoAcid] = {
         list.map { aa =>
           aa match {
             case B => B

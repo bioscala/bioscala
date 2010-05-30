@@ -73,8 +73,8 @@ package bio {
     /*
      * AminoAcid Sequence supporting ambiguous IUPAC symbols
      */
-    class IUPACSequence (seqlist: List[Symbol], attributelist: List[Attribute]) extends bio.IUPACSequence(seqlist,attributelist) {
-      def this(list: List[Symbol]) = this(IUPACAminoAcidConvert.fromList(list),Nil)
+    class IUPACSequence (seqlist: List[AminoAcid], attributelist: List[Attribute]) extends bio.IUPACSequence(seqlist,attributelist) {
+      def this(list: List[AminoAcid]) = this(IUPACAminoAcidConvert.fromList(list),Nil)
       def this(str: String) = this(IUPACAminoAcidConvert.fromString(str),Nil)
       def this(id: String, str: String) = this(IUPACAminoAcidConvert.fromString(str), List(Id(id)))
       def this(id: String, descr: String, str: String) = this(IUPACAminoAcidConvert.fromString(str),List(Id(id),Description(descr)))

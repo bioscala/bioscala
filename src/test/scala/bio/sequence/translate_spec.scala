@@ -8,17 +8,17 @@ package bio.test {
   class SequenceTranslateSpec extends FlatSpec with ShouldMatchers {
     
     "Translate DNA sequence" should "translate to protein" in {
-      new DNA.Sequence("agctaacga").translate should equal ("S*R")
+      new DNA.Sequence("agctaacga").translate.mkString should equal ("S*R")
     }
 
     "Translate RNA sequence" should "translate to protein" in {
-      new RNA.Sequence("agcuaacga").translate should equal ("S*R")
+      new RNA.Sequence("agcuaacga").translate.mkString should equal ("S*R")
     }
     "Translate ambiguous DNA" should "translate to AA with X" in {
-      new DNA.IUPACSequence("agctaacgn").translate should equal ("S*R")
+      new DNA.IUPACSequence("agctaacgn").translate.mkString should equal ("S*R")
     }
     "Translate ambiguous RNA" should "translate to AA with X" in {
-      new RNA.IUPACSequence("ancuaacgn").translate should equal ("X*R")
+      new RNA.IUPACSequence("ancuaacgn").translate.mkString should equal ("X*R")
     }
     "Translate ambiguous DNA sequences from nt.fa" should "succeed" in {
       val f = new FastaReader("./test/data/fasta/nt.fa")
@@ -28,7 +28,7 @@ package bio.test {
         new DNA.IUPACSequence(id,tag,dna).translate
         }.toList
       // println(seqs)
-      seqs.head.take(14).toString should equal ("RFXRSSXXVLXIVI")
+      seqs.head.take(14).mkString should equal ("RFXRSSXXVLXIVI")
     }
 
   }    

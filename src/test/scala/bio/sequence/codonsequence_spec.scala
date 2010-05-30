@@ -11,7 +11,7 @@ package bio.test {
     import bio.Protein._
     "A CodonSequence" should "instantiate from a DNA String" in {
       val s = new CodonSequence("agctaacgt")
-      s.toString should equal ("NNN")
+      s.toString should equal ("S*R")
     }
     "A CodonSequence" should "show DNA codons" in {
       val s = new CodonSequence("agctaacgt")
@@ -19,7 +19,7 @@ package bio.test {
     }
     "A CodonSequence" should "instantiate from a RNA String" in {
       val s = new CodonSequence("agcuaacgu")
-      s.toString should equal ("NNN")
+      s.toString should equal ("S*R")
     }
     "A CodonSequence" should "show RNA codons" in {
       val s = new CodonSequence("agctaacgt")
