@@ -26,11 +26,11 @@ package bio.test {
       s.toRNA.mkString should equal ("agcuaacgu")
     }
     "A CodonSequence" should "instantiate with an ID" in {
-      val s = new Sequence("ID456","agctaacgt")
+      val s = new CodonSequence("ID456","agctaacgt")
       s.id should equal ("ID456")
     }
     "A CodonSequence" should "instantiate with an ID+Description" in {
-      val s = new Sequence("ID456","Gene 456","agctaacgt")
+      val s = new CodonSequence("ID456","Gene 456","agctaacgt")
       s.description should equal ("Gene 456")
     }
   }

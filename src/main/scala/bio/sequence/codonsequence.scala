@@ -26,6 +26,11 @@ package bio {
         }
       }
     }
+    object ToSequence {
+      def apply(str: String): IUPACSequence = {
+        new IUPACSequence(ToDNA(str))
+      }
+    }
   } // DNA
 
   package Protein {
@@ -37,11 +42,10 @@ package bio {
       val nucleotidelist = ntlist
 
       // def this(list: List[AminoAcid]) = this(AminoAcidConvert.fromList(list),Nil)
-      def this(str: String) = {
-        this((new DNA.IUPACSequence(DNA.ToDNA(str))).translate,new DNA.IUPACSequence(DNA.ToDNA(str)).toList,Nil)
+      def this(str: String) = { this(DNA.ToSequence(str).translate,DNA.ToDNA(str),Nil)
       }
-      // def this(id: String, str: String) = this(AminoAcidConvert.fromString(str), List(Id(id)))
-      // def this(id: String, descr: String, str: String) = this(AminoAcidConvert.fromString(str),List(Id(id),Description(descr)))
+      def this(id: String, str: String) = this(DNA.ToSequence(str).translate,DNA.ToDNA(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(DNA.ToSequence(str).translate,DNA.ToDNA(str),List(Id(id),Description(descr)))
       // def this(sequence: Sequence) = this(sequence.seq, Nil)
       def toDNA: List[DNA.NTSymbol] = nucleotidelist
       def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACSequence(nucleotidelist)).transcribe.toList
