@@ -69,7 +69,7 @@ package bio.test {
     "DNA Sequence" should "not be instantiated from RNA" in {
       val rna = new RNA.Sequence("agucc")
       evaluating {
-        val s = new RNA.Sequence(rna.toList)
+        val s = new DNA.Sequence(rna.toString)
         true
       } should produce [IllegalArgumentException]
     }
@@ -115,7 +115,7 @@ package bio.test {
     "RNA Sequence" should "not be instantiated from DNA" in {
       val dna = new DNA.Sequence("agtcc")
       evaluating {
-        val s = new DNA.Sequence(dna.toList)
+        val s = new RNA.Sequence(dna.toList.mkString)
         true
       } should produce [IllegalArgumentException]
     }

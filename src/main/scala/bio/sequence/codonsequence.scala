@@ -38,7 +38,7 @@ package bio {
 
       // def this(list: List[AminoAcid]) = this(AminoAcidConvert.fromList(list),Nil)
       def this(str: String) = {
-        this((new DNA.IUPACSequence(DNA.ToDNA(str))).translate,new DNA.IUPACSequence(str).toList,Nil)
+        this((new DNA.IUPACSequence(DNA.ToDNA(str))).translate,new DNA.IUPACSequence(DNA.ToDNA(str)).toList,Nil)
       }
       // def this(id: String, str: String) = this(AminoAcidConvert.fromString(str), List(Id(id)))
       // def this(id: String, descr: String, str: String) = this(AminoAcidConvert.fromString(str),List(Id(id),Description(descr)))
