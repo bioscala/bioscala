@@ -14,7 +14,11 @@ example:
 
   scala -cp bioscala.jar:biojava.jar
 
-Fires up the scala interpreter:
+or, the alternative if from the compiled source tree:
+
+  scala -cp target/scala_2.7.7/classes/:biojava.jar
+
+Which fires up the scala interpreter:
 
   Welcome to Scala version 2.7.7 final 
   scala> _
@@ -95,7 +99,7 @@ the core Sequence implementation, but part of the Description
 attribute(!) We can generate XML:
 
     "Description Attribute" should "respond to GetXML" in {
-      val descr = new Description("Some desription")
+      val descr = new Description("Some description")
       val msg = descr.send(GetXML) 
       msg should equal (Ok,"<Description>Some description</Description>")
     }
@@ -118,6 +122,35 @@ Only the Id and Description objects understand to interpret the GetXML message.
 You can add *any* type of Attribute to a Sequence object and to its
 contained nucleotides, or amino acids. An interesting attribute would
 be a QualityAttribute for every nucleotide.
+
+In fact, this is how Protein.CodonSequence is implemented.
+CodonSequence is an AminoAcidSequence, where every AminoAcid has a
+CodonAttribute, describing the three letter Codon sequence.
+
+== CodonSequence ==
+
+The CodonSequence makes use of the Attribute list of the standard
+AminoAcidSequence object. When creating a CodonSequence, e.g.
+
+  scala> val seq = new Protein.CodonSequence("ID356","Describe gene 356","agctgaatc")
+  seq: bio.Protein.CodonSequence = S*I 
+  scala> seq.toString
+  String = S*I
+  scala> seq.toDNA
+  List[bio.DNA.NTSymbol] = List(a, g, c, t, g, a, a, t, c)
+
+When you want to fetch the codon sequence of Attribute with the third
+Amino Acid, you can do
+
+  scala> seq.getAA(2).send(GetDNA)
+  List(a, t , c)
+
+but, because we know each AminAcid contains a CodonAttribute, in this
+cae we can do
+
+  scala> seq.getCodon(2)
+  List(a, t , c)
+
 
 == Alignment ==
 
@@ -158,9 +191,6 @@ implement a GetDomainHTML message that gets sent to all attributes to
 respond with a highlight. E.g.
 
   scala> println aln.toHTML(GetDomainHTML) // not yet implemented
-
-Another interesting attribute for amino acid alignments would be
-a CodonAttribute containing nucleotides.
 
 == Using BioJAVA from Scala ==
 

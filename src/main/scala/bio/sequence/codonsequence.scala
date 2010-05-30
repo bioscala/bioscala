@@ -48,7 +48,7 @@ package bio {
       def this(id: String, descr: String, str: String) = this(DNA.ToSequence(str).translate,DNA.ToDNA(str),List(Id(id),Description(descr)))
       // def this(sequence: Sequence) = this(sequence.seq, Nil)
       def toDNA: List[DNA.NTSymbol] = nucleotidelist
-      def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACSequence(nucleotidelist)).transcribe.toList
+      def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACSequence(toDNA)).transcribe.toList
     } // CodonSequence
   } // Protein
 } // bio
