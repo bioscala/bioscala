@@ -16,7 +16,7 @@ package bio {
        * Convert DNA to RNA - replacing DNA.T with RNA.U. The 5'-3' order
        * is maintained
        */
-      def toRNA(nucleotides: List[Symbol]): List[Symbol] = {
+      def toRNA(nucleotides: List[NTSymbol]): List[RNA.NTSymbol] = {
         nucleotides.map { nt =>
           nt match {
             case A => RNA.A
@@ -43,7 +43,7 @@ package bio {
        * Transcribe DNA to RNA, the 5'-3' order is maintained (unlike BioJAVA)
        */
       // def transcribe(nucleotides: List[Nucleotide]): List[Nucleotide] = toRNA(nucleotides)
-      def transcribe(nucleotides: List[Symbol]): List[Symbol] = toRNA(nucleotides)
+      def transcribe(nucleotides: List[NTSymbol]): List[RNA.NTSymbol] = toRNA(nucleotides)
 
       def complement(nucleotides: List[Nucleotide]) = {
         nucleotides.map { nt =>

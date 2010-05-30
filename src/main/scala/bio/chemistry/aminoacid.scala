@@ -27,7 +27,8 @@
 package bio {
   package Protein {
 
-    sealed abstract class AminoAcid extends Symbol
+    abstract class AASymbol extends Symbol
+    sealed abstract class AminoAcid extends AASymbol
     abstract class PositiveAminoAcid extends AminoAcid
     abstract class NegativeAminoAcid extends AminoAcid
     abstract class UnchargedAminoAcid extends AminoAcid

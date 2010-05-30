@@ -31,13 +31,12 @@ package bio {
   package DNA {
 
     object SequenceTranslation extends SequenceTranslation[Nucleotide]
-    object SymbolSequenceTranslation extends SequenceTranslation[Symbol]
+    object SymbolSequenceTranslation extends SequenceTranslation[NTSymbol]
   }
   package RNA {
 
     object SequenceTranslation extends SequenceTranslation[Nucleotide]
-    object SymbolSequenceTranslation extends SequenceTranslation[Symbol]
+    object SymbolSequenceTranslation extends SequenceTranslation[NTSymbol]
   }
-
 
 }

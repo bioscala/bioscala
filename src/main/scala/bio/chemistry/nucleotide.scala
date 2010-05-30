@@ -15,9 +15,12 @@
 package bio {
 
   abstract class Symbol
-  sealed abstract class Nucleotide extends Symbol
 
   package DNA {
+
+    abstract class NTSymbol extends Symbol
+    sealed abstract class Nucleotide extends NTSymbol
+
     case object A extends Nucleotide {
       override def toString() = "a"
     }
@@ -51,7 +54,7 @@ package bio {
         }
       }
       def fromString(s: String): List[Nucleotide] = s.toList.map { fromChar(_) }
-      def fromList(list: List[Symbol]): List[Nucleotide] = {
+      def fromList(list: List[NTSymbol]): List[Nucleotide] = {
         list.map { c =>
           c match {
             case A => A
@@ -66,6 +69,9 @@ package bio {
   }
 
   package RNA {
+    abstract class NTSymbol extends Symbol
+    sealed abstract class Nucleotide extends NTSymbol
+
     case object A extends Nucleotide {
       override def toString() = "a"
     }
@@ -99,7 +105,7 @@ package bio {
         }
       }
       def fromString(s: String): List[Nucleotide] = s.toList.map { fromChar(_) }
-      def fromList(list: List[Symbol]): List[Nucleotide] = {
+      def fromList(list: List[NTSymbol]): List[Nucleotide] = {
         list.map { 
           _ match {
             case A => A

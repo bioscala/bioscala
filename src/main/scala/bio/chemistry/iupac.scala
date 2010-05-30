@@ -34,7 +34,7 @@
 package bio {
 
   package DNA {
-    sealed abstract class IUPAC extends Symbol
+    sealed abstract class IUPAC extends NTSymbol
     case object M extends IUPAC { override def toString = "m" }
     case object R extends IUPAC { override def toString = "r" }
     case object W extends IUPAC { override def toString = "w" }
@@ -51,7 +51,7 @@ package bio {
       /** 
        * Create a IUPAC object from its character representation.
        */
-      def fromChar(c: Char): Symbol = { 
+      def fromChar(c: Char): NTSymbol = { 
         c.toLowerCase match {
           // case '-' => EmptyIUPAC
           case 'm' => M
@@ -70,8 +70,8 @@ package bio {
             NucleotideConvert.fromChar(c)
         }
       }
-      def fromString(s: String): List[Symbol] = s.toList.map { fromChar(_) }
-      def fromList(list: List[Symbol]): List[Symbol] = {
+      def fromString(s: String): List[NTSymbol] = s.toList.map { fromChar(_) }
+      def fromList(list: List[NTSymbol]): List[NTSymbol] = {
         list.map { nt =>
           nt match {
             case A => A
@@ -96,7 +96,7 @@ package bio {
     }
   }
   package RNA {
-    sealed abstract class IUPAC extends Symbol
+    sealed abstract class IUPAC extends NTSymbol
     case object M extends IUPAC { override def toString = "m" }
     case object R extends IUPAC { override def toString = "r" }
     case object W extends IUPAC { override def toString = "w" }
@@ -113,7 +113,7 @@ package bio {
       /** 
        * Create a IUPAC object from its character representation.
        */
-      def fromChar(c: Char): Symbol = { 
+      def fromChar(c: Char): NTSymbol = { 
         c.toLowerCase match {
           // case '-' => EmptyIUPAC
           case 'm' => M
@@ -132,8 +132,8 @@ package bio {
             NucleotideConvert.fromChar(c)
         }
       }
-      def fromString(s: String): List[Symbol] = s.toList.map { fromChar(_) }
-      def fromList(list: List[Symbol]): List[Symbol] = {
+      def fromString(s: String): List[NTSymbol] = s.toList.map { fromChar(_) }
+      def fromList(list: List[NTSymbol]): List[NTSymbol] = {
         list.map { nt =>
           nt match {
             case A => A
