@@ -21,12 +21,10 @@ package bio.test {
       val s = new CodonSequence("agcuaacgu")
       s.toString should equal ("S*R")
     }
-    /*
     "A CodonSequence" should "show RNA codons" in {
       val s = new CodonSequence("agctaacgt")
       s.toRNA.mkString should equal ("agcuaacgu")
     }
-    */
     "A CodonSequence" should "instantiate with an ID" in {
       val s = new Sequence("ID456","agctaacgt")
       s.id should equal ("ID456")
