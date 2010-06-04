@@ -35,17 +35,34 @@ package bio {
 
   package Protein {
 
+    import bio.DNA._
+    object DNAtoAA {
+      /* Return the AA list with attached CodonAttributes */
+      def apply(str: String): List[AminoAcid] = {
+        val aas = ToSequence(str).translate
+        val nts = ToDNA(str)
+        aas.map { aa => println(aa) }
+        aas
+      }
+    }
+
     /**
-     * Store a list of AminoAcids with their Codon sequences
+     * Store a list of AminoAcids with their Codon sequences. The sequence is
+     * initialized from the DNA sequence, before translation. For example
+     *
+     *   val s = new CodonSequence("agctaacgt")
+     *   s(2) should equal (R)
+     *   s(2).getCodon should equal (List(C,G,T))
      */
-    class CodonSequence(aalist: List[AminoAcid], ntlist: List[DNA.NTSymbol], attributelist: List[Attribute]) extends Sequence(aalist, attributelist) {
-      val nucleotidelist = ntlist
+    // class CodonSequence(aalist: List[AminoAcid], ntlist: List[DNA.NTSymbol], attributelist: List[Attribute]) extends Sequence(aalist.withCodons(ntlist), attributelist) {
+    class CodonSequence(aalist: List[AminoAcid], attributelist: List[Attribute]) extends Sequence(aalist, attributelist) {
+
+      val nucleotidelist = List()
 
       // def this(list: List[AminoAcid]) = this(AminoAcidConvert.fromList(list),Nil)
-      def this(str: String) = { this(DNA.ToSequence(str).translate,DNA.ToDNA(str),Nil)
-      }
-      def this(id: String, str: String) = this(DNA.ToSequence(str).translate,DNA.ToDNA(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(DNA.ToSequence(str).translate,DNA.ToDNA(str),List(Id(id),Description(descr)))
+      def this(str: String) = { this(DNAtoAA(str),Nil) }
+      def this(id: String, str: String) = this( DNAtoAA(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(DNAtoAA(str),List(Id(id),Description(descr)))
       // def this(sequence: Sequence) = this(sequence.seq, Nil)
       def getCodon(n: Int): List[DNA.NTSymbol] = List()
       def toDNA: List[DNA.NTSymbol] = nucleotidelist
