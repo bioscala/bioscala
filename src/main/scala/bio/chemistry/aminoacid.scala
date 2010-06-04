@@ -24,11 +24,16 @@
  * </pre>
  */
 
+import bio.attribute._
+
 package bio {
   package Protein {
 
-    abstract class AASymbol extends Symbol
-    sealed abstract class AminoAcid extends AASymbol
+    abstract class AASymbol(attributelist: List[Attribute]) extends Symbol with AttributeAccess {
+      lazy val attributes = attributelist
+      def getCodon: List[DNA.NTSymbol] = List()
+    }
+    sealed abstract class AminoAcid extends AASymbol(List())
     abstract class PositiveAminoAcid extends AminoAcid
     abstract class NegativeAminoAcid extends AminoAcid
     abstract class UnchargedAminoAcid extends AminoAcid

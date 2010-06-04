@@ -139,18 +139,20 @@ AminoAcidSequence object. When creating a CodonSequence, e.g.
   scala> seq.toDNA
   List[bio.DNA.NTSymbol] = List(a, g, c, t, g, a, a, t, c)
 
+it stored the DNA sequence as a CodonAttribute to the AminoAcid.
 When you want to fetch the codon sequence of Attribute with the third
-Amino Acid, you can do
+Amino Acid, you can query for the codon information
 
-  scala> seq.getAA(2).send(GetDNA)
+  scala> seq(2).getCodon
   List(a, t , c)
 
-but, because we know each AminAcid contains a CodonAttribute, in this
-cae we can do
+and even directly from the CodonSequence
 
   scala> seq.getCodon(2)
   List(a, t , c)
 
+Note the underlying implementation of the AttributeList is actually
+hidden.
 
 == Alignment ==
 

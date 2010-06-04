@@ -16,6 +16,7 @@ package bio {
   abstract class Message
   abstract class StatusMessage
 
+  /** Base class for all attributes */
   abstract class Attribute {
     def send(msg: Message): Tuple2[StatusMessage,Any]
   }
@@ -26,6 +27,7 @@ package bio {
     case object GetId extends Message
     case object GetDescription extends Message
     case object GetXML extends Message 
+    case object GetDNA extends Message 
     case object GetFeature extends Message // NYI
     case object GetGap extends Message // NYI
     case object GetRDF extends Message // NYI
@@ -35,6 +37,7 @@ package bio {
     case object Error extends StatusMessage
 
     // ==== Attributes
+    /** StringAttribute stores a typical String value */
     class StringAttribute(str: String, respondTo: Message) extends Attribute {
       lazy val data = str
       lazy val respondMsg = respondTo
@@ -53,8 +56,23 @@ package bio {
         }
       }
     }
+
+    /** Id responds to the GetId message */
     case class Id(str: String) extends StringAttribute(str,GetId)
+    /** Description responds to the GetDescription message */
     case class Description(str: String) extends StringAttribute(str,GetDescription)
+
+    /** Codon responds to the GetDNA message */
+    case class Codon(seq: List[DNA.NTSymbol]) extends Attribute {
+
+      override def toString = seq.mkString
+      override def send(msg: Message): Tuple2[StatusMessage,List[DNA.NTSymbol]] = {
+        msg match {
+          case `GetDNA` => (Ok, seq)
+          case _ => (UnknownMessage, seq)
+        }
+      }
+    }
   }
 }
 

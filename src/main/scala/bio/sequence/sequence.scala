@@ -13,6 +13,9 @@ package bio {
     lazy val seq = seqlist
     lazy val attributes  = attributelist
 
+    /** @return the n-th element of this Sequence. The first element is at position 0. */
+    def apply(n: Int): T = seq(n)
+
     /** @return Nucleotide List as a String */
     override def toString = seq mkString
     /** @return Nucleotide List */

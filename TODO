@@ -3,3 +3,5 @@
 (This is a work in progress, so many todo's...)
 
 - Traitify the Sequence hierarchy, e.g. Gapped and IUPAC may be traits
+- Traitify Attribute support
+- Use Property, rather then Attribute?

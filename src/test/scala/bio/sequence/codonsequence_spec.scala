@@ -25,13 +25,13 @@ package bio.test {
       val s = new CodonSequence("agctaacgt")
       s.toRNA.mkString should equal ("agcuaacgu")
     }
-    "A CodonSequence" should "return Codon" in {
+    "A CodonSequence amino acid" should "return Codon" in {
       val s = new CodonSequence("agctaacgt")
-      s.getAA(2).send(GetDNA) should equal ("cgt")
+      s(2).getCodon should equal (List(C,G,T))
     }
     "A CodonSequence" should "return Codon" in {
       val s = new CodonSequence("agctaacgt")
-      s.getCodon(2) should equal ("cgt")
+      s.getCodon(2) should equal (List(C,G,T))
     }
     "A CodonSequence" should "instantiate with an ID" in {
       val s = new CodonSequence("ID456","agctaacgt")
