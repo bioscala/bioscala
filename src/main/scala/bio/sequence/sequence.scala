@@ -20,16 +20,21 @@ package bio {
     override def toString = seq mkString
     /** @return Nucleotide List */
     def toList = seq
-    /**
-     * @return first (primary) ID in attribute list
-     */
     def idList = attribList(GetId, attributes)
     def descriptionList = attribList(GetDescription, attributes)
-    def id = attribFirst(GetId, attributes).toString
+    def id = { attribFirst(GetId, attributes) match {
+        case None => "No ID"
+        case Some(s) => s
+      }
+    }
     /**
      * @return first (primary) Description in attribute list
      */
-    def description = attribFirst(GetDescription, attributes).toString
+    def description = { attribFirst(GetDescription, attributes) match {
+        case None => "No description"
+        case Some(s) => s
+      }
+    }
   }
 
 }

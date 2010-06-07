@@ -27,7 +27,8 @@ package bio {
     case object GetId extends Message
     case object GetDescription extends Message
     case object GetXML extends Message 
-    case object GetDNA extends Message 
+    case object GetCodon extends Message
+    case object GetDNA extends Message // NYI
     case object GetFeature extends Message // NYI
     case object GetGap extends Message // NYI
     case object GetRDF extends Message // NYI
@@ -62,13 +63,13 @@ package bio {
     /** Description responds to the GetDescription message */
     case class Description(str: String) extends StringAttribute(str,GetDescription)
 
-    /** Codon responds to the GetDNA message */
+    /** Codon responds to the GetCodon message */
     case class Codon(seq: List[DNA.NTSymbol]) extends Attribute {
 
       override def toString = seq.mkString
       override def send(msg: Message): Tuple2[StatusMessage,List[DNA.NTSymbol]] = {
         msg match {
-          case `GetDNA` => (Ok, seq)
+          case `GetCodon` => (Ok, seq)
           case _ => (UnknownMessage, seq)
         }
       }

@@ -57,14 +57,14 @@ package bio {
     // class CodonSequence(aalist: List[AminoAcid], ntlist: List[DNA.NTSymbol], attributelist: List[Attribute]) extends Sequence(aalist.withCodons(ntlist), attributelist) {
     class CodonSequence(aalist: List[AminoAcid], attributelist: List[Attribute]) extends Sequence(aalist, attributelist) {
 
-      val nucleotidelist = List()
+      val nucleotidelist = List(DNA.A, DNA.C, DNA.G, DNA.T)
 
       // def this(list: List[AminoAcid]) = this(AminoAcidConvert.fromList(list),Nil)
       def this(str: String) = { this(DNAtoAA(str),Nil) }
       def this(id: String, str: String) = this( DNAtoAA(str), List(Id(id)))
       def this(id: String, descr: String, str: String) = this(DNAtoAA(str),List(Id(id),Description(descr)))
       // def this(sequence: Sequence) = this(sequence.seq, Nil)
-      def getCodon(n: Int): List[DNA.NTSymbol] = List()
+      def getCodon(n: Int) = seq(n).getCodon
       def toDNA: List[DNA.NTSymbol] = nucleotidelist
       def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACSequence(toDNA)).transcribe.toList
     } // CodonSequence
