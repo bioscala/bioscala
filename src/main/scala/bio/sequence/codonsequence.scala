@@ -36,11 +36,24 @@ package bio {
   package Protein {
 
     import bio.DNA._
-    object DNAtoAA {
+
+    object DNAtoCodonAA {
       /* Return the AA list with attached CodonAttributes */
       def apply(str: String): List[AminoAcid] = {
+        /* Helper method, takes the NT list and splits it into
+         * a list of codons
+         */
+        def codons(seq : List[DNA.NTSymbol]) : List[List[DNA.NTSymbol]] = {
+          val (codon, rest) = seq.splitAt(3)
+          codon match {
+            case List() => Nil
+            case _      => List(codon) ::: codons(rest)
+          }
+        }
         val aas = ToSequence(str).translate
         val nts = ToDNA(str)
+        val codons2 = codons(nts)
+        println(codons2)
         aas.map { aa => println(aa) }
         aas
       }
@@ -60,9 +73,9 @@ package bio {
       val nucleotidelist = List(DNA.A, DNA.C, DNA.G, DNA.T)
 
       // def this(list: List[AminoAcid]) = this(AminoAcidConvert.fromList(list),Nil)
-      def this(str: String) = { this(DNAtoAA(str),Nil) }
-      def this(id: String, str: String) = this( DNAtoAA(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(DNAtoAA(str),List(Id(id),Description(descr)))
+      def this(str: String) = { this(DNAtoCodonAA(str),Nil) }
+      def this(id: String, str: String) = this( DNAtoCodonAA(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(DNAtoCodonAA(str),List(Id(id),Description(descr)))
       // def this(sequence: Sequence) = this(sequence.seq, Nil)
       def getCodon(n: Int) = seq(n).getCodon
       def toDNA: List[DNA.NTSymbol] = nucleotidelist
