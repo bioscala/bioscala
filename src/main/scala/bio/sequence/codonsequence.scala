@@ -53,9 +53,10 @@ package bio {
         val aas = ToSequence(str).translate
         val nts = ToDNA(str)
         val codons2 = codons(nts)
-        println(codons2)
-        aas.map { aa => println(aa) }
-        aas
+        val zipped = aas.zip(codons2)
+        zipped.map { z => 
+          val (aa,nts) = z
+          aa.setCodon(nts) }
       }
     }
 
