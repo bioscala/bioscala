@@ -14,7 +14,17 @@
 
 package bio {
 
-  abstract class Symbol
+  /** Base class for all (one letter) symbols used in BioScala.
+   *
+   */
+  abstract class Symbol {
+    /** Get the Symobl name by parsing the class name
+     */
+    override def toString : String = {
+      getClass.getName.toList.takeRight(2).first.toString
+    }
+    lazy val toChar = toString.last
+  }
 
   package DNA {
 

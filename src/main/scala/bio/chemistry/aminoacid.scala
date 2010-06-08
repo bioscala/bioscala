@@ -31,8 +31,9 @@ package bio {
 
     abstract class AASymbol(attributelist: List[Attribute]) extends Symbol with AttributeAccess {
       lazy val attributes = attributelist
-      def setCodon(nts: List[DNA.NTSymbol]) : AminoAcid = {
-        X 
+      def setCodon(codon: List[DNA.NTSymbol]) : AminoAcid = {
+        // AminoAcidConvert.fromChar(toChar,Codon(codon) :: attributes)
+        AminoAcidConvert.fromChar(toChar)
       }
       def getCodon = attribFirst(GetCodon,attributes)
     }
@@ -46,112 +47,91 @@ package bio {
     case object R extends PositiveAminoAcid {
       val name="Arg"
       val fullname="Arginine"
-      override def toString() = "R"
     }
     case object H extends PositiveAminoAcid {
       val name="His"
       val fullname="Histidine"
-      override def toString() = "H"
     }
     case object K extends PositiveAminoAcid {
       val name="Lys"
       val fullname="Lysine"
-      override def toString() = "K"
     }
     case object D extends NegativeAminoAcid {
       val name="Asp"
       val fullname="Aspartic Acid"
-      override def toString() = "D"
     }
     case object E extends NegativeAminoAcid {
       val name="Glu"
       val fullname="Glutamic Acid"
-      override def toString() = "E"
     }
     case object S extends UnchargedAminoAcid {
       val name="Ser"
       val fullname="Serine"
-      override def toString() = "S"
     }
     case object T extends UnchargedAminoAcid {
       val name="Thr"
       val fullname="Threonine"
-      override def toString() = "T"
     }
     case object N extends UnchargedAminoAcid {
       val name="Asn"
       val fullname="Asparagine"
-      override def toString() = "N"
     }
     case object Q extends UnchargedAminoAcid {
       val name="Gln"
       val fullname="Glutamine"
-      override def toString() = "Q"
     }
     case object C extends UnchargedAminoAcid {
       val name="Cys"
       val fullname="Cysteine"
-      override def toString() = "C"
     }
     case object U extends UnchargedAminoAcid {
       val name="Sec"
       val fullname="Selenocysteine"
-      override def toString() = "U"
     }
     case object G extends UnchargedAminoAcid {
       val name="Gly"
       val fullname="Glycine"
-      override def toString() = "G"
     }
     case object P extends UnchargedAminoAcid {
       val name="Pro"
       val fullname="Proline"
-      override def toString() = "P"
     }
     case object A extends HydrophobicAminoAcid {
       val name="Ala"
       val fullname="Alanine"
-      override def toString() = "A"
     }
     case object I extends HydrophobicAminoAcid {
       val name="Ile"
       val fullname="Isoleucine"
-      override def toString() = "I"
     }
     case object L extends HydrophobicAminoAcid {
       val name="Leu"
       val fullname="Leucine"
-      override def toString() = "L"
     }
     case object M extends HydrophobicAminoAcid {
       val name="Met"
       val fullname="Methionine"
-      override def toString() = "M"
     }
     case object F extends HydrophobicAminoAcid {
       val name="Phe"
       val fullname="Phenylalanine"
-      override def toString() = "F"
     }
     case object W extends HydrophobicAminoAcid {
       val name="Trp"
       val fullname="Tryptophan"
-      override def toString() = "W"
     }
     case object Y extends HydrophobicAminoAcid {
       val name="Tyr"
       val fullname="Tyrosine"
-      override def toString() = "Y"
     }
     case object V extends HydrophobicAminoAcid {
       val name="Val"
       val fullname="Valine"
-      override def toString() = "V"
     }
     case object * extends HydrophobicAminoAcid {
       val name="*"
       val fullname="Stop"
-      override def toString() = "*"
+      override def toString = "*"
     }
     object AminoAcidConvert {
       /** 
@@ -227,17 +207,14 @@ package bio {
     case object B extends IUPAC {
       val name="Asx"
       val fullname="Aspartic acid or Asparagine"
-      override def toString() = "B"
     }
     case object Z extends IUPAC {
       val name="Glx"
       val fullname="Glutamine or Glutamic acid"
-      override def toString() = "Z"
     }
     case object X extends IUPAC {
       val name="Xaa"
       val fullname="Any amino acid"
-      override def toString() = "X"
     }
 
     object IUPACAminoAcidConvert {
