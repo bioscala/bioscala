@@ -80,6 +80,10 @@ package bio {
       def toDNA: List[DNA.NTSymbol] = seq.map { codon => codon.getCodon }.flatten
       def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACSequence(toDNA)).transcribe.toList
       override def toString : String = toAminoAcid.mkString
+      def delete(pos: Int, num: Int) = {
+        new CodonSequence(seq.take(pos) ::: seq.takeRight(seq.size-pos-num), attributes)
+      }
+
     } // CodonSequence
   } // Protein
 } // bio

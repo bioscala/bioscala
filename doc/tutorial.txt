@@ -124,8 +124,13 @@ contained nucleotides, or amino acids. An interesting attribute would
 be a QualityAttribute for every nucleotide.
 
 In fact, this is how Protein.CodonSequence is implemented.
-CodonSequence is an AminoAcidSequence, where every AminoAcid has a
-CodonAttribute, describing the three letter Codon sequence.
+CodonSequence is an AminoAcidSequence, where every Codon has an AminoAcid 
+and the matching (three letter) DNA Sequence information. By treating
+an amino acid and codon together we can (1) utilise the generic
+Sequence container and (2) reorder the sequence without having to
+split the logic. I.e. say we want to delete three amino acids from
+the Sequence, or insert three gaps, we do that in one go. See the
+CodonSequence section.
 
 == CodonSequence ==
 
@@ -151,8 +156,18 @@ and even directly from the CodonSequence
   scala> seq.getCodon(2)
   List(a, t , c)
 
-Note the underlying implementation of the AttributeList is actually
-hidden.
+Now we want to delete the middle codon:
+
+  scala> seq2 = seq.delete(1,1)
+  seq: bio.Protein.CodonSequence = SI
+
+We have another immutable CodonSequence object seq2, which contains a
+new sequence with matching amino acids and codons:
+
+  scala> seq.toString
+  String = SI
+  scala> seq.toDNA
+  List[bio.DNA.NTSymbol] = List(a, g, c, a, t, c)
 
 == Alignment ==
 

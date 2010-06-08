@@ -41,5 +41,13 @@ package bio.test {
       val s = new CodonSequence("ID456","Gene 456","agctaacgt")
       s.description should equal ("Gene 456")
     }
+    "A CodonSequence" should "delete amino acid" in {
+      val s = new CodonSequence("agctaacgt")
+      s.delete(1,1).toString should equal ("SR")
+    }
+    "A CodonSequence" should "delete codon sequences" in {
+      val s = new CodonSequence("agctaacgt")
+      s.delete(1,1).toDNA.mkString should equal ("agccgt")
+    }
   }
 }
