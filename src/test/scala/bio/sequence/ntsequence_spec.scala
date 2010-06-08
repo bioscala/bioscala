@@ -40,6 +40,10 @@ package bio.test {
       val xml = s.attribValues(GetXML,s.attributes)
       xml.mkString should equal ("<Id>ID456</Id><Description>Gene 456</Description>")
     }
+    "A Sequence" should "delete from a Sequence" in {
+      val s = new Sequence("agctaacg")
+      s.delete(3,3).toString should equal ("agccg")
+    }
   }
 
   class DNASequenceSpec extends FlatSpec with ShouldMatchers {

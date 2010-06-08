@@ -7,7 +7,7 @@ This is the place for the BioScala project under the liberal BSD license.
 This edition of BioScala has:
 
   - Strongly typed DNA, RNA Sequence, gapped and IUPAC ambiguous Sequence
-  - Sequences contain lists of Nucleotide, AminoAcid, IUPAC, Gapped
+  - Sequences contain lists of Nucleotide, AminoAcid, IUPAC, Gapped, Codon
   - Flexible Sequence user defined attributes
 	- Iterator based FASTA file reader
   - Transcription of DNA to RNA
