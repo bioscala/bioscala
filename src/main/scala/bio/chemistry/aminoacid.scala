@@ -29,15 +29,29 @@ import bio.attribute._
 package bio {
   package Protein {
 
-    abstract class AASymbol(attributelist: List[Attribute]) extends Symbol with AttributeAccess {
-      lazy val attributes = attributelist
+    object AttributesCopy {
+      def newInstance[T](args: Array[AnyRef])(implicit m: scala.reflect.Manifest[T]): T = {
+        val constructor = 
+          m.erasure.getDeclaredConstructors.first
+        println("Constructor=",constructor)
+        constructor.newInstance(args: _*).asInstanceOf[T]
+      }
+    }
+
+    abstract class AASymbol extends Symbol with AttributeAccess {
+      var attributes : List[Attribute] = Nil
+
       def setCodon(codon: List[DNA.NTSymbol]) : AminoAcid = {
         // AminoAcidConvert.fromChar(toChar,Codon(codon) :: attributes)
-        AminoAcidConvert.fromChar(toChar)
+        println("*****",this,codon)
+        // val aa = AttributesCopy.newInstance[AminoAcid](Array(Codon(codon) :: attributes))
+        val aa = AttributesCopy.newInstance[AminoAcid](Array("Harry"))
+        println("*****",getCodon)
+        aa
       }
       def getCodon = attribFirst(GetCodon,attributes)
     }
-    sealed abstract class AminoAcid extends AASymbol(List())
+    sealed abstract class AminoAcid extends AASymbol
     abstract class PositiveAminoAcid extends AminoAcid
     abstract class NegativeAminoAcid extends AminoAcid
     abstract class UnchargedAminoAcid extends AminoAcid

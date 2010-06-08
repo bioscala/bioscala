@@ -18,7 +18,8 @@ package bio {
    *
    */
   abstract class Symbol {
-    /** Get the Symobl name by parsing the class name
+    /** Get the Symbol name by parsing the class name, which looks 
+     *  like 'bio.Protein.X$'. The symbol is the character before last.
      */
     override def toString : String = {
       getClass.getName.toList.takeRight(2).first.toString
