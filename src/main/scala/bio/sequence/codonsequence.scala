@@ -46,7 +46,7 @@ package bio {
         def codons(seq : List[DNA.NTSymbol]) : List[List[DNA.NTSymbol]] = {
           val (codon, rest) = seq.splitAt(3)
           codon match {
-            case List() => Nil
+            case Nil    => Nil
             case _      => List(codon) ::: codons(rest)
           }
         }
@@ -56,7 +56,8 @@ package bio {
         val zipped = aas.zip(codons2)
         zipped.map { z => 
           val (aa,nts) = z
-          aa.setCodon(nts) }
+          aa.setCodon(nts) 
+        }
       }
     }
 

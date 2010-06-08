@@ -31,8 +31,8 @@ package bio {
 
     abstract class AASymbol(attributelist: List[Attribute]) extends Symbol with AttributeAccess {
       lazy val attributes = attributelist
-      def setCodon(nts: List[DNA.NTSymbol]) : AASymbol = {
-        
+      def setCodon(nts: List[DNA.NTSymbol]) : AminoAcid = {
+        X 
       }
       def getCodon = attribFirst(GetCodon,attributes)
     }
