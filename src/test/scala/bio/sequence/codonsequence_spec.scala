@@ -27,11 +27,11 @@ package bio.test {
     }
     "A CodonSequence amino acid" should "return Codon" in {
       val s = new CodonSequence("agctaacgt")
-      s(2).getCodon should equal (List(C,G,T))
+      s(2).getCodon should equal (List(DNA.C,DNA.G,DNA.T))
     }
     "A CodonSequence" should "return Codon" in {
       val s = new CodonSequence("agctaacgt")
-      s.getCodon(2) should equal (List(C,G,T))
+      s.getCodon(2) should equal (List(DNA.C,DNA.G,DNA.T))
     }
     "A CodonSequence" should "instantiate with an ID" in {
       val s = new CodonSequence("ID456","agctaacgt")

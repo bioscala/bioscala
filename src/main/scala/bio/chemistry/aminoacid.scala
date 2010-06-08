@@ -121,7 +121,7 @@ package bio {
       val name="Val"
       val fullname="Valine"
     }
-    case object * extends HydrophobicAminoAcid {
+    case object * extends AminoAcid {
       val name="*"
       val fullname="Stop"
       override def toString = "*"
