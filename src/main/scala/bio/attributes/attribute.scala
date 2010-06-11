@@ -7,7 +7,7 @@
  * message may be to return the primary ID, descriptions, or output to
  * RDF, for example.
  *
- * A message is simply a Tuple of the message type, and paramaters. The
+ * A message is simply a Tuple of the message type, and parameters. The
  * return value is also a Tuple with status and object(s).
  */
 

@@ -12,11 +12,19 @@ import bio.attribute._
 
 package bio {
 
-  class GappedSequence (seqlist: List[Symbol], attributelist: List[Attribute]) extends bio.Sequence[Symbol](seqlist,attributelist)
+  class GappedSequence (seqlist: List[Symbol], attributelist: List[Attribute]) extends bio.Sequence[Symbol](seqlist,attributelist) {
+    type SequenceType = GappedSequence
+    def create(seqlist: List[Symbol], attributelist: List[Attribute]) = new GappedSequence(seqlist, attributelist)
+
+  }
 
 
   package DNA {
     class GappedSequence (seqlist: List[Symbol], attributelist: List[Attribute]) extends bio.GappedSequence(seqlist,attributelist) {
+
+      // override type SequenceType = GappedSequence
+      // def create(seqlist: List[Symbol], attributelist: List[Attribute]) = new GappedSequence(seqlist, attributelist)
+
       def this(list: List[Nucleotide]) = this(GappedNucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(GappedNucleotideConvert.fromString(str),Nil)
       def this(id: String, str: String) = this(GappedNucleotideConvert.fromString(str), List(Id(id)))

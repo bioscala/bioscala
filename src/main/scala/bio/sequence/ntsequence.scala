@@ -23,6 +23,9 @@ package bio {
 
   package DNA {
     class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
+      type SequenceType = Sequence
+      def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
+
       def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
       def this(id: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id)))
@@ -62,6 +65,10 @@ package bio {
 
   package RNA {
     class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
+
+      type SequenceType = Sequence
+      def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
+
       def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
       def this(sequence: Sequence) = this(sequence.seq, Nil)

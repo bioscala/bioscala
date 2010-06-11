@@ -9,9 +9,13 @@ import bio.attribute._
 
 package bio {
 
-  class Sequence[T](seqlist: List[T], attributelist: List[Attribute]) extends AttributeAccess {
+  abstract class Sequence[T](seqlist: List[T], attributelist: List[Attribute]) extends AttributeAccess {
+    type SequenceType <: Sequence[T]  // Abstract type 
+
     lazy val seq = seqlist
     lazy val attributes  = attributelist
+
+    def create(seqlist: List[T], attributelist: List[Attribute]): SequenceType
 
     /** @return the n-th element of this Sequence. The first element is at position 0. */
     def apply(n: Int): T = seq(n)
@@ -27,14 +31,19 @@ package bio {
         case Some(s) => s
       }
     }
+    /** Delete part of the sequence */
+    def delete(pos: Int, num: Int) = {
+        create(seq.take(pos) ::: seq.takeRight(seq.size-pos-num), attributes)
+      }
     /**
      * @return first (primary) Description in attribute list
      */
     def description = { attribFirst(GetDescription, attributes) match {
-        case None => "No description"
-        case Some(s) => s
+          case None => "No description"
+          case Some(s) => s
+        }
       }
-    }
   }
 
-}
+} // bio
+

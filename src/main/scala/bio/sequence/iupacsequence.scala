@@ -31,6 +31,9 @@ package bio {
 
   package DNA {
     class IUPACSequence (seqlist: List[NTSymbol], attributelist: List[Attribute]) extends bio.Sequence[NTSymbol](seqlist,attributelist) {
+      type SequenceType = IUPACSequence
+      def create(seqlist: List[NTSymbol], attributelist: List[Attribute]) = new IUPACSequence(seqlist, attributelist)
+
       def this(list: List[NTSymbol]) = this(IUPACNucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(IUPACNucleotideConvert.fromString(str),Nil)
       def this(id: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id)))
@@ -51,6 +54,9 @@ package bio {
   }
   package RNA {
     class IUPACSequence (seqlist: List[NTSymbol], attributelist: List[Attribute]) extends bio.Sequence[NTSymbol](seqlist,attributelist) {
+      type SequenceType = IUPACSequence
+      def create(seqlist: List[NTSymbol], attributelist: List[Attribute]) = new IUPACSequence(seqlist, attributelist)
+
       def this(list: List[NTSymbol]) = this(IUPACNucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(IUPACNucleotideConvert.fromString(str),Nil)
       def this(id: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id)))
@@ -71,6 +77,9 @@ package bio {
      * AminoAcid Sequence supporting ambiguous IUPAC symbols
      */
     class IUPACSequence (seqlist: List[AminoAcid], attributelist: List[Attribute]) extends bio.Sequence[AminoAcid](seqlist,attributelist) {
+      type SequenceType = IUPACSequence
+      def create(seqlist: List[AminoAcid], attributelist: List[Attribute]) = new IUPACSequence(seqlist, attributelist)
+
       def this(list: List[AminoAcid]) = this(IUPACAminoAcidConvert.fromList(list),Nil)
       def this(str: String) = this(IUPACAminoAcidConvert.fromString(str),Nil)
       def this(id: String, str: String) = this(IUPACAminoAcidConvert.fromString(str), List(Id(id)))

@@ -24,6 +24,9 @@ package bio {
   package Protein {
 
     class Sequence(aalist: List[AminoAcid], attributelist: List[Attribute]) extends bio.Sequence[AminoAcid](aalist, attributelist) {
+      type SequenceType = Sequence
+      def create(seqlist: List[AminoAcid], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
+
       def this(list: List[AminoAcid]) = this(AminoAcidConvert.fromList(list),Nil)
       def this(str: String) = this(AminoAcidConvert.fromString(str),Nil)
       def this(id: String, str: String) = this(AminoAcidConvert.fromString(str), List(Id(id)))

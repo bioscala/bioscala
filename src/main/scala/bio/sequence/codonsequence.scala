@@ -72,6 +72,9 @@ package bio {
      */
     class CodonSequence(codonlist: List[Codon], attributelist: List[Attribute]) extends bio.Sequence[Codon](codonlist, attributelist) {
 
+      type SequenceType = CodonSequence
+      def create(seqlist: List[Codon], attributelist: List[Attribute]) = new CodonSequence(seqlist, attributelist)
+
       def this(str: String) = { this(DNAtoCodonAA(str),Nil) }
       def this(id: String, str: String) = this( DNAtoCodonAA(str), List(Id(id)))
       def this(id: String, descr: String, str: String) = this(DNAtoCodonAA(str),List(Id(id),Description(descr)))
@@ -80,10 +83,10 @@ package bio {
       def toDNA: List[DNA.NTSymbol] = seq.map { codon => codon.getCodon }.flatten
       def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACSequence(toDNA)).transcribe.toList
       override def toString : String = toAminoAcid.mkString
-      /** Delete part of the sequence */
-      def delete(pos: Int, num: Int) = {
-        new CodonSequence(seq.take(pos) ::: seq.takeRight(seq.size-pos-num), attributes)
-      }
+      // /** Delete part of the sequence */
+      // def delete(pos: Int, num: Int) = {
+      //    create(seq.take(pos) ::: seq.takeRight(seq.size-pos-num), attributes)
+      //}
 
     } // CodonSequence
   } // Protein
