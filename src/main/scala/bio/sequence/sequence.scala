@@ -15,6 +15,10 @@ package bio {
     lazy val seq = seqlist
     lazy val attributes  = attributelist
 
+    /** 
+     * Every derived class should have a factory, so methods like 'delete', 
+     * defined in the abstract class, work in a type safe way.
+     */
     def create(seqlist: List[T], attributelist: List[Attribute]): SequenceType
 
     /** @return the n-th element of this Sequence. The first element is at position 0. */
