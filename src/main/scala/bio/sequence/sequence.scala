@@ -45,8 +45,23 @@ package bio {
     def description = { attribFirst(GetDescription, attributes) match {
           case None => "No description"
           case Some(s) => s
-        }
       }
+    }
+
+    /**
+     * Add an attribute to Sequence and return a new Sequence object
+     */
+    def attrAdd(attribute: Attribute) = {
+      val attrlist = attribute :: attributes 
+      create(seq, attrlist)
+    }
+    /**
+     * Add a list of attributes to Sequence and return a new Sequence object
+     */
+    def attrAdd(attributelist: List[Attribute]) = {
+      val attrlist = attributes ::: attributelist
+      create(seq, attrlist)
+    }
   }
 
 } // bio

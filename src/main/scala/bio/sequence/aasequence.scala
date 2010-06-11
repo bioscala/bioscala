@@ -32,22 +32,6 @@ package bio {
       def this(id: String, str: String) = this(AminoAcidConvert.fromString(str), List(Id(id)))
       def this(id: String, descr: String, str: String) = this(AminoAcidConvert.fromString(str),List(Id(id),Description(descr)))
       def this(sequence: Sequence) = this(sequence.seq, Nil)
-
-      /**
-       * Add an attribute to Sequence and return a new Sequence object
-       */
-      def attrAdd(attribute: Attribute) = {
-        val attrlist = attribute :: attributes 
-        new Sequence(seq, attrlist)
-      }
-      /**
-       * Add a list of attributes to Sequence and return a new Sequence object
-       */
-      def attrAdd(attributelist: List[Attribute]) = {
-        val attrlist = attributes ::: attributelist
-        new Sequence(seq, attrlist)
-      }
     } // Sequence
-
   } // Protein
 } // bio

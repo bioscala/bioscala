@@ -35,21 +35,6 @@ package bio {
       def translate() = { SequenceTranslation.translate(transcribe seq) }
 
       /**
-       * Add an attribute to Sequence and return a new Sequence object
-       */
-      def attrAdd(attribute: Attribute) = {
-        val attrlist = attribute :: attributes 
-        new Sequence(seq, attrlist)
-      }
-      /**
-       * Add a list of attributes to Sequence and return a new Sequence object
-       */
-      def attrAdd(attributelist: List[Attribute]) = {
-        val attrlist = attributes ::: attributelist
-        new Sequence(seq, attrlist)
-      }
-
-      /**
        * @return transcribed DNA.Sequence as RNA.Sequence
        */
       def transcribe = { 
@@ -83,14 +68,6 @@ package bio {
        */
       def transcribe = { this }
 
-      def attrAdd(attribute: Attribute) = {
-        val attrlist = attribute :: attributes 
-        new Sequence(seq, attrlist)
-      }
-      def attrAdd(attributelist: List[Attribute]) = {
-        val attrlist = attributes ::: attributelist
-        new Sequence(seq, attrlist)
-      }
     }
   }
 }
