@@ -85,3 +85,40 @@ If you use DNA.IUPACSequence over DNA.Sequence, you'll get type
 checking for IUPAC. The current implementation is Inheritance based -
 mixed traits will be an improvement.
 
+== Alignment ==
+
+Alignments contain a list of Sequences. Each Sequence stores a list of:
+
+  Nucleotide | Gap
+  AminoAcid | Gap
+  Codon | Gap
+
+Where Gap is a bio.Symbol and Codon is an amino acid with matching
+codon sequence. One way to handle it is to store a List[Symbol] that
+supports a Gap and one of the other types in, for example,
+GappedSequence[Codon]. The type safety is not really maintained at the
+lowest level - as it is storing two different types. Still, the higher
+interface, which constructs the Sequences, can be type safe.
+
+Maybe we should support special IUPAC Gap types.  More complex Gaps can
+store information as attributes, so we can do with a single symbol,
+the dash. Thus the single types
+
+  DNA.GappedIUPAC for DNA.GappedSequence
+  Protein.GappedIUPAC for Protein.GappedSequence
+  GappedCodon for GappedCodonSequence
+
+and also
+
+  DNA.GappedNucleotide for DNA.Sequence
+  Protein.GappedAminoAcid for Protein.Sequence
+
+are type safe. This implies that for these symbols we can safely use
+the base abstract class bio.Sequence[T], rather than having a
+specialised class.
+
+Gapped Sequences share traits. One of them is to split the Sequence
+into gapped and non-gapped sections. This functionality goes into
+the RichGappedSequence trait.
+
+

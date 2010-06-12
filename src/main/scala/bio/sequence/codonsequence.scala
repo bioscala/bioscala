@@ -56,7 +56,7 @@ package bio {
         val zipped = aas.zip(codons2)
         zipped.map { z => 
           val (aa,seq3) = z
-          println("*****",aa,seq3)
+          // println("*****",aa,seq3)
           Codon(aa,seq3)
         }
       }

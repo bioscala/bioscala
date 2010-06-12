@@ -61,5 +61,14 @@ package bio.test {
         }.toList
       seqs.head.id.toString should equal ("BAHG_VITSP")
     }
+    // ---- Codons
+    "FastaReader" should "be able to convert NT to CodonSequence" in {
+      val f = new FastaReader("./test/data/fasta/nt.fa")
+      val seqs = f.map { res => 
+        val (id,tag,dna) = res
+        new Protein.CodonSequence(id,tag,dna)
+        }.toList
+      seqs.head.toDNA.take(5).mkString should equal ("aggtt")
+    }
   }
 }
