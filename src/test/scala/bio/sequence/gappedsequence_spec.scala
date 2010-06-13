@@ -21,20 +21,19 @@ package bio.test {
       val s = new GappedSequence("ID456","Gene 456","agctaacg")
       s.description should equal ("Gene 456")
     }
-    /*
-    import bio.Protein._
     "An AA GappedSequence" should "instantiate from a String" in {
-      val s = new GappedSequence("SSI-ISNS---FSRP")
+      val s = new Protein.GappedSequence("SSI-ISNS---FSRP")
       s.toString should equal ("SSI-ISNS---FSRP")
     }
     "An AA GappedSequence" should "instantiate with an ID" in {
-      val s = new GappedSequence("ID456","SSI-ISNS---FSRP")
+      val s = new Protein.GappedSequence("ID456","SSI-ISNS---FSRP")
       s.id should equal ("ID456")
     }
     "An AA GappedSequence" should "instantiate with an ID+Description" in {
-      val s = new GappedSequence("ID456","Gene 456","SSI-ISNS---FSRP")
+      val s = new Protein.GappedSequence("ID456","Gene 456","SSI-ISNS---FSRP")
       s.description should equal ("Gene 456")
     }
+    /*
     "A CodonGappedSequence" should "instantiate from a String" in {
       val s = new GappedSequence("agc---taacgt")
       s.toString should equal ("S-*R")

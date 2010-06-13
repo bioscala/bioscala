@@ -34,4 +34,33 @@ package bio {
       }
     }
   }
+  package Protein {
+
+    sealed abstract class Gap extends AASymbol
+    case object Gap extends Gap {
+      override def toString = "-"
+    }
+
+    object GappedConvert {
+    /** 
+     * Create a Gap object from its character representation.
+     */
+    def fromChar(c: Char): AASymbol = { 
+      c.toLowerCase match {
+        case '-' => Gap
+        case  _  => 
+          AminoAcidConvert.fromChar(c)
+      }
+    }
+    def fromString(s: String): List[AASymbol] = s.toList.map { fromChar(_) }
+    def fromList(list: List[AASymbol]): List[AASymbol] = {
+      list.map { 
+        _ match {
+          case Gap => Gap
+          case  _  => throw new IllegalArgumentException("Unexpected type")
+          }
+        }
+      }
+    }
+  }
 }

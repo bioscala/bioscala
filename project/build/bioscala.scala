@@ -18,6 +18,7 @@ class BioScalaProject(info: ProjectInfo) extends DefaultProject(info)
   override def includeTest(s: String) = { 
     if (user == "wrk") {
       s.indexOf("Sequence")>0 || s.indexOf("Reader")>0 || s.indexOf("Alignment")>0
+      // true
     }
     else
       true
