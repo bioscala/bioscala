@@ -18,10 +18,10 @@ package bio {
       type SequenceType = GappedSequence
       def create(seqlist: List[NTSymbol], attributelist: List[Attribute]) = new GappedSequence(seqlist, attributelist)
 
-      def this(list: List[NTSymbol]) = this(GappedNucleotideConvert.fromList(list),Nil)
-      def this(str: String) = this(GappedNucleotideConvert.fromString(str),Nil)
-      def this(id: String, str: String) = this(GappedNucleotideConvert.fromString(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(GappedNucleotideConvert.fromString(str),List(Id(id),Description(descr)))
+      def this(list: List[NTSymbol]) = this(GappedConvert.fromList(list),Nil)
+      def this(str: String) = this(GappedConvert.fromString(str),Nil)
+      def this(id: String, str: String) = this(GappedConvert.fromString(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(GappedConvert.fromString(str),List(Id(id),Description(descr)))
       def this(sequence: Sequence) = this(sequence.seq, Nil)
 
     }

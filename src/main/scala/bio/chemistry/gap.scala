@@ -5,36 +5,6 @@
 
 package bio {
 
-  package DNA {
-
-    sealed abstract class Gap extends NTSymbol
-    case object Gap extends Gap {
-      override def toString = "-"
-    }
-
-    object GappedNucleotideConvert {
-    /** 
-     * Create a Gap object from its character representation.
-     */
-    def fromChar(c: Char): NTSymbol = { 
-      c.toLowerCase match {
-        case '-' => Gap
-        case  _  => 
-          NucleotideConvert.fromChar(c)
-      }
-    }
-    def fromString(s: String): List[NTSymbol] = s.toList.map { fromChar(_) }
-    def fromList(list: List[NTSymbol]): List[NTSymbol] = {
-      list.map { 
-        _ match {
-          case Gap => Gap
-          case  _  => throw new IllegalArgumentException("Unexpected type")
-          }
-        }
-      }
-    }
-  }
-
   class GappedConvert[T](Gap : T, char_converter: Char => T) {
 
   /** 
@@ -58,6 +28,18 @@ package bio {
       }
     }
   }
+
+  package DNA {
+
+    sealed abstract class Gap extends NTSymbol
+    case object Gap extends Gap {
+      override def toString = "-"
+    }
+
+    object GappedConvert extends bio.GappedConvert[NTSymbol](Gap,
+        NucleotideConvert.fromChar)
+  }
+
   package Protein {
     sealed abstract class Gap extends AASymbol
     case object Gap extends Gap {
