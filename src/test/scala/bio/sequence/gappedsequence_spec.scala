@@ -33,23 +33,21 @@ package bio.test {
       val s = new Protein.GappedSequence("ID456","Gene 456","SSI-ISNS---FSRP")
       s.description should equal ("Gene 456")
     }
-    /*
-    "A CodonGappedSequence" should "instantiate from a String" in {
-      val s = new GappedSequence("agc---taacgt")
+    "A GappedCodonSequence" should "instantiate from a String" in {
+      val s = new Protein.GappedCodonSequence("agc---taacgt")
       s.toString should equal ("S-*R")
     }
-    "A CodonGappedSequence" should "instantiate with an ID" in {
-      val s = new GappedSequence("ID456","agctaacg")
+    "A GappedCodonSequence" should "instantiate with an ID" in {
+      val s = new Protein.GappedCodonSequence("ID456","agctaacg")
       s.id should equal ("ID456")
     }
-    "A CodonGappedSequence" should "instantiate with an ID+Description" in {
-      val s = new GappedSequence("ID456","Gene 456","agctaacg")
+    "A GappedCodonSequence" should "instantiate with an ID+Description" in {
+      val s = new Protein.GappedCodonSequence("ID456","Gene 456","agctaacg")
       s.description should equal ("Gene 456")
     }
-    "A misaligned CodonGappedSequence" should "throw an exception" in {
-      val s = new GappedSequence("agc----taacgt")
+    "A misaligned GappedCodonSequence" should "throw an exception" in {
+      val s = new Protein.GappedCodonSequence("agc----taacgt")
       s.toString should equal ("S-*R")
     }
-    */
   }
 }

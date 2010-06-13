@@ -37,7 +37,7 @@ package bio {
 
     import bio.DNA._
 
-    object DNAtoCodonAA {
+    object DNAtoCodon {
       /* Return the Codons */
       def apply(str: String): List[Codon] = {
         /* Helper method, takes the NT list and splits it into
@@ -75,19 +75,36 @@ package bio {
       type SequenceType = CodonSequence
       def create(seqlist: List[Codon], attributelist: List[Attribute]) = new CodonSequence(seqlist, attributelist)
 
-      def this(str: String) = { this(DNAtoCodonAA(str),Nil) }
-      def this(id: String, str: String) = this( DNAtoCodonAA(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(DNAtoCodonAA(str),List(Id(id),Description(descr)))
+      def this(str: String) = { this(DNAtoCodon(str),Nil) }
+      def this(id: String, str: String) = this( DNAtoCodon(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(DNAtoCodon(str),List(Id(id),Description(descr)))
       def getCodon(n: Int) = seq(n).getCodon
       def toAminoAcid : List[AminoAcid] = seq.map { codon => codon.aa }
       def toDNA: List[DNA.NTSymbol] = seq.map { codon => codon.getCodon }.flatten
       def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACSequence(toDNA)).transcribe.toList
       override def toString : String = toAminoAcid.mkString
-      // /** Delete part of the sequence */
-      // def delete(pos: Int, num: Int) = {
-      //    create(seq.take(pos) ::: seq.takeRight(seq.size-pos-num), attributes)
-      //}
+    } // CodonSequence
 
+    object GappedDNAtoCodon {
+      def apply(str: String): List[Codon] = {
+        Nil
+      }
+      def fromChar(c: Char) : CodonSymbol = CodonGap
+    }
+
+    class GappedCodonSequence(codonlist: List[CodonSymbol], attributelist: List[Attribute]) extends bio.Sequence[CodonSymbol](codonlist, attributelist) {
+
+      type SequenceType = GappedCodonSequence
+      def create(seqlist: List[CodonSymbol], attributelist: List[Attribute]) = new GappedCodonSequence(seqlist, attributelist)
+
+      def this(str: String) = { this(GappedDNAtoCodon(str),Nil) }
+      def this(id: String, str: String) = this( GappedDNAtoCodon(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(GappedDNAtoCodon(str),List(Id(id),Description(descr)))
+      def getCodon(n: Int) = seq(n).getCodon
+      def toAminoAcid : List[AASymbol] = seq.map { codon => codon.getAminoAcid }
+      def toDNA: List[DNA.NTSymbol] = seq.map { codon => codon.getCodon }.flatten
+      def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACSequence(toDNA)).transcribe.toList
+      override def toString : String = toAminoAcid.mkString
     } // CodonSequence
   } // Protein
 } // bio
