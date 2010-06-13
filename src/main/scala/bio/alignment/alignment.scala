@@ -10,12 +10,12 @@ import bio.attribute._
 
 package bio {
 
-  class Alignment(sequencelist: List[GappedSequence], attributelist: List[Attribute]) {
+  class Alignment[T](sequencelist: List[T], attributelist: List[Attribute]) {
     val list = sequencelist
     val attributes = attributelist
 
-    def this(list: List[GappedSequence]) = this(list,Nil)
-    def toList : List[GappedSequence] = list
+    def this(list: List[T]) = this(list,Nil)
+    def toList : List[T] = list
   }
 
 }
