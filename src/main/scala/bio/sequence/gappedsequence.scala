@@ -35,6 +35,28 @@ package bio {
         new RNA.GappedSequence(list)
       }
     }
+    class IUPACGappedSequence (seqlist: List[NTSymbol], attributelist: List[Attribute]) extends bio.Sequence[NTSymbol](seqlist,attributelist) {
+
+      type SequenceType = IUPACGappedSequence
+      def create(seqlist: List[NTSymbol], attributelist: List[Attribute]) = new IUPACGappedSequence(seqlist, attributelist)
+
+      def this(list: List[NTSymbol]) = this(IUPACGappedConvert.fromList(list),Nil)
+      def this(str: String) = this(IUPACGappedConvert.fromString(str),Nil)
+      def this(id: String, str: String) = this(IUPACGappedConvert.fromString(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(IUPACGappedConvert.fromString(str),List(Id(id),Description(descr)))
+      def this(sequence: Sequence) = this(sequence.seq, Nil)
+
+      def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
+
+      /**
+       * @return transcribed DNA.Sequence as RNA.Sequence
+       */
+      def transcribe = { 
+        val transcribed = SymbolSequenceTranscription.transcribe(seq) 
+        val list = RNA.SymbolConvert.fromList(transcribed)
+        new RNA.GappedSequence(list)
+      }
+    }
   }
   package RNA {
     class GappedSequence (seqlist: List[NTSymbol], attributelist: List[Attribute]) extends bio.Sequence[NTSymbol](seqlist,attributelist) {

@@ -91,9 +91,10 @@ checking for IUPAC.
 
 bio.Sequence[T] is the abstract base class for all Sequences.
 DNA.Sequence supports Nucleotide - so only AGCT values.
-DNA.IPACSequence supports IUPAC. And IUPACGappedSequence adds gaps.
+DNA.IPACSequence supports IUPAC. And IUPACGappedSequence adds gaps. 
 The design is similar for RNA and Protein sequences. Protein contains
-support for Amino Acid and Codon type Sequences.
+support for Amino Acid and Codon type Sequences. CodonSequence
+supports the widest definition of a Sequence (IUPAC and Gaps).
 
 Support for translation etc. is mixed into the Sequence types.
 

@@ -91,18 +91,12 @@ package bio {
           case 'c' => C
           case 'g' => G
           case 't' => T
+          case 'n' => N
+          case '-' => Gap
           case  _  => throw new IllegalArgumentException("Unexpected value for nucleotide "+c)
         }
       }
-      def fromItem(i: NTSymbol): NTSymbol = {
-        i match {
-          case A => A
-          case C => C
-          case G => G
-          case T => T 
-          case  _  => throw new IllegalArgumentException("Can not construct DNA from unknown "+i+" type (should be DNA) "+i.getClass.getName)
-        }
-      }
+      def fromItem(i: NTSymbol): NTSymbol = i
     } // NucleotideConvert
 
   } // DNA
@@ -169,18 +163,12 @@ package bio {
           case 'c' => C
           case 'g' => G
           case 'u' => U 
+          case 'n' => N
+          case '-' => Gap
           case  _  => throw new IllegalArgumentException("Unexpected value for nucleotide "+c)
         }
       }
-      def fromItem(i: NTSymbol): NTSymbol = {
-        i match {
-          case A => A
-          case C => C
-          case G => G
-          case U => U
-          case  _  => throw new IllegalArgumentException("Can not construct DNA from unknown "+i+" type (should be RNA) "+i.getClass.getName)
-        }
-      }
+      def fromItem(i: NTSymbol): NTSymbol = i
     } // NucleotideConvert
 
   } // RNA

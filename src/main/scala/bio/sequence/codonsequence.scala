@@ -27,8 +27,8 @@ package bio {
       }
     }
     object ToGappedSequence {
-      def apply(str: String): GappedSequence = {
-        new GappedSequence(ToGappedDNA(str))
+      def apply(str: String): IUPACGappedSequence = {
+        new IUPACGappedSequence(ToGappedDNA(str))
       }
     }
   } // DNA
