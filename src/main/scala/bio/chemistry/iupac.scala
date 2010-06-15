@@ -47,7 +47,7 @@ package bio {
     case object B extends IUPAC { override def toString = "b" }
     case object N extends IUPAC { override def toString = "n" }
 
-    object IUPACNucleotideConvert {
+    object IUPACNucleotideConvert extends StringConverter[NTSymbol] {
       /** 
        * Create a IUPAC object from its character representation.
        */
@@ -70,31 +70,28 @@ package bio {
             NucleotideConvert.fromChar(c)
         }
       }
-      def fromString(s: String): List[NTSymbol] = s.toList.map { fromChar(_) }
-      def fromList(list: List[NTSymbol]): List[NTSymbol] = {
-        list.map { nt =>
-          nt match {
-            case A => A
-            case C => C
-            case G => G
-            case T => T 
-            case M => M
-            case R => R
-            case W => W
-            case S => S
-            case Y => Y
-            case K => K
-            case V => V
-            case H => H
-            case D => D
-            case B => B
-            case N => N
-            case  _  => throw new IllegalArgumentException("Unexpected type "+nt+" type "+nt.getClass.getName)
-            }
+      def fromItem(i: NTSymbol): NTSymbol = {
+        i match {
+          case A => A
+          case C => C
+          case G => G
+          case T => T 
+          case M => M
+          case R => R
+          case W => W
+          case S => S
+          case Y => Y
+          case K => K
+          case V => V
+          case H => H
+          case D => D
+          case B => B
+          case N => N
+          case  _  => throw new IllegalArgumentException("Unexpected type "+i+" type "+i.getClass.getName)
         }
       }
-    }
-  }
+    } // Converter
+  } // DNA
   package RNA {
     sealed abstract class IUPAC extends NTSymbol
     case object M extends IUPAC { override def toString = "m" }
@@ -109,7 +106,7 @@ package bio {
     case object B extends IUPAC { override def toString = "b" }
     case object N extends IUPAC { override def toString = "n" }
 
-    object IUPACNucleotideConvert {
+    object IUPACNucleotideConvert extends StringConverter[NTSymbol] {
       /** 
        * Create a IUPAC object from its character representation.
        */
@@ -132,29 +129,26 @@ package bio {
             NucleotideConvert.fromChar(c)
         }
       }
-      def fromString(s: String): List[NTSymbol] = s.toList.map { fromChar(_) }
-      def fromList(list: List[NTSymbol]): List[NTSymbol] = {
-        list.map { nt =>
-          nt match {
-            case A => A
-            case C => C
-            case G => G
-            case U => U
-            case M => M
-            case R => R
-            case W => W
-            case S => S
-            case Y => Y
-            case K => K
-            case V => V
-            case H => H
-            case D => D
-            case B => B
-            case N => N
-            case  _  => throw new IllegalArgumentException("Unexpected type "+nt+" type "+nt.getClass.getName)
-            }
-          }
+      def fromItem(i: NTSymbol): NTSymbol = {
+        i match {
+          case A => A
+          case C => C
+          case G => G
+          case U => U
+          case M => M
+          case R => R
+          case W => W
+          case S => S
+          case Y => Y
+          case K => K
+          case V => V
+          case H => H
+          case D => D
+          case B => B
+          case N => N
+          case  _  => throw new IllegalArgumentException("Unexpected type "+i+" type "+i.getClass.getName)
         }
-    }
-  }
-}
+      }
+    }  // IPACNucleotideConverter
+  } // RNA
+} // bio

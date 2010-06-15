@@ -126,7 +126,7 @@ package bio {
       val fullname="Stop"
       override def toString = "*"
     }
-    object AminoAcidConvert {
+    object AminoAcidConvert extends StringConverter[AminoAcid] {
       /** 
        * AminoAcid factory: create a AminoAcid object from its
        * character representation. For example:
@@ -163,34 +163,31 @@ package bio {
           case  _  => throw new IllegalArgumentException("Unexpected value for AminoAcid "+c)
         }
       }
-      def fromString(s: String): List[AminoAcid] = s.toList.map { fromChar(_) }
-      def fromList(list: List[AminoAcid]): List[AminoAcid] = {
-        list.map { c =>
-          c match {
-            case R => R
-            case H => H
-            case K => K
-            case D => D
-            case E => E
-            case S => S
-            case T => T
-            case N => N
-            case Q => Q
-            case C => C
-            case U => U
-            case G => G
-            case P => P
-            case A => A
-            case I => I
-            case L => L
-            case M => M
-            case F => F
-            case W => W
-            case Y => Y
-            case V => V
-            case * => *
-            case  _  => throw new IllegalArgumentException("Can not construct AminoAcid from unknown "+c+" type (should be AminoAcid) "+c.getClass.getName)
-             }
+      def fromItem(i: AminoAcid): AminoAcid = {
+        i match {
+          case R => R
+          case H => H
+          case K => K
+          case D => D
+          case E => E
+          case S => S
+          case T => T
+          case N => N
+          case Q => Q
+          case C => C
+          case U => U
+          case G => G
+          case P => P
+          case A => A
+          case I => I
+          case L => L
+          case M => M
+          case F => F
+          case W => W
+          case Y => Y
+          case V => V
+          case * => *
+          case  _  => throw new IllegalArgumentException("Can not construct AminoAcid from unknown "+i+" type (should be AminoAcid) "+i.getClass.getName)
         }
       }
     }
@@ -210,7 +207,7 @@ package bio {
       val fullname="Any amino acid"
     }
 
-    object IUPACAminoAcidConvert {
+    object IUPACAminoAcidConvert extends StringConverter[AminoAcid] {
       /** 
        * Create a IUPAC object from its character representation.
        */
@@ -224,17 +221,14 @@ package bio {
             AminoAcidConvert.fromChar(c)
         }
       }
-      def fromString(s: String): List[AminoAcid] = s.toList.map { fromChar(_) }
-      def fromList(list: List[AminoAcid]): List[AminoAcid] = {
-        list.map { aa =>
-          aa match {
-            case B => B
-            case Z => Z
-            case X => X
-            case  _  => throw new IllegalArgumentException("Unexpected type "+aa+" type "+aa.getClass.getName)
-            }
-          }
+      def fromItem(i: AminoAcid): AminoAcid = {
+        i match {
+          case B => B
+          case Z => Z
+          case X => X
+          case  _  => throw new IllegalArgumentException("Unexpected type "+i+" type "+i.getClass.getName)
         }
+      }
     }
   }
 }

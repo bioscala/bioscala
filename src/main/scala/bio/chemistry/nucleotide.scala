@@ -45,7 +45,7 @@ package bio {
       override def toString() = "c"
     }
 
-    object NucleotideConvert {
+    object NucleotideConvert extends StringConverter[Nucleotide] {
       /** 
        * Nucleotide factory: create a Nucleotide object from its
        * character representation. For example:
@@ -64,20 +64,48 @@ package bio {
           case  _  => throw new IllegalArgumentException("Unexpected value for nucleotide "+c)
         }
       }
-      def fromString(s: String): List[Nucleotide] = s.toList.map { fromChar(_) }
-      def fromList(list: List[NTSymbol]): List[Nucleotide] = {
-        list.map { c =>
-          c match {
-            case A => A
-            case C => C
-            case G => G
-            case T => T 
-            case  _  => throw new IllegalArgumentException("Can not construct DNA from unknown "+c+" type (should be DNA) "+c.getClass.getName)
-             }
+      def fromItem(i: Nucleotide): Nucleotide = {
+        i match {
+          case A => A
+          case C => C
+          case G => G
+          case T => T 
+          case  _  => throw new IllegalArgumentException("Can not construct DNA from unknown "+i+" type (should be DNA) "+i.getClass.getName)
         }
       }
-    }
-  }
+    } // NucleotideConvert
+
+    object NTSymbolConvert extends StringConverter[NTSymbol] {
+      /** 
+       * Nucleotide factory: create a Nucleotide object from its
+       * character representation. For example:
+       *
+       * <pre>
+       *   import bio.DNA._
+       *   val nt = NucleotideConvert.fromChar('a')
+       * </pre>
+       */
+      def fromChar(c: Char): NTSymbol = { 
+        c.toLowerCase match {
+          case 'a' => A
+          case 'c' => C
+          case 'g' => G
+          case 't' => T
+          case  _  => throw new IllegalArgumentException("Unexpected value for nucleotide "+c)
+        }
+      }
+      def fromItem(i: NTSymbol): NTSymbol = {
+        i match {
+          case A => A
+          case C => C
+          case G => G
+          case T => T 
+          case  _  => throw new IllegalArgumentException("Can not construct DNA from unknown "+i+" type (should be DNA) "+i.getClass.getName)
+        }
+      }
+    } // NucleotideConvert
+
+  } // DNA
 
   package RNA {
     abstract class NTSymbol extends Symbol
@@ -96,7 +124,7 @@ package bio {
       override def toString() = "c"
     }
 
-    object NucleotideConvert {
+    object NucleotideConvert extends StringConverter[Nucleotide] {
       /** 
        * Nucleotide factory: create a Nucleotide object from its
        * character representation. For example:
@@ -115,19 +143,45 @@ package bio {
           case  _  => throw new IllegalArgumentException("Unexpected value for nucleotide "+c)
         }
       }
-      def fromString(s: String): List[Nucleotide] = s.toList.map { fromChar(_) }
-      def fromList(list: List[NTSymbol]): List[Nucleotide] = {
-        list.map { 
-          _ match {
-            case A => A
-            case C => C
-            case G => G
-            case U => U
-            case  _  => throw new IllegalArgumentException("Can not construct RNA from DNA")
-            }
+      def fromItem(i: Nucleotide): Nucleotide = {
+        i match {
+          case A => A
+          case C => C
+          case G => G
+          case U => U
+          case  _  => throw new IllegalArgumentException("Can not construct DNA from unknown "+i+" type (should be DNA) "+i.getClass.getName)
         }
       }
-    }
-  }
+    } // NucleotideConvert
+    object NTSymbolConvert extends StringConverter[NTSymbol] {
+      /** 
+       * Nucleotide factory: create a Nucleotide object from its
+       * character representation. For example:
+       *
+       * <pre>
+       *   import bio.DNA._
+       *   val nt = NucleotideConvert.fromChar('a')
+       * </pre>
+       */
+      def fromChar(c: Char): NTSymbol = { 
+        c.toLowerCase match {
+          case 'a' => A
+          case 'c' => C
+          case 'g' => G
+          case 'u' => U 
+          case  _  => throw new IllegalArgumentException("Unexpected value for nucleotide "+c)
+        }
+      }
+      def fromItem(i: NTSymbol): NTSymbol = {
+        i match {
+          case A => A
+          case C => C
+          case G => G
+          case U => U
+          case  _  => throw new IllegalArgumentException("Can not construct DNA from unknown "+i+" type (should be RNA) "+i.getClass.getName)
+        }
+      }
+    } // NucleotideConvert
 
-}
+  } // RNA
+} // bio

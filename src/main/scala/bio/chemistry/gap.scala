@@ -5,26 +5,22 @@
 
 package bio {
 
-  class GappedConvert[T](Gap : T, char_converter: Char => T) {
-
-  /** 
-   * Create a Gap object from its character representation.
-   */
-  def fromChar(c: Char): T = { 
-    c.toLowerCase match {
-      case '-' => Gap
-      case  _  => 
-        // Protein.AminoAcidConvert.fromChar(c)
-        char_converter(c)
+  class GappedConvert[T](Gap : T, base : StringConverter[T]) extends StringConverter[T] {
+    /** 
+     * Create a Gap object from its character representation.
+     */
+    def fromChar(c: Char): T = { 
+      c.toLowerCase match {
+        case '-' => Gap
+        case  _  => 
+          base.fromChar(c)
+      }
     }
-  }
-  def fromString(s: String): List[T] = s.toList.map { fromChar(_) }
-  def fromList(list: List[T]): List[T] = {
-    list.map { 
-      _ match {
+    def fromItem(i: T): T = {
+      i match {
         case Gap => Gap
-        case  _  => throw new IllegalArgumentException("Unexpected type")
-        }
+        case  _  => 
+          base.fromItem(i)
       }
     }
   }
@@ -37,7 +33,17 @@ package bio {
     }
 
     object GappedConvert extends bio.GappedConvert[NTSymbol](Gap,
-        NucleotideConvert.fromChar)
+        NucleotideConvert)
+
+    object IUPACGappedConvert extends bio.GappedConvert[NTSymbol](Gap,
+        IUPACNucleotideConvert)
+  }
+
+  package RNA { 
+    sealed abstract class Gap extends NTSymbol
+    case object Gap extends Gap {
+      override def toString = "-"
+    }
   }
 
   package Protein {
@@ -47,6 +53,8 @@ package bio {
     }
 
     object GappedConvert extends bio.GappedConvert[AASymbol](Gap,
-        AminoAcidConvert.fromChar)
+        AminoAcidConvert)
+    object IUPACGappedConvert extends bio.GappedConvert[AASymbol](Gap,
+        IUPACAminoAcidConvert)
   }
 }

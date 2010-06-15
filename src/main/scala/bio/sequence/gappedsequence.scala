@@ -24,6 +24,15 @@ package bio {
       def this(id: String, descr: String, str: String) = this(GappedConvert.fromString(str),List(Id(id),Description(descr)))
       def this(sequence: Sequence) = this(sequence.seq, Nil)
 
+      def translate() = { SequenceTranslation.translate(transcribe seq) }
+
+      /**
+       * @return transcribed DNA.Sequence as RNA.Sequence
+       */
+      def transcribe = { 
+        val transcribed = SequenceTranscription.transcribe(seq) 
+        new RNA.Sequence(RNA.NTSymbolConvert.fromList(transcribed))
+      }
     }
   }
   package Protein {

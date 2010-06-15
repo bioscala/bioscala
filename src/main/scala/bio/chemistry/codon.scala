@@ -30,8 +30,8 @@ package bio {
       val getCodon = codon
     }
 
-    object GappedCodonConvert extends bio.GappedConvert[CodonSymbol](CodonGap,
-      GappedDNAtoCodon.fromChar)
+    // object GappedCodonConvert extends bio.GappedConvert[CodonSymbol](CodonGap,
+    //   GappedDNAtoCodon.fromChar)
   }
 
 } // bio

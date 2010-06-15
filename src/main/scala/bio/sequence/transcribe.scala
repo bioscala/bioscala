@@ -35,6 +35,7 @@ package bio {
             case D => RNA.D
             case B => RNA.B
             case N => RNA.N
+            case Gap => RNA.Gap
             case  _  => throw new IllegalArgumentException("non DNA nucleotide "+nt+" type "+nt.getClass.getName)
           }
         }
