@@ -87,8 +87,18 @@ Reading files in RAM is a big NO, in this age of Big Data.
 BioScala has several nucleotide classes which support data that is
 pure (AGCT only), gapped (adds '-'), or has ambigous data like IUPAC.
 If you use DNA.IUPACSequence over DNA.Sequence, you'll get type
-checking for IUPAC. The current implementation is Inheritance based -
-mixed traits will be an improvement.
+checking for IUPAC. 
+
+bio.Sequence[T] is the abstract base class for all Sequences.
+DNA.Sequence supports Nucleotide - so only AGCT values.
+DNA.IPACSequence supports IUPAC. And the IPACGappedSequence add gaps.
+The design is similar for RNA and Protein sequences. Protein contains
+support for Amino Acid and Codon type Sequences.
+
+Support for translation etc. is mixed into the Sequence types.
+
+The current implementation is somewhat inheritance based - mixed
+traits may be a later improvement.
 
 == Alignment ==
 
