@@ -207,13 +207,29 @@ package bio {
       val fullname="Any amino acid"
     }
 
+    object SymbolConvert extends StringConverter[AASymbol] {
+      def fromChar(c: Char): AASymbol = { 
+        c.toUpperCase match {
+          // case '-' => EmptyIUPAC
+          case '-' => Gap
+          case  _  => 
+            AminoAcidConvert.fromChar(c)
+        }
+      }
+      def fromItem(i: AASymbol): AASymbol = {
+        i match {
+          case Gap => Gap
+          case  _  => throw new IllegalArgumentException("Unexpected type "+i+" type "+i.getClass.getName)
+        }
+      }
+    }
+
     object IUPACAminoAcidConvert extends StringConverter[AminoAcid] {
       /** 
        * Create a IUPAC object from its character representation.
        */
       def fromChar(c: Char): AminoAcid = { 
         c.toUpperCase match {
-          // case '-' => EmptyIUPAC
           case 'B' => B
           case 'Z' => Z
           case 'X' => X
@@ -223,9 +239,33 @@ package bio {
       }
       def fromItem(i: AminoAcid): AminoAcid = {
         i match {
-          case B => B
-          case Z => Z
-          case X => X
+          case B   => B
+          case Z   => Z
+          case X   => X
+          case  _  => throw new IllegalArgumentException("Unexpected type "+i+" type "+i.getClass.getName)
+        }
+      }
+    }
+    object IUPACGappedAminoAcidConvert extends StringConverter[AASymbol] {
+      /** 
+       * Create a IUPAC object from its character representation.
+       */
+      def fromChar(c: Char): AASymbol = { 
+        c.toUpperCase match {
+          case '-' => Gap
+          case 'B' => B
+          case 'Z' => Z
+          case 'X' => X
+          case  _  => 
+            AminoAcidConvert.fromChar(c)
+        }
+      }
+      def fromItem(i: AASymbol): AASymbol = {
+        i match {
+          case Gap => Gap
+          case B   => B
+          case Z   => Z
+          case X   => X
           case  _  => throw new IllegalArgumentException("Unexpected type "+i+" type "+i.getClass.getName)
         }
       }

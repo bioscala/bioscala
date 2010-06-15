@@ -1,5 +1,5 @@
 /**
- * Sequence transcription. Delegated by the Sequence object.
+ * Sequence transcription and complement. Delegated by the Sequence object.
  * Note we take a functional approach (no reference to self).
  */
 
@@ -12,6 +12,47 @@ package bio {
   package DNA {
 
     object SequenceTranscription {
+      /**
+       * Convert DNA to RNA - replacing DNA.T with RNA.U. The 5'-3' order
+       * is maintained
+       */
+      def toRNA(nucleotides: List[Nucleotide]): List[RNA.Nucleotide] = {
+        nucleotides.map { nt =>
+          nt match {
+            case A => RNA.A
+            case C => RNA.C
+            case G => RNA.G
+            case T => RNA.U
+            case  _  => throw new IllegalArgumentException("non DNA nucleotide "+nt+" type "+nt.getClass.getName)
+          }
+        }
+      }
+      /**
+       * Transcribe DNA to RNA, the 5'-3' order is maintained (unlike BioJAVA)
+       */
+      def transcribe(nucleotides: List[Nucleotide]): List[RNA.Nucleotide] = toRNA(nucleotides)
+
+      /** 
+       * Complement nucleotides - note: no support for Ambiguous symbols.
+       */
+      def complement(nucleotides: List[Nucleotide]): List[Nucleotide] = {
+        nucleotides.map { nt =>
+          nt match {
+              case A => T
+              case T => A
+              case C => G
+              case G => C
+              case  _  => throw new IllegalArgumentException("non DNA nucleotide "+nt+" type "+nt.getClass.getName)
+          }
+        }
+      }
+    }
+
+    object SymbolSequenceTranscription {
+      /**
+       * Convert DNA to RNA - replacing DNA.T with RNA.U. The 5'-3' order
+       * is maintained
+       */
       /**
        * Convert DNA to RNA - replacing DNA.T with RNA.U. The 5'-3' order
        * is maintained
@@ -43,10 +84,11 @@ package bio {
       /**
        * Transcribe DNA to RNA, the 5'-3' order is maintained (unlike BioJAVA)
        */
-      // def transcribe(nucleotides: List[Nucleotide]): List[Nucleotide] = toRNA(nucleotides)
       def transcribe(nucleotides: List[NTSymbol]): List[RNA.NTSymbol] = toRNA(nucleotides)
-
-      def complement(nucleotides: List[Nucleotide]) = {
+      /** 
+       * Complement nucleotides - note: no support for Ambiguous symbols.
+       */
+      def complement(nucleotides: List[NTSymbol]): List[NTSymbol] = {
         nucleotides.map { nt =>
           nt match {
               case A => T

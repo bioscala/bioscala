@@ -75,7 +75,7 @@ package bio {
       }
     } // NucleotideConvert
 
-    object NTSymbolConvert extends StringConverter[NTSymbol] {
+    object SymbolConvert extends StringConverter[NTSymbol] {
       /** 
        * Nucleotide factory: create a Nucleotide object from its
        * character representation. For example:
@@ -153,7 +153,7 @@ package bio {
         }
       }
     } // NucleotideConvert
-    object NTSymbolConvert extends StringConverter[NTSymbol] {
+    object SymbolConvert extends StringConverter[NTSymbol] {
       /** 
        * Nucleotide factory: create a Nucleotide object from its
        * character representation. For example:

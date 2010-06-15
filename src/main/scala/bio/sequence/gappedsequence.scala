@@ -24,17 +24,39 @@ package bio {
       def this(id: String, descr: String, str: String) = this(GappedConvert.fromString(str),List(Id(id),Description(descr)))
       def this(sequence: Sequence) = this(sequence.seq, Nil)
 
-      def translate() = { SequenceTranslation.translate(transcribe seq) }
+      def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
 
       /**
        * @return transcribed DNA.Sequence as RNA.Sequence
        */
       def transcribe = { 
-        val transcribed = SequenceTranscription.transcribe(seq) 
-        new RNA.Sequence(RNA.NTSymbolConvert.fromList(transcribed))
+        val transcribed = SymbolSequenceTranscription.transcribe(seq) 
+        val list = RNA.SymbolConvert.fromList(transcribed)
+        new RNA.GappedSequence(list)
       }
     }
   }
+  package RNA {
+    class GappedSequence (seqlist: List[NTSymbol], attributelist: List[Attribute]) extends bio.Sequence[NTSymbol](seqlist,attributelist) {
+
+      type SequenceType = GappedSequence
+      def create(seqlist: List[NTSymbol], attributelist: List[Attribute]) = new GappedSequence(seqlist, attributelist)
+
+      def this(list: List[NTSymbol]) = this(GappedConvert.fromList(list),Nil)
+      def this(str: String) = this(GappedConvert.fromString(str),Nil)
+      def this(id: String, str: String) = this(GappedConvert.fromString(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(GappedConvert.fromString(str),List(Id(id),Description(descr)))
+      def this(sequence: Sequence) = this(sequence.seq, Nil)
+
+      def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
+
+      /**
+       * @return itself (source is immutable)
+       */
+      def transcribe = { this }
+
+    }
+  } // RNA
   package Protein {
     class GappedSequence (seqlist: List[AASymbol], attributelist: List[Attribute]) extends bio.Sequence[AASymbol](seqlist,attributelist) {
 

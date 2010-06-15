@@ -33,7 +33,7 @@ package bio {
     }
 
     object GappedConvert extends bio.GappedConvert[NTSymbol](Gap,
-        NucleotideConvert)
+        SymbolConvert)
 
     object IUPACGappedConvert extends bio.GappedConvert[NTSymbol](Gap,
         IUPACNucleotideConvert)
@@ -44,6 +44,11 @@ package bio {
     case object Gap extends Gap {
       override def toString = "-"
     }
+    object GappedConvert extends bio.GappedConvert[NTSymbol](Gap,
+        SymbolConvert)
+
+    object IUPACGappedConvert extends bio.GappedConvert[NTSymbol](Gap,
+        IUPACNucleotideConvert)
   }
 
   package Protein {
@@ -53,8 +58,8 @@ package bio {
     }
 
     object GappedConvert extends bio.GappedConvert[AASymbol](Gap,
-        AminoAcidConvert)
+        SymbolConvert)
     object IUPACGappedConvert extends bio.GappedConvert[AASymbol](Gap,
-        IUPACAminoAcidConvert)
+        IUPACGappedAminoAcidConvert)
   }
 }

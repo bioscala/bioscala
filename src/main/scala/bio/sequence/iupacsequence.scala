@@ -44,7 +44,7 @@ package bio {
        * @return transcribed DNA.Sequence as RNA.Sequence
        */
       def transcribe = { 
-        val transcribed = SequenceTranscription.transcribe(seq) 
+        val transcribed = SymbolSequenceTranscription.transcribe(seq) 
         new RNA.IUPACSequence(transcribed)
       }
    
@@ -84,6 +84,17 @@ package bio {
       def this(str: String) = this(IUPACAminoAcidConvert.fromString(str),Nil)
       def this(id: String, str: String) = this(IUPACAminoAcidConvert.fromString(str), List(Id(id)))
       def this(id: String, descr: String, str: String) = this(IUPACAminoAcidConvert.fromString(str),List(Id(id),Description(descr)))
+      def this(sequence: Sequence) = this(sequence.seq, Nil)
+    }
+
+    class IUPACGappedSequence (seqlist: List[AASymbol], attributelist: List[Attribute]) extends bio.Sequence[AASymbol](seqlist,attributelist) {
+      type SequenceType = IUPACGappedSequence
+      def create(seqlist: List[AASymbol], attributelist: List[Attribute]) = new IUPACGappedSequence(seqlist, attributelist)
+
+      def this(list: List[AASymbol]) = this(IUPACGappedAminoAcidConvert.fromList(list),Nil)
+      def this(str: String) = this(IUPACGappedAminoAcidConvert.fromString(str),Nil)
+      def this(id: String, str: String) = this(IUPACGappedAminoAcidConvert.fromString(str), List(Id(id)))
+      def this(id: String, descr: String, str: String) = this(IUPACGappedAminoAcidConvert.fromString(str),List(Id(id),Description(descr)))
       def this(sequence: Sequence) = this(sequence.seq, Nil)
     }
   }

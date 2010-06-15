@@ -22,6 +22,9 @@ import bio.attribute._
 package bio {
 
   package DNA {
+    /** 
+     * A DNA Sequence contains a List of Nucleotide.
+     */
     class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
       type SequenceType = Sequence
       def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
@@ -39,7 +42,8 @@ package bio {
        */
       def transcribe = { 
         val transcribed = SequenceTranscription.transcribe(seq) 
-        new RNA.Sequence(RNA.NTSymbolConvert.fromList(transcribed))
+        val list = RNA.NucleotideConvert.fromList(transcribed)
+        new RNA.Sequence(list)
       }
       /**
        * @return complementary DNA.Sequence
@@ -55,13 +59,13 @@ package bio {
       def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
 
       def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
+      // def this(list: List[NTSymbol]) = this(NucleotideConvert.fromList(list),Nil)
       def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
       def this(sequence: Sequence) = this(sequence.seq, Nil)
       def this(id: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id)))
       def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str),List(Id(id),Description(descr)))
 
-      def translate() = { SequenceTranslation.translate(
-                            transcribe seq) }
+      def translate() = { SequenceTranslation.translate(transcribe seq) }
 
       /**
        * @return itself (source is immutable)
