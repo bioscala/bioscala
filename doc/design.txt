@@ -35,7 +35,12 @@ nucleotide, and returns a fresh transcribed list of nucleotides.
 
 For convenience we add a transcribe method to Sequence, which
 delegates to the new function. Someone may wish to say
-'seq.transcribe' - it should return a new transcribed Sequence.
+'seq.transcribe' - it should return a new transcribed Sequence. At
+least, when there is a reason to, for example a deeper copy happens
+of, for example, attributes. The rule is:
+
+  A function should return the minimum complexity of objects (without
+  losing information)
 
 The main difference with a traditional OOP delegator pattern, like you
 would write in Ruby or JAVA, is that the list of nucleotides get
