@@ -20,11 +20,11 @@ package bio {
      * unlike the EMBOSS version, which will even translate 
      * a partial codon, when possible.
      */
-    def translate(nucleotides: List[T]): List[Protein.AminoAcid] = {
+    def translate(nucleotides: List[T]): List[Protein.AASymbol] = {
       val remove = nucleotides.size % 3
       val rna = RNATools.createRNA(nucleotides.dropRight(remove).mkString);
       val aa = RNATools.translate(rna);
-      Protein.IUPACAminoAcidConvert.fromString(aa.seqString)
+      Protein.IUPACGappedConvert.fromString(aa.seqString)
     }
   }
 

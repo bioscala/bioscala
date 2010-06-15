@@ -62,8 +62,8 @@ package bio {
           val (aa,seq3) = z
           // println(seq3)
           seq3 match {
-            // case List('-','-','-') => CodonGap
-            case _           => Codon(aa,seq3)
+            // case List(DNA.Gap,DNA.Gap,DNA.Gap) => CodonGap
+            case _                 => Codon(aa,seq3)
           }
         }
       }

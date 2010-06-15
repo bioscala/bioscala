@@ -20,18 +20,16 @@ package bio {
       override def toString = "-"
     }
 
-    /** The Codon stores an (ambiguous) AminoAcid with the matching
-     *  DNA sequence (also ambiguous). Note that this is the most
-     *  open implementation with the purpose of storing codons and
-     *  their amino acids in matching alignments.
+    /** 
+     *  The Codon stores an (ambiguous) AminoAcid with the matching DNA
+     *  sequence (also ambiguous, and including gaps). Note that this is the
+     *  most open implementation with the purpose of storing codons and their
+     *  amino acids in matching alignments.
      */
     case class Codon(val aa: AminoAcid, val codon: List[DNA.NTSymbol]) extends CodonSymbol {
       val getAminoAcid = aa
       val getCodon = codon
     }
-
-    // object GappedCodonConvert extends bio.GappedConvert[CodonSymbol](CodonGap,
-    //   GappedDNAtoCodon.fromChar)
   }
 
 } // bio
