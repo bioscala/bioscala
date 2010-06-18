@@ -137,4 +137,100 @@ Gapped Sequences share traits. One of them is to split the Sequence
 into gapped and non-gapped sections. This functionality goes into
 the RichGappedSequence trait.
 
+== Generic functions ==
+
+To enforce type safety we end up with different lists of Symbols
+having a similar meaning. For example Protein.Gap and Nucleotide.Gap
+are really different alignment spacing objects.
+
+We could create different implementations for each type, to ensure
+type safety. Still the whole point of writing functional code is to
+write code once. So how do we do it with Scala?
+
+Let's say we want to split a Sequence into gapped and non-gapped
+sections. We want to write something like:
+
+    def sections(seq: List[Symbol], gap: Symbol): List[List[Symbol]] = {
+      def isMatch(inGapped: Boolean, c: Symbol) = {
+        if (inGapped) 
+          c == gap
+        else
+          c != gap
+      }
+      val isGap = (seq(0) == gap)
+      val s = seq.takeWhile{ isMatch(isGap,_) }
+      val tail = seq.takeRight(seq.length - s.length)
+      tail match {
+        case Nil => s :: Nil
+        case _   => s :: sections(tail, gap)
+      }
+    }
+
+the problem is - what type is gap? As it is an object we can pass it
+in from the start:
+
+  sections(seq, gap) ...
+
+which would work fine. However, we may not want to make this exception
+every time.
+
+In many cases I have seen a solution which gives the object a query
+method, like isGap? So a that Gap symbol returns True, and a non-gap
+returns False. This is an often seen OOP solution. The main issue I
+have with it is that object become unneccessarily 'rich'. Besides,
+why should an Amino Acid object care whether it is a gap (or not)?
+
+Similarly 'properties' are added, like isGap (true or false). This is
+seen in non-OOP languages, like in the EMBOSS C code. This way you
+end up with a long list of (sometimes conflicting!) properties.
+
+Dynamic languages, like Python and Ruby, but in this case also Java,
+allow for querying the name of the object's class. Thus, one can
+check whether it is a gap, or not, by quering the name of the object.
+This is nicer - and one reason you get more compact class libraries
+with Ruby. In the same vein you could use method_missing? to query for
+an isGap? method, in Ruby. Saving sprinkling Gap knowlegde over the
+object hierarchy.
+
+For me, being new to Scala, I confront myself with this issue. Apart
+from passing in the Gap object, Scala allows the OOP solution (a
+method, or property for every object), and we can query the class name
+(Java style). My gut says there should be a better way.
+
+The solution is a class using generics, and som lower bound typing on
+functions. I blogged about the different options, starting at
+http://blog.thebird.nl/?p=37. 
+
+The final solution reads something like
+
+    class Splitter[T] {
+      def section(seq: List[T]): List[List[T]] = {
+        def isGapType[Q >: T](c : Q) = (c == DNA.Gap || c == Protein.Gap)
+        def isMatch(c : T) = { if (isGapType(seq(0))) isGapType(c) else !isGapType(c) }
+        val (s, tail) = seq.span{ isMatch }
+        tail match {
+          case Nil => s :: Nil
+          case _   => s :: section(tail)
+        }
+      }
+    }
+
+with the matching Specification:
+
+    "section" should "split on Nucleotide" in {
+      new Splitter[Nucleotide].section(List(A,G,Gap,Gap,C,T,Gap,T)) should equal (List(List(A,G),List(Gap,Gap),List(C,T),List(Gap),List(T)))
+    }
+
+Basically we can write the function once, so its implementation gets
+shared between different types - in a type safe way. We can even hide
+the type specification by adding in the bio.DNA and bio.Protein packages:
+
+    type UseSymbol = Nucleotide
+    object MySplitter extends Splitter8[UseSymbol]
+
+and
+
+    "section" should "split on Nucleotide" in {
+      MySplitter.section(List(A,G,Gap,Gap,C,T,Gap,T)) should equal (List(List(A,G),List(Gap,Gap),List(C,T),List(Gap),List(T)))
+    }
 

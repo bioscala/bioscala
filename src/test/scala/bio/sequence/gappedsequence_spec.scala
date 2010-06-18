@@ -45,7 +45,7 @@ package bio.test {
       val s = new Protein.GappedCodonSequence("ID456","Gene 456","agctaacg")
       s.description should equal ("Gene 456")
     }
-    "A misaligned GappedCodonSequence" should "throw an exception" in {
+    "A misaligned GappedCodonSequence" should "do something" in {
       val s = new Protein.GappedCodonSequence("agc----taacgt")
       s.toString should equal ("S--T")
     }
