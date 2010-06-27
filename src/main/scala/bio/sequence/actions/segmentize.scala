@@ -8,12 +8,12 @@ import bio._
 
 package bio {
 
-  trait SegmentizeGappedSequence[T] {
+  class SegmentizeGappedSequence[T](val gap : T) {
     /** 
      * Split a sequence into gapped/non-gapped segments
      */
     def split(seq: List[T]): List[List[T]] = {
-      def isGapType[Q >: T](c : Q) = (c == DNA.Gap || c == RNA.Gap || c == Protein.Gap || c == Protein.CodonGap)
+      def isGapType[Q >: T](c : Q) = (c == gap)
       def isMatch(c : T) = { if (isGapType(seq(0))) isGapType(c) else !isGapType(c) }
       val (s, tail) = seq.span{ isMatch }
       tail match {
@@ -24,6 +24,6 @@ package bio {
   } // class
 
   package DNA {
-    object SegmentizeGappedSequence extends SegmentizeGappedSequence[NTSymbol]
+    object SegmentizeGappedSequence extends SegmentizeGappedSequence[NTSymbol](Gap)
   }
 } // bio
