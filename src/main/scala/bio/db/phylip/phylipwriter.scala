@@ -6,18 +6,32 @@
 import java.io._
 import org.biojava.bio.alignment._
 import org.biojava.bio.symbol._
+import org.biojava.bio.seq._
+import org.biojavax.bio.phylo.io.phylip._
+
 
 package bio {
 
   object PhylipWriter {
     def writeFile(file: File, list: List[Any]) : Unit = {
       println(file)
-      val refelement = new SimpleAlignmentElement("reference", list.head, new RangeLocation(1, 30))
-      val aln = new FlexibleAlignment(List[refelement])
+      val seq = list.head
+      val dna = DNATools.createDNA(seq.toString);
 
-      val out = new FileWriter(file)
-      out.write("hello file!")
-      out.close
+      val ref = new SimpleAlignmentElement("reference", dna, new RangeLocation(1, dna.length))
+      val ref2 = new SimpleAlignmentElement("seq", dna, new RangeLocation(1, dna.length))
+      val reflist = new java.util.ArrayList[org.biojava.bio.alignment.AlignmentElement](1)
+      reflist.add(ref)
+      val aln = new FlexibleAlignment(reflist)
+      aln.addSequence(ref2)
+
+
+
+      PHYLIPFileFormat.writeFile(file,aln)
+
+      // val out = new FileWriter(file)
+      // out.write("hello file!")
+      // out.close
     }
   } // PhilipWriter
 } // bio
