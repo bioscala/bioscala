@@ -17,7 +17,7 @@ class BioScalaProject(info: ProjectInfo) extends DefaultProject(info)
   val user = properties.get("user.name")
   override def includeTest(s: String) = { 
     if (user == "wrk") {
-      s.indexOf("Sequence")>0 || s.indexOf("Reader")>0 || s.indexOf("Alignment")>0 || s.indexOf("Segment") > 0
+      s.indexOf("Sequence")>0 || s.indexOf("Writer")>0 || s.indexOf("Reader")>0 || s.indexOf("Alignment")>0 || s.indexOf("Segment") > 0
       // true
     }
     else
