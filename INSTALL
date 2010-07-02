@@ -7,7 +7,7 @@ For BioScala install Scala, JRuby and the JAVA compiler. On Debian:
 
   apt-get install scala jruby sun-java6-jdk
 
-Other dependencies are:
+Other (possible) dependencies are:
 
 * BioRuby:   Unpack the BioRuby source and point the Ruby load path to the
              lib folder therein, e.g.:
@@ -22,4 +22,21 @@ Other dependencies are:
 
 * scalatest: Add the scalatest.jar file to the class path
 
-With this in place you should have access to all functionality.
+Currently the following jar files are in the class path:
+
+	biojava-1.7.1.jar  
+	biojava3-core-3.0-SNAPSHOT.jar       
+	biojava3-alignment-3.0-SNAPSHOT.jar  
+	biojava3-genome-3.0-SNAPSHOT.jar (optional)
+  biojava3-phylo-3.0-SNAPSHOT.jar
+	jruby-complete-1.5.0.RC1.jar  (optional)
+	scalatest-1.0.1.jar
+
+Install sbt (Simple build tool) and run on the command line:
+
+  cd bioscala
+	sbt
+	> test
+
+if sbt has trouble finding jars, check ./project/build/bioscala.scala
+
