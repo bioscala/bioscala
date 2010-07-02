@@ -22,10 +22,9 @@ package bio {
       val ref2 = new SimpleAlignmentElement("seq", dna, new RangeLocation(1, dna.length))
       val reflist = new java.util.ArrayList[org.biojava.bio.alignment.AlignmentElement](1)
       reflist.add(ref)
+      reflist.add(ref2)
       val aln = new FlexibleAlignment(reflist)
-      aln.addSequence(ref2)
-
-
+      // aln.addSequence(ref2) - you can add sequences later
 
       PHYLIPFileFormat.writeFile(file,aln)
 
