@@ -10,6 +10,7 @@ package bio.test {
     import bio.DNA._
 
     "PamlReader" should "read PAML Phylip file" in {
+      val pamlreader = new PamlReader("test/data/paml/paml-aln1.phy")
       false should equal ("PITG_04081T0")
     }
   } // Spec class

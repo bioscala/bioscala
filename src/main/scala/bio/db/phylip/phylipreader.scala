@@ -1,5 +1,5 @@
 /**
- * PamlReader writes a list of sequences to a file in Paml format.
+ * PhylipReader writes a list of sequences to a file in Phylip format.
  *
  */
 
@@ -13,15 +13,17 @@ import org.biojavax.bio.phylo.io.phylip._
 package bio {
 
   /** 
-   * PamlReader opens a file and parses the PAML Phylip CODON contents using 
-   * an iterator.
+   * PhylipReader opens a file and parses the Phylip contents using 
+   * an iterator. This implementation is not ready - it may use the
+   * BioJava PHYLIPFileListener as below, but one problem is that
+   * ID names are restricted to 9 characters.
    */
-  class PamlReader(val filename: String) extends Iterator[Tuple3[String,String,String]] {
+  class PhylipReader(val filename: String) extends Iterator[Tuple3[String,String,String]] {
     private lazy val reader = new BufferedReader(new FileReader(filename))
 
-    class PamlReaderException(string: String) extends Exception(string)
+    class PhylipReaderException(string: String) extends Exception(string)
 
-    object PamlListener extends PHYLIPFileListener {
+    object PhylipListener extends PHYLIPFileListener {
       def receiveSequence(s : String) = { println(">>>>",s) }
       def setCurrentSequenceName(s : String) = { println("@@@@",s) }
       def setSitesCount(i: Int) = {}
@@ -29,7 +31,7 @@ package bio {
       def endFile() = {}
       def startFile() = {}
     }
-    lazy val listener = PamlListener
+    lazy val listener = PhylipListener
     val x = PHYLIPFileFormat.parse(listener,reader)
 
 
@@ -38,7 +40,7 @@ package bio {
     def next(): Tuple3[String,String,String] = {
       ("","","")
     }
-  } // PamlReader
+  } // PhylipReader
 
 } // bio
 
