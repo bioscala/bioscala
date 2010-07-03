@@ -24,6 +24,8 @@ package bio {
      * that when writing an alignment the sequences can have different sizes -
      * they simply write to file. In contrast, the BioScala implementation
      * throws an exception.
+     *
+     * See also PAMLWriter for a PAML implementation of Phylip output
      */
     def writeFile[T <: AbstractSequence](file: File, list: List[T]) : Unit = {
       val size = list.head.length
@@ -40,22 +42,6 @@ package bio {
       val aln = new FlexibleAlignment(reflist)
 
       PHYLIPFileFormat.writeFile(file,aln)
-    }
-    /**
-     * Write PAML PHYLIP format. The difference with the standard PHYLIP 
-     * implementation is that it writes longer ID's and makes sure there are two 
-     * spaces between ID and sequence, as PAML wants it.
-     */
-    def writePAMLFile[T <: AbstractSequence](file: File, list: List[T]) : Unit = {
-      val size = list.head.length
-      val fout = new FileWriter(file)
-      fout.write(list.length.toString+"   "+size.toString+"\n")
-      list.foreach { seq =>
-        if (seq.length != size)
-          throw new PhylipWriterException("Sequence not same size: "+seq.id)
-        fout.write(seq.id+"  "+seq.toString+"\n")
-      }
-      fout.close
     }
   } // PhilipWriter
 
