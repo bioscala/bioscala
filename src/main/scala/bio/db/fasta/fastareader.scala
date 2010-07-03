@@ -32,6 +32,7 @@ package bio {
       do {
         reader.mark(512)  // 512 is sufficient for a single tag line
         val line = reader.readLine
+        if (line(0) != '>') sequencelist += line
         if (!reader.ready || line(0) == '>') {
           // Reached the end of the sequence
           if (reader.ready) reader.reset
@@ -40,7 +41,6 @@ package bio {
           val id = tag2.split(Array(' ','\t'))(0)
           return (id,tag2,sequencelist)
         }
-        sequencelist += line
       } while (reader.ready)
       // should never reach this...
       throw new FastaReadException("Error in file "+filename+" (tag="+tag+")")
