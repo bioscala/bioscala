@@ -45,7 +45,6 @@ package bio {
       do {
         seq = seq.remove{ c => c == ' ' || c == '\t' }
         if (seq.length == seq_size) {
-          println("Returning: ",id,seq)
           return (id.mkString,seq.mkString)
         }
         if (seq.length > seq_size)
@@ -54,7 +53,7 @@ package bio {
           throw new PamlReadException("EOF problem in "+filename)
         seq :::= reader.readLine.toList
       } while (true)
-      ("","")
+      ("","") // never reached code
     }
   } // PamlReader
 
