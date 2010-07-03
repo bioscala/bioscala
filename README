@@ -9,9 +9,11 @@ This edition of BioScala has:
   - Strongly typed DNA, RNA Sequence, gapped and IUPAC ambiguous Sequence
   - Sequences contain lists of Nucleotide, AminoAcid, IUPAC, Gapped, Codon
   - Flexible Sequence user defined attributes
-	- Iterator based FASTA file reader
   - Transcription of DNA to RNA
   - Translation of (ambiguous) RNA to AA (using BioJava3)
+	- Iterator based FASTA file format reader
+  - Iterator based (PAML) Phylip file format reader
+  - Phylip reader/writer (using BioJava)
   - Alignments and attributes (work in progress)
   - A translation example of calling into BioRuby
   - A tutorial in ./doc/tutorial.txt
