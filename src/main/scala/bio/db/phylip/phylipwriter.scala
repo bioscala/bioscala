@@ -12,7 +12,7 @@ import org.biojavax.bio.phylo.io.phylip._
 
 package bio {
 
-  class PhylipWriter {
+  object PhylipWriter {
     def writeFile[T <: AbstractSequence](file: File, list: List[T]) : Unit = {
       val reflist = new java.util.ArrayList[org.biojava.bio.alignment.AlignmentElement](1)
       

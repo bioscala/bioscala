@@ -19,8 +19,7 @@ package bio.test {
         seq
         }.toList
       val tmpfn = File.createTempFile("BioScala",".phy")
-      val writer = new PhylipWriter
-      writer.writeFile(tmpfn,seqlist)
+      PhylipWriter.writeFile(tmpfn,seqlist)
       seqlist.head.id should equal ("PITG_04081T0")
     }
   } // Spec class
