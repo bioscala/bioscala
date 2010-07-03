@@ -11,6 +11,7 @@ package bio {
 
   abstract class AbstractSequence {
     def id : java.lang.String
+    def length : java.lang.Integer
   }
 
   abstract class Sequence[T](seqlist: List[T], attributelist: List[Attribute]) extends AbstractSequence with AttributeAccess {
@@ -39,6 +40,7 @@ package bio {
         case _ => "No ID"
       }
     }
+    def length = seq.length
     /** Delete part of the sequence */
     def delete(pos: Int, num: Int) = {
         create(seq.take(pos) ::: seq.takeRight(seq.size-pos-num), attributes)
