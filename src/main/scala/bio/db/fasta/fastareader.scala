@@ -16,11 +16,11 @@ import java.io._
 
 package bio {
 
-  class FastaReadException(string: String) extends Exception(string)
 
   class FastaReader(val filename: String) extends Iterator[Tuple3[String,String,String]] {
     private lazy val reader = new BufferedReader(new FileReader(filename))
 
+    class FastaReadException(string: String) extends Exception(string)
     def hasNext() = reader.ready
     def next(): Tuple3[String,String,String] = {
       // Read the tag line

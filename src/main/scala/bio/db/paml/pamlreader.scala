@@ -14,29 +14,47 @@ package bio {
 
   /** 
    * PamlReader opens a file and parses the PAML Phylip CODON contents using 
-   * an iterator.
+   * an iterator. Rather than using BioJava's PHYLIPReader, which only allows
+   * 9 char tags, we roll our own. Essentially it is a simple format, where you
+   * know the size of the sequences - just remove the spaces.
    */
-  class PamlReader(val filename: String) extends Iterator[Tuple3[String,String,String]] {
-    private lazy val reader = new BufferedReader(new FileReader(filename))
+  class PamlReader(val filename: String) extends Iterator[Tuple2[String,String]] {
+    private val reader = new BufferedReader(new FileReader(filename))
 
-    class PamlReaderException(string: String) extends Exception(string)
+    class PamlReadException(string: String) extends Exception(string)
+    def header() = {
+      val firstline = reader.readLine
 
-    object PamlListener extends PHYLIPFileListener {
-      def receiveSequence(s : String) = { println(">>>>",s) }
-      def setCurrentSequenceName(s : String) = { println("@@@@",s) }
-      def setSitesCount(i: Int) = {}
-      def setSequenceCount(i: Int) = {}
-      def endFile() = {}
-      def startFile() = {}
+      val Match = """^(\d+)\s+(\d+)""".r 
+      val (num,size) = firstline match {
+        case Match(num1,size1) => (num1.toInt,size1.toInt)
+      }
+      (num,size)
     }
-    lazy val listener = PamlListener
-    val x = PHYLIPFileFormat.parse(listener,reader)
 
+    val (seq_num,seq_size) = header()
 
-    def hasNext() = true
+    def hasNext() = reader.ready
 
-    def next(): Tuple3[String,String,String] = {
-      ("","","")
+    def next(): Tuple2[String,String] = {
+      // parse ID
+      val line = reader.readLine.toList
+      val (id,rest) = line.span { c => c != ' ' }
+      // keep reading lines until we have the right size
+      var seq = rest
+      do {
+        seq = seq.remove{ c => c == ' ' || c == '\t' }
+        if (seq.length == seq_size) {
+          println("Returning: ",id,seq)
+          return (id.mkString,seq.mkString)
+        }
+        if (seq.length > seq_size)
+          throw new PamlReadException("Input file problem in "+filename+" with "+id.mkString+" <"+seq.mkString+">")
+        if (!reader.ready)
+          throw new PamlReadException("EOF problem in "+filename)
+        seq :::= reader.readLine.toList
+      } while (true)
+      ("","")
     }
   } // PamlReader
 

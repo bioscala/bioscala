@@ -18,7 +18,8 @@ package bio {
    * BioJava PHYLIPFileListener as below, but one problem is that
    * ID names are restricted to 9 characters.
    *
-   * Note: this is a hack.
+   * Note: this is a hack. I am trying to get to grips with the BioJava
+   * way of doing this - and it does not map easily to an iterator.
    */
   class PhylipReader(val filename: String) extends Iterator[Tuple2[String,String]] {
     private lazy val reader = new BufferedReader(new FileReader(filename))
@@ -38,7 +39,7 @@ package bio {
     }
     lazy val listener = PhylipListener
     private val x = PHYLIPFileFormat.parse(listener,reader)
-    val list = id_list.zip(seq_list)
+    val list = id_list.zip(seq_list).reverse
     var pos = 0
 
     def hasNext() = (pos < list.length)
