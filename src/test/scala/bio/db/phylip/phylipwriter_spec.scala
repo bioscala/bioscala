@@ -6,6 +6,7 @@ import org.scalatest.matchers.ShouldMatchers
 package bio.test {
 
   class PhylipWriterSpec extends FlatSpec with ShouldMatchers {
+    import bio._
     import bio.DNA._
     import java.io._
 
@@ -18,7 +19,8 @@ package bio.test {
         seq
         }.toList
       val tmpfn = File.createTempFile("BioScala",".phy")
-      PhylipWriter.writeFile(tmpfn,seqlist)
+      val writer = new PhylipWriter
+      writer.writeFile(tmpfn,seqlist)
       seqlist.head.id should equal ("PITG_04081T0")
     }
   } // Spec class

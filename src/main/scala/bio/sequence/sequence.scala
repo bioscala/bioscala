@@ -9,7 +9,11 @@ import bio.attribute._
 
 package bio {
 
-  abstract class Sequence[T](seqlist: List[T], attributelist: List[Attribute]) extends AttributeAccess {
+  abstract class AbstractSequence {
+    def id : java.lang.String
+  }
+
+  abstract class Sequence[T](seqlist: List[T], attributelist: List[Attribute]) extends AbstractSequence with AttributeAccess {
     type SequenceType <: Sequence[T]  // Abstract type 
 
     lazy val seq = seqlist
@@ -31,8 +35,8 @@ package bio {
     def idList = attribList(GetId, attributes)
     def descriptionList = attribList(GetDescription, attributes)
     def id = { attribFirst(GetId, attributes) match {
-        case None => "No ID"
-        case Some(s) => s
+        case Some(s) => s.toString
+        case _ => "No ID"
       }
     }
     /** Delete part of the sequence */
