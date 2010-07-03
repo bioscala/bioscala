@@ -20,8 +20,7 @@ package bio {
         println(seq.id)
         println(seq)
         val dna = DNATools.createDNA(seq.toString);
-        // val id = seq.id.take(8).toString
-        val id = "test"
+        val id = seq.id.take(8).toString
         val ref = new SimpleAlignmentElement(id, dna, new RangeLocation(1, dna.length))
         reflist.add(ref)
       }

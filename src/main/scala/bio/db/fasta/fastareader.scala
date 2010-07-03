@@ -18,7 +18,7 @@ package bio {
 
   class FastaReadException(string: String) extends Exception(string)
 
-  class FastaReader(filename: String) extends Iterator[Tuple3[String,String,String]] {
+  class FastaReader(val filename: String) extends Iterator[Tuple3[String,String,String]] {
     private lazy val reader = new BufferedReader(new FileReader(filename))
 
     def hasNext() = reader.ready
@@ -28,11 +28,13 @@ package bio {
       if (tag(0) != '>')
         throw new FastaReadException("record start expected")
       var sequencelist = ""
+      // Read the sequence body
       do {
-        reader.mark(512)
+        reader.mark(512)  // 512 is sufficient for a single tag line
         val line = reader.readLine
-        if (line(0) == '>') {
-          reader.reset
+        if (!reader.ready || line(0) == '>') {
+          // Reached the end of the sequence
+          if (reader.ready) reader.reset
           // Remove prepending '>'
           val tag2 = tag.drop(1).trim
           val id = tag2.split(Array(' ','\t'))(0)
@@ -40,7 +42,7 @@ package bio {
         }
         sequencelist += line
       } while (reader.ready)
-      ("","","")
+      throw new FastaReadException("Error in file "+filename+" (tag="+tag+")")
     }
   }
 
