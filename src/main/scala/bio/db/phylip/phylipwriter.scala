@@ -1,6 +1,12 @@
 /**
  * PhylipWriter writes a list of sequences to a file in PHYLIP format, using
  * BioJava's PHYLIPFileFormat.writer. 
+ *
+ * There are two problems with this implementation: First the JAVA library
+ * shortens the descriptor to 9 chars. I shorten them here to 8 since I use
+ * this format for PAML, and it wants two spaces. The other problem is that
+ * when writing an alignment the sequences can have different sizes - they
+ * simply write to file.
  */
 
 import java.io._

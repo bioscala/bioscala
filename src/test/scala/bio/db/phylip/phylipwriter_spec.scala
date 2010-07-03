@@ -10,7 +10,7 @@ package bio.test {
     import bio.DNA._
     import java.io._
 
-    "PhylipWriter" should "read write Phylip file" in {
+    "PhylipWriter" should "write Phylip file" in {
       val f = new FastaReader("./test/data/fasta/nt_aln.fa")
       val seqlist = f.map { res => 
         println(res)

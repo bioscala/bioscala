@@ -42,6 +42,7 @@ package bio {
         }
         sequencelist += line
       } while (reader.ready)
+      // should never reach this...
       throw new FastaReadException("Error in file "+filename+" (tag="+tag+")")
     }
   }
