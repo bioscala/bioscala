@@ -40,7 +40,7 @@ package bio {
       // parse ID
       val line = reader.readLine.toList
       val (id,rest) = line.span { c => c != ' ' }
-      // keep reading lines until we have the right size
+      // keep reading lines until we have the right sequence size 
       var seq = rest
       do {
         seq = seq.remove{ c => c == ' ' || c == '\t' }
@@ -53,7 +53,7 @@ package bio {
           throw new PamlReadException("EOF problem in "+filename)
         seq :::= reader.readLine.toList
       } while (true)
-      ("","") // never reached code
+      null // never reached code
     }
   } // PamlReader
 
