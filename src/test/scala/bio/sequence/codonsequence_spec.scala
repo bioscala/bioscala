@@ -13,6 +13,10 @@ package bio.test {
       val s = new CodonSequence("agctaacgt")
       s.toString should equal ("S*R")
     }
+    "A CodonSequence" should "instantiate from a non-3-multiple DNA String" in {
+      val s = new CodonSequence("agctaacg")
+      s.toString should equal ("S*")
+    }
     "A CodonSequence" should "show DNA codons" in {
       val s = new CodonSequence("agctaacgt")
       s.toDNA.mkString should equal ("agctaacgt")
