@@ -18,7 +18,10 @@ package bio.test {
         seq
         }.toList
       val tmpfn = File.createTempFile("BioScala-PAML-",".phy")
-      new PamlWriter(tmpfn).write(seqlist)
+      import bio.io.Control._
+      using(new FileOutputStream(tmpfn)) { stream =>
+        new PamlWriter(stream).write(seqlist)
+      }
       seqlist.head.id should equal ("PITG_04081T0")
     }
   } // Spec class
