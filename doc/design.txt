@@ -52,7 +52,7 @@ Sequence objects. So you can create an alternative implementation
 easily. Second, the transcribe method is cleaner - it does not refer
 to Sequence object internals.
 
-== FastaReader
+== FastaReader ===
 
 A similar example is FastaReader. Compare the BioScala implementation
 with the current one in BioJAVA. In BioJAVA the FastaReader takes care
@@ -80,7 +80,17 @@ FastaReader does not load everything in memory.
 
   BioScala does not read files in memory
 
-Reading files in RAM is a big NO, in this age of Big Data.
+Reading files in RAM is a big NO, in this age of Big Data. 
+
+BioJava also provides a listener interface for reading files, to
+circumvent reading everything in memory. However the listener requires
+a lot of boiler plate code. It is much harder to use than an iterator.
+Unfortunately, it appears to be impossible to use a listener and
+provide an iterator, without loading everything in memory. If someone
+knows how to do that - it would be very interesting. Maybe an actor
+could do it, with the BioJava listener in a separate actor. Every
+time the iterator requests the actor, the listener moves one record
+forward.
 
 == Support for ambiguous nucleotides ==
 
@@ -233,4 +243,26 @@ and
     "section" should "split on Nucleotide" in {
       MySplitter.section(List(A,G,Gap,Gap,C,T,Gap,T)) should equal (List(List(A,G),List(Gap,Gap),List(C,T),List(Gap),List(T)))
     }
+
+== File readers ==
+
+BioScala file readers are Iterators.
+
+== File writers ==
+
+BioScala has file writers. The model of a filewriter is in
+bio/db/paml/pamlwriter.scala. Basically it is a class that contains
+state on the file stream. To start the PamlWriter you can use a file
+name or stream. Use the bio.io.Control.using() method to wrap a
+close() statement around the writer, so the stream always gets closed.
+The way it is implemented you can write sequentially:
+
+     import bio.io.Control._
+      using(new FileOutputStream(tmpfn)) { stream =>
+        new PamlWriter(stream).write(seqlist)
+        new PamlWriter(stream).write(seqlist)
+      }
+
+
+
 

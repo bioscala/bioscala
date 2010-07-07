@@ -21,6 +21,7 @@ package bio.test {
       import bio.io.Control._
       using(new FileOutputStream(tmpfn)) { stream =>
         new PamlWriter(stream).write(seqlist)
+        new PamlWriter(stream).write(seqlist)
       }
       seqlist.head.id should equal ("PITG_04081T0")
     }
