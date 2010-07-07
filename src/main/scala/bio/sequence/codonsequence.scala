@@ -146,6 +146,7 @@ package bio {
       type SequenceType = GappedCodonSequence
       def create(seqlist: List[CodonSymbol], attributelist: List[Attribute]) = new GappedCodonSequence(seqlist, attributelist)
 
+      def this(id: String, list: List[CodonSymbol]) = this(list,List(Id(id)))
       def this(str: String) = { this(GappedDNAtoCodon(str),Nil) }
       def this(id: String, str: String) = this( GappedDNAtoCodon(str), List(Id(id)))
       def this(id: String, descr: String, str: String) = this(GappedDNAtoCodon(str),List(Id(id),Description(descr)))

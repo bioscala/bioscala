@@ -40,6 +40,7 @@ package bio {
       type SequenceType = IUPACGappedSequence
       def create(seqlist: List[NTSymbol], attributelist: List[Attribute]) = new IUPACGappedSequence(seqlist, attributelist)
 
+      def this(id: String, list: List[NTSymbol]) = this(IUPACGappedConvert.fromList(list),List(Id(id)))
       def this(list: List[NTSymbol]) = this(IUPACGappedConvert.fromList(list),Nil)
       def this(str: String) = this(IUPACGappedConvert.fromString(str),Nil)
       def this(id: String, str: String) = this(IUPACGappedConvert.fromString(str), List(Id(id)))
