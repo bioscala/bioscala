@@ -40,7 +40,7 @@ package bio {
           throw new PamlWriterException("Sequence not same size: "+seq.id)
         writer.write(seq.id+"  "+seq.toString+"\n")
       }
-      // writer.flush - ought to move out
+      writer.flush // expected before close(!)
     }
   } // PamlWriter
 
