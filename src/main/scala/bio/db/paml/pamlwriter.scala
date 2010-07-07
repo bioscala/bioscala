@@ -12,15 +12,17 @@ import org.biojavax.bio.phylo.io.phylip._
 
 package bio {
 
-  object PamlWriter {
+  class PamlWriter(val file: File) {
     class PamlWriterException(string: String) extends Exception(string)
 
+      def this(filen: String) = this(new File(filen) )
+    
     /**
      * Write PAML Paml format. The difference with the standard Paml 
      * implementation is that it writes longer ID's and makes sure there are two 
      * spaces between ID and sequence, as PAML wants it.
      */
-    def writeFile[T <: AbstractSequence](file: File, list: List[T]) : Unit = {
+    def write[T <: AbstractSequence](list: List[T]) : Unit = {
       val size = list.head.length
       val fout = new FileWriter(file)
       fout.write(list.length.toString+"   "+size.toString+"\n")
