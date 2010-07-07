@@ -12,10 +12,11 @@ import org.biojavax.bio.phylo.io.phylip._
 
 package bio {
 
-  class PamlWriter(val file: File) {
+  class PamlWriter(val fout: FileOutputStream) {
     class PamlWriterException(string: String) extends Exception(string)
 
-      def this(filen: String) = this(new File(filen) )
+      def this(f: File) = this(new FileOutputStream(f))
+      def this(filen: String) = this(new FileOutputStream(filen) )
     
     /**
      * Write PAML Paml format. The difference with the standard Paml 
@@ -24,14 +25,14 @@ package bio {
      */
     def write[T <: AbstractSequence](list: List[T]) : Unit = {
       val size = list.head.length
-      val fout = new FileWriter(file)
-      fout.write(list.length.toString+"   "+size.toString+"\n")
+      val writer = new OutputStreamWriter(fout)
+      writer.write(list.length.toString+"   "+size.toString+"\n")
       list.foreach { seq =>
         if (seq.length != size)
           throw new PamlWriterException("Sequence not same size: "+seq.id)
-        fout.write(seq.id+"  "+seq.toString+"\n")
+        writer.write(seq.id+"  "+seq.toString+"\n")
       }
-      fout.close
+      writer.close
     }
   } // PamlWriter
 
