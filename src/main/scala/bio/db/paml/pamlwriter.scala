@@ -22,6 +22,14 @@ package bio {
      * Write PAML Paml format. The difference with the standard Paml 
      * implementation is that it writes longer ID's and makes sure there are two 
      * spaces between ID and sequence, as PAML wants it.
+     *
+     * Example:
+     *
+     *   import bio.io.Control._
+     *   val tmpfn = File.createTempFile("BioScala-PAML-",".phy")
+     *   using(new FileOutputStream(tmpfn)) { stream =>
+     *     new PamlWriter(stream).write(seqlist)
+     *   }
      */
     def write[T <: AbstractSequence](list: List[T]) : Unit = {
       val size = list.head.length
@@ -32,7 +40,7 @@ package bio {
           throw new PamlWriterException("Sequence not same size: "+seq.id)
         writer.write(seq.id+"  "+seq.toString+"\n")
       }
-      writer.flush
+      // writer.flush - ought to move out
     }
   } // PamlWriter
 
