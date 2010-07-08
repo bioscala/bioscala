@@ -11,6 +11,8 @@ package bio {
 
   abstract class AbstractSequence {
     def id : java.lang.String
+    def hasDescription: Boolean
+    def description : String
     def length : java.lang.Integer
     def toList : List[Any]
   }
@@ -46,12 +48,16 @@ package bio {
     def delete(pos: Int, num: Int) = {
         create(seq.take(pos) ::: seq.takeRight(seq.size-pos-num), attributes)
       }
+    def hasDescription = attribFirst(GetDescription, attributes) match {
+          case None => false
+          case Some(s : String) => true
+      }
     /**
      * @return first (primary) Description in attribute list
      */
     def description = { attribFirst(GetDescription, attributes) match {
           case None => "No description"
-          case Some(s) => s
+          case Some(s : String) => s
       }
     }
 
