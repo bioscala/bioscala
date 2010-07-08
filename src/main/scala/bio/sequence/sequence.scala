@@ -12,6 +12,7 @@ package bio {
   abstract class AbstractSequence {
     def id : java.lang.String
     def length : java.lang.Integer
+    def toList : List[Any]
   }
 
   abstract class Sequence[T](seqlist: List[T], attributelist: List[Attribute]) extends AbstractSequence with AttributeAccess {

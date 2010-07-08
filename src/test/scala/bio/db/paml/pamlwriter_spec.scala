@@ -20,6 +20,7 @@ package bio.test {
       val tmpfn = File.createTempFile("BioScala-PAML-",".phy")
       import bio.io.Control._
       using(new FileOutputStream(tmpfn)) { stream =>
+        // 2x write
         new PamlWriter(stream).write(seqlist)
         new PamlWriter(stream).write(seqlist)
       }

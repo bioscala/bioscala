@@ -14,6 +14,7 @@ package bio {
 
   class PamlWriter(val fout: FileOutputStream) {
     class PamlWriterException(string: String) extends Exception(string)
+      var sequence_width = 50
 
       def this(f: File) = this(new FileOutputStream(f))
       def this(filen: String) = this(new FileOutputStream(filen) )
@@ -38,7 +39,23 @@ package bio {
       list.foreach { seq =>
         if (seq.length != size)
           throw new PamlWriterException("Sequence not same size: "+seq.id)
-        writer.write(seq.id+"  "+seq.toString+"\n")
+        def write_seq(list: List[Any]) : Unit = {
+          val (w,rest) = list.splitAt(sequence_width)  
+          writer.write(w.mkString+"\n")
+          rest match { 
+            case Nil => 
+            case _ => 
+              writer.write(" "*(seq.id.length+2))
+              write_seq(rest)
+          }
+        }
+        if (sequence_width > 0) {
+          writer.write(seq.id+"  ")
+          write_seq(seq.toList)
+        }
+        else {
+          writer.write(seq.id+"  "+seq.toString+"\n")
+        }
       }
       writer.flush // expected before close(!)
     }

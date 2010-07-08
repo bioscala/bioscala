@@ -13,19 +13,23 @@ import org.biojavax.bio.phylo.io.phylip._
 package bio {
 
   /** 
-   * PamlReader opens a file and parses the PAML Phylip CODON contents using 
-   * an iterator. Rather than using BioJava's PHYLIPReader, which only allows
-   * 9 char tags, we roll our own. Essentially it is a simple format, where you
-   * know the size of the sequences - just remove the spaces.
+   * PamlReader opens a file and parses the PAML Phylip CODON contents using an
+   * iterator. Rather than using BioJava's PHYLIPReader, which only allows 9
+   * char tags, we roll our own as PAML is more relaxed on the tag. PAML wants
+   * more than 2 spaces after the ID. Essentially it is a simple format, where
+   * you know the size of the sequences - just remove the spaces.
+   *
+   * Note: no support for interleaved files
    */
   class PamlReader(val filename: String) extends Iterator[Tuple2[String,String]] {
     private val reader = new BufferedReader(new FileReader(filename))
 
     class PamlReadException(string: String) extends Exception(string)
+
     def header() = {
       val firstline = reader.readLine
 
-      val Match = """^(\d+)\s+(\d+)""".r 
+      val Match = """^\s*(\d+)\s+(\d+)""".r 
       val (num,size) = firstline match {
         case Match(num1,size1) => (num1.toInt,size1.toInt)
       }

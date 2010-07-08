@@ -20,5 +20,14 @@ package bio.test {
       val (id2, seq2) = pamlreader.next
       (id1,id2) should equal ("PITG_04081","PITG_18670")
     }
+    "PamlReader" should "read PAML Phylip file3 and turn it into a large sequence" in {
+      val list = new PamlReader("test/data/paml/paml-aln3.phy").toList
+      val seqlist = list.map { case (id, seq) =>
+        println(id,seq.mkString)
+        new Protein.GappedCodonSequence(id,seq)
+      }
+      val seq = seqlist.head
+      (seq.id) should equal ("PITG_08167T0")
+    }
   } // Spec class
 } // bio.test
