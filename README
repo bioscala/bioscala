@@ -11,9 +11,10 @@ This edition of BioScala has:
   - Flexible Sequence user defined attributes
   - Transcription of DNA to RNA
   - Translation of (ambiguous) RNA to AA (using BioJava3)
-	- Iterator based FASTA file format reader
-  - Iterator based (PAML) Phylip file format reader
-  - Phylip reader/writer (using BioJava)
+  - Formats:
+	  . Iterator based FASTA reader and writer
+    . Iterator based PAML (PHY) file format reader
+    . Phylip reader/writer (using BioJava)
   - Alignments and attributes (work in progress)
   - A translation example of calling into BioRuby
   - A tutorial in ./doc/tutorial.txt
