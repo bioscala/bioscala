@@ -19,7 +19,12 @@ run on the command line:
 	> test
 
 sbt will download Scala and related jars. Then it will compile and run the
-supplied tests.
+supplied tests. You should see:
+
+  [info] == test-finish ==
+  [info] Passed: : Total 83, Failed 0, Errors 0, Passed 83, Skipped 0
+  [success] Successful.
+  [info] Total time: 2 s
 
 You also need to have:
 
@@ -65,3 +70,7 @@ biojava.jar is not in the class path.
 [error] "SegmentizeGappedSequence" should "handle two"
 
 scalatest-ver.jar is not in the class path.
+
+- value ruby is not a member of package bio
+
+jruby-ver.jar is not in the class path
