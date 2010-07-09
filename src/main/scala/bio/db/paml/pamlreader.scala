@@ -55,7 +55,7 @@ package bio {
           throw new PamlReadException("Input file problem in "+filename+" with "+id.mkString+" <"+seq.mkString+">")
         if (!reader.ready)
           throw new PamlReadException("EOF problem in "+filename)
-        seq :::= reader.readLine.toList
+        seq = seq ::: reader.readLine.toList
       } while (true)
       null // never reached code
     }
