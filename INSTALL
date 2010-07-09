@@ -18,7 +18,8 @@ run on the command line:
 	java -Xmx512M -jar ../sbt-launch.jar
 	> test
 
-sbt will download Scala and related jars.
+sbt will download Scala and related jars. Then it will compile and run the
+supplied tests.
 
 You also need to have:
 
