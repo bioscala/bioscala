@@ -111,9 +111,9 @@ Support for translation etc. is mixed into the Sequence types.
 The current implementation is somewhat inheritance based - mixed
 traits may be a later improvement.
 
-== Alignment ==
+== On Gaps ==
 
-Alignments contain a list of Sequences. Each Sequence stores a list of:
+Aligned sequences contain 'gaps'. Each Sequence stores a list of:
 
   Nucleotide | Gap
   AminoAcid | Gap
@@ -246,7 +246,8 @@ and
 
 == File readers ==
 
-BioScala file readers are Iterators.
+BioScala's file readers are Iterators. An iterator reads a file on
+demand, so it does not store everything in memory first.
 
 == File writers ==
 
@@ -262,6 +263,41 @@ The way it is implemented you can write sequentially:
         new PamlWriter(stream).write(seqlist)
         new PamlWriter(stream).write(seqlist)
       }
+
+== On Alignments ==
+
+An alignment is a list of aligned sequences. To deal with empty space
+in sequences a 'Gap' object is inserted for every missing nucleotide
+or amino acid. In this edition of BioScala the Alignment operations
+are on the most simple data representation, often sequences
+represented by lists of Symbols or 
+
+  List[List[bio.Symbol]]
+
+For some operations List may be changed into Array - for constant time
+(fast) access to matrix elements. The Symbols may contain attributes -
+which migrate along - e.g. a Codon Symbol carries both amino acid and
+nucleotide representation. Any matrix operation retains the Codon
+information.
+
+Matrix operations that require meta-Sequence information (like
+special features) are either explicit, or for that operation Sequence
+objects may be passed in, with their attributes.
+
+For returning meta-information also explict return values may be used.
+This is preferred over modifying the attributes of Sequence objects
+internally. This, again, to provide a functional implementation. So
+use 
+
+  List[Symbol] instead of Sequence[Symbol]
+
+when possible.
+
+
+
+
+
+
 
 
 
