@@ -20,7 +20,7 @@ This edition of BioScala has:
   - A tutorial in ./doc/tutorial.txt
 
 BioScala uses the simple build tool (sbt) and behaviour driven development/unit
-testing.
+testing. See the INSTALL file for more information.
 
 Please fork from here.
 

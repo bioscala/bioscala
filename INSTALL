@@ -3,11 +3,30 @@
 To try BioScala build the class files and add them to the class path. A jar 
 file will be provided in the future.
 
-For BioScala install Scala, JRuby and the JAVA compiler. On Debian:
+First download BioScala from github with:
 
-  apt-get install scala jruby sun-java6-jdk
+  git clone http://github.com/bioscala/bioscala.git
 
-Other (possible) dependencies are:
+Install Java. On Debian:
+
+  apt-get install sun-java6-jdk 
+
+Install sbt (Simple build tool). Download sbt-launch.jar and 
+run on the command line:
+
+  cd bioscala
+	java -Xmx512M -jar ../sbt-launch.jar
+	> test
+
+sbt will download Scala and related jars.
+
+You also need to have:
+
+* BioJAVA:   Add the biojava.jar file to the class path
+
+* scalatest: Add the scalatest.jar file to the class path
+
+Optional are:
 
 * BioRuby:   Unpack the BioRuby source and point the Ruby load path to the
              lib folder therein, e.g.:
@@ -18,25 +37,30 @@ Other (possible) dependencies are:
              class path, like jruby-complete-1.5.0.RC1.jar (check the version
 						 of your JRuby with the -v switch: jruby -v)
 
-* BioJAVA:   Add the biojava.jar file to the class path
+Currently the following jar files are in the class path (automatically
+found by sbt in bioscala/lib/scala):
 
-* scalatest: Add the scalatest.jar file to the class path
+	scalatest-1.0.1.jar
+	biojava-1.7.1.jar
 
-Currently the following jar files are in the class path:
+and optionally
 
-	biojava-1.7.1.jar  
 	biojava3-core-3.0-SNAPSHOT.jar       
 	biojava3-alignment-3.0-SNAPSHOT.jar  
 	biojava3-genome-3.0-SNAPSHOT.jar (optional)
   biojava3-phylo-3.0-SNAPSHOT.jar
 	jruby-complete-1.5.0.RC1.jar  (optional)
-	scalatest-1.0.1.jar
 
-Install sbt (Simple build tool) and run on the command line:
+if sbt has trouble finding jars, add them to the CLASSPATH, andOr check
+./project/build/bioscala.scala, where the automatic load path is set.
 
-  cd bioscala
-	sbt
-	> test
+= Trouble shooting =
 
-if sbt has trouble finding jars, check ./project/build/bioscala.scala
+- Error: value biojava is not a member of package org
 
+biojava.jar is not in the class path.
+
+- Error: value should is not a member of java.lang.String
+[error] "SegmentizeGappedSequence" should "handle two"
+
+scalatest-ver.jar is not in the class path.
