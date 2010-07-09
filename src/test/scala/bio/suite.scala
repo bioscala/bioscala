@@ -21,7 +21,7 @@ class FullBioTestSuite extends SuperSuite(
     new RNANucleotideSpec,
     new DNASequenceSpec,
     new RNASequenceSpec,
-    new BioRubySpec,
+    // new BioRubySpec,
     new SequenceTranslateSpec
   )
 )

@@ -1,6 +1,7 @@
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
 
+/* Requires BioRuby - which is optional
 package bio.test {
 
   class BioRubySpec extends FlatSpec with ShouldMatchers {
@@ -12,3 +13,4 @@ package bio.test {
     }
   }
 }
+*/
