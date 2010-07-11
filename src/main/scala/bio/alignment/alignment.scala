@@ -18,4 +18,11 @@ package bio {
     def toList : List[T] = list
   }
 
+  package DNA {
+    object SparseAlignment extends SparseAlignment[NTSymbol] 
+    { 
+      type GapType = Gap
+      val gap = Gap
+    } 
+  } // DNA
 }

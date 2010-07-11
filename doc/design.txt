@@ -293,8 +293,41 @@ use
 
 when possible.
 
+What does this mean for designing classes and traits?
+
+For example we may want to remove empty columns in a sparse alignment
+matrix. This is a special action, which will have the matrix as input,
+and new matrix as output, accompanied with a 'log' of removed columns.
+As there is no state it does not need to be a class or object. This is
+a trait. Let's name it SparseAlignment. The trait performs an action,
+so we define a method named 'removeEmptyColumns', for example. The
+method removes columns, and we want to know which ones were removed.
+So it returns both the new alignment and a list of removed column
+numbers.
+
+Resulting in:
+
+  trait SparseAlignment[T] {
+    type Alignment = List[List[T]]  // where T is a bio.Symbol
+    def removeEmptyColumns(in: Alignment) : (Alignment, List[Integer]) 
+  }
+
+To facilitate use we can predefine for every Symbol a companion class
+
+  package bio.DNA
+
+  object SparseAlignment extends SparseAlignment[NTSymbol]
+
+which allows for the following:
+
+  val s1 = new GappedSequence("agc--taacg---")
+  val s2 = new GappedSequence("agc---aaca---")
+  val s3 = new GappedSequence("agc---aaca---")
+  val m = List(s1.toList,s2.toList,s3.toList)
+  val (m2,log) = SparseAlignment.removeSparseColumns(m)
 
 
+  
 
 
 
