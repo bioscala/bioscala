@@ -20,27 +20,29 @@ package bio {
         if(m.head.isEmpty) Nil else m.map(_.head) :: transpose(m.map(_.tail))
     }
 
+    /** 
+     * Remove sparse rows, i.e. rows that contain less than min_symbols
+     */
     def removeSparseRows(in: Alignment, min_symbols: Int) : (Alignment, List[Int]) = {
-       def scanRow(in: Alignment, log: List[Int], rownum : Int) : (Alignment, List[Int]) = {
-         println(in, log)
-         in match {
-           case Nil         => (Nil, Nil)
-           case row :: tail =>
-             val numgaps = row.count{ i => i == gap }
-             val numsymbols = row.length - numgaps
-             if (numsymbols >= min_symbols) {
-               val (m, log2) = scanRow(tail, log, rownum+1)
-               (row :: m, log2)
-             }
-             else 
-               // remove row, return rest
-               scanRow(tail, rownum :: log, rownum+1)
-         }
+       // add an index to the list
+       val indexed = in.zipWithIndex
+       // filter on symbols
+       val filtered = indexed.filter { case (list, index) => 
+         val numgaps = list.count{ i => i == gap }
+         val numsymbols = list.length - numgaps
+         numsymbols >= min_symbols
        }
-       scanRow(in, List(), 0)
+       // and put it all back together again
+       val (ret , idx ) = List.unzip(filtered)
+       val origidx = (0 to in.length-1).toList
+       (ret, origidx -- idx)
     }
 
+    /** 
+     * Remove columns, i.e. columns that contain less than min_symbols
+     */
     def removeSparseColumns(in: Alignment, min_symbols: Int) : (Alignment, List[Int]) = {
+      // transpose matrix for optimal list performance
       val (tm, log) = removeSparseRows(transpose(in),min_symbols)
       (transpose(tm), log)
     }
