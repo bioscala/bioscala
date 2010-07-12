@@ -9,6 +9,7 @@ package bio.test {
 
   class RemoveSparseSpec extends FlatSpec with ShouldMatchers {
     "An alignment" should "remove sparse columns" in {
+      // this also tests removeSparseRows and transpose
       val s1 = new GappedSequence("agc--taacg---")
       val s2 = new GappedSequence("agc---aaca---")
       val s3 = new GappedSequence("agc----aca---")

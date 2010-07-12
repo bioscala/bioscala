@@ -324,12 +324,29 @@ which allows for the following:
   val s2 = new GappedSequence("agc---aaca---")
   val s3 = new GappedSequence("agc---aaca---")
   val m = List(s1.toList,s2.toList,s3.toList)
-  val (m2,log) = SparseAlignment.removeSparseColumns(m)
+  val (m1,log) = SparseAlignment.removeSparseColumns(m,1)
 
+Resulting in:
 
-  
+      m1.head.mkString should equal ("agctaacg")
+      log1 should equal (List(3,4,10,11,12))
 
+Now we have the most 'simple' interface that matches the workings of
+the algorithm. This means that whatever object you come up with, as
+long as it can be transformed to a simple list, it will work with this
+algorithm.
 
+To facilitate further funcationality you may want to create
+specialized versions of this trait. In above example the
+GappedSequence may contain an identifier 'id', which is now lost in
+the result. A specialized implementation for Sequence may want to put
+humpty dumpty together again. In this case it would be code that
+builds on:
+   
+  val r1 = new GappedSequence(s1.id,m1(0))
+
+creating an updated Sequence object with both the id and the sequence
+content.
 
 
 
