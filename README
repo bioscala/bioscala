@@ -2,7 +2,7 @@ The goal of the BioScala project is to create a scalable and functional
 bioinformatics library, building on existing libraries available on the JAVA
 Virtual Machine (JVM) - including BioJAVA and BioRuby.
 
-This is the place for the BioScala project under the liberal BSD license. 
+This is the place for the BioScala project under the liberal BSD license.
 
 This edition of BioScala has:
 
@@ -25,5 +25,7 @@ testing. See the INSTALL file for more information.
 Please fork from here.
 
 Pjotr Prins
+
+Mailing list: http://lists.thebird.nl/listinfo.cgi/bioscala-thebird.nl
 
 
