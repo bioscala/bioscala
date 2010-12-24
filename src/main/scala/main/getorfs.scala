@@ -36,47 +36,49 @@ Fetch ORFs from a sequence.
 
     type OptionMap = Map[scala.Symbol, Any]
     
-    def strOption(s: String) = {
-      val regex = """(\d+)""".r
-      s match {
-        case regex(rule) => Map('rules -> rule)
-        case filename => Map('infile -> filename)
-      }
+    def infileOption(xmap: OptionMap, s: String) : OptionMap = {
+      val infiles = xmap.get( 'infiles ) match {
+        case Some(l : List[String]) => s :: l
+        case None => List(s)
+      } 
+      Map('infiles -> infiles)
     }
     def nextOption(map : OptionMap, list: List[String]) : OptionMap = {
       def switch(s : String) = (s(0) == '-')
       list match {
         case Nil => map
-        case "-v" :: tail =>
-                               nextOption(map ++ Map('verbose -> true), tail)
+        case "-v" :: tail    => nextOption(map ++ Map('verbose -> true), tail)
         case string :: opt2 :: tail if switch(opt2) => 
-                               nextOption(map ++ strOption(string), list.tail)
-        case string :: Nil =>  nextOption(map ++ strOption(string), list.tail)
-        case option :: tail => println("Unknown option "+option) 
-                               exit(1) 
+                                nextOption(map ++ infileOption(map, string), list.tail)
+        case string :: Nil   => nextOption(map ++ infileOption(map, string), list.tail)
+        case option :: tail if switch(option) => println("Unknown option "+option) 
+                                                 exit(1) 
+        case string :: tail  => nextOption(map ++ infileOption(map, string), tail)
       }
       // Map('type -> false)
     }
     val options = nextOption(Map(),arglist)
 
-    options.get( 'outfile ) match { 
-      case Some(fn) => println("getorfs "+version)
-                       println(options)
-      case _ => 
-    }
+    def getInt(name : scala.Symbol, default : Int) : Int = 
+      options.get( name ) match {
+        case Some(v) => v.toString.toInt
+        case None    => default
+      }
     def getBool(name : scala.Symbol) : Boolean = 
       options.get( name ) match {
         case Some(_) => true
         case None    => false
       }
    
-    def getInt(name : scala.Symbol, default : Int) : Int = 
-      options.get( name ) match {
-        case Some(v) => v.toString.toInt
-        case None    => default
-      }
     val verbose = getBool('verbose)
+    println("GetORFs "+version)
 
+    options.get('infiles) match {
+      case Some(l : List[String]) => l.reverse.map( infilen =>
+                                        if (verbose) println("Reading file ", infilen)
+                                     )
+      case None => 
+    }
     if (verbose) println("Writing file")
     0
   } // main
