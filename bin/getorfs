@@ -1,0 +1,8 @@
+#! /bin/sh
+#
+# Fetch all ORFs from a (FASTA) sequence
+
+src=`dirname $0`/..
+javaopts="-Xmx512M -Xms16M -Xss16M"
+
+env JAVA_OPTS="$javaopts" scala -cp $src/target/scala_2.7.7/classes/:$src/lib/bioscala:$src/lib/scala/biojava-1.7.1.jar GetORFApp $*
