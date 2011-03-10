@@ -36,7 +36,7 @@ This edition of BioScala has:
 BioScala uses the simple build tool (sbt) and behaviour driven development/unit
 testing. See the INSTALL file for more information.
 
-Please fork from https://github.com/pjotrp/bioscala 
+Please fork from https://github.com/bioscala/bioscala 
 
 Pjotr Prins
 
