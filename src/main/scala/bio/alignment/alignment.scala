@@ -10,12 +10,22 @@ import bio.attribute._
 
 package bio {
 
-  class Alignment[T](sequencelist: List[T], attributelist: List[Attribute]) {
+  // Seq is a Sequence type
+  class Alignment[T](sequencelist: List[List[T]]) {
     val list = sequencelist
-    val attributes = attributelist
+    // val attributes = attributelist
 
-    def this(list: List[T]) = this(list,Nil)
-    def toList : List[T] = list
+    type Ali = List[List[T]]
+    // def this(list: Ali) = this(list,Nil)
+    def toList : Ali = list
+
+    def transpose(m: Ali) : Ali = {
+      if (m == Nil)
+        Nil
+      else
+        if(m.head.isEmpty) Nil else m.map(_.head) :: transpose(m.map(_.tail))
+    }
+
   }
 
   package DNA {

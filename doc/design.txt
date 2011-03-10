@@ -342,11 +342,42 @@ a simple list, it will work with this algorithm.
 
 The next example is to look for SNPs in an alignment. This is fairly
 similar to removeSparseColumns, but now we want to return a list of 
-columns containing SNPs.
+columns containing SNPs. The simplistic method is to return all columns
+that contain more than one type of nucleotide.
+
+One could write anothe specialized function
+GetColumnsWithNucleotides, e.g.
+
+\begin{scala}
+  val s1 = new GappedSequence("ag---ctaacaa")
+  val s2 = new GappedSequence("ag---caaacag")
+  val s3 = new GappedSequence("ag--ccaaacgg")
+  val m = List(s1.toList,s2.toList,s3.toList)
+  val snp = SparseAlignment.GetColumnsWithNucleotides(m,1)
+  # test
+  snp should equal (List(6,10,11))
+\end{scala}
+
+but we should stick to a functional approach. Basically the
+generic method is to visit every column and run a user defined 
+function
+
+  def hasMultipleNucleotides(col: List[Symbol]) {
+    val uniquelist = col.removeDuplicates.filter { _ != Gap }
+    uniquelist.size > 1
+  }
+  val snp = SparseAlignment.columns.map { hasMultipleNucleotides }
+  # test
+  snp should equal (List(6,10,11))
+
+The point is that the library does not need to cater for every
+implementation detail, as long as generic functions work. The
+function hasMultipleNucleotides is too trivial to add to the library
+- thank functional programming for that. 
 
 === Tracking Sequence information in Alignment ===
 
-To facilitate further functationality you may want to create
+To facilitate further functionality you may want to create
 specialized versions of this trait. In above example the
 GappedSequence may contain an identifier 'id', which is now lost in
 the result. A specialized implementation for Sequence may want to put
