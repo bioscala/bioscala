@@ -74,10 +74,20 @@ Fetch ORFs from a sequence.
     println("GetORFs "+version)
 
     options.get('infiles) match {
-      case Some(l : List[String]) => l.reverse.map( infilen =>
-                                        if (verbose) println("Reading file ", infilen)
-                                     )
-      case None => 
+      case Some(l : List[String]) => 
+                   l.reverse.map { infilen =>
+                     if (verbose) println("Reading file ", infilen)
+                     #    File file = new File("tmp");
+#     if(!file.exists()) {
+#       file.mkdirs();
+#     }
+                     val f = new FastaReader(infilen) 
+                     f.map { case (id, tag, dna) =>
+                       println(id)
+                     }
+                   }
+      case None => println("No input files")
+                   exit(1)
     }
     if (verbose) println("Writing file")
     0
