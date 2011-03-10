@@ -288,3 +288,4 @@ BioJAVA in this document.
 
 * [http://thebird.nl/bioscala/bioscala-design.html BioScala Design] document
 * [http://thebird.nl/bioscala/api/ BioScala API] docs
+* [http://github.com/pjotrp/bioscala BioScala source tree] and project page

@@ -364,3 +364,4 @@ content.
 
 * [http://thebird.nl/bioscala/bioscala-tutorial.html BioScala Tutorial]
 * [http://thebird.nl/bioscala/api/ BioScala API] docs
+* [http://github.com/pjotrp/bioscala BioScala source tree]
