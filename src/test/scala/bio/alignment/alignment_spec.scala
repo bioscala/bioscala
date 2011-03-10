@@ -28,13 +28,40 @@ package bio.test {
     }
 */
     "An Alignment" should "return columns" in {
-      val s1 = new DNA.GappedSequence("ag---ctaacaa")
-      val s2 = new DNA.GappedSequence("ag---caaacag")
-      val s3 = new DNA.GappedSequence("ag--ccaaacgg")
+      val s1 = new DNA.GappedSequence("ag---ctaacaac")
+      val s2 = new DNA.GappedSequence("ag---caaacagt")
+      val s3 = new DNA.GappedSequence("ag--ccaaacgga")
       val a = new Alignment(List(s1.toList,s2.toList,s3.toList)) 
       val t = a.transpose(a.toList)
       t.toList.head.mkString should equal ("aaa")
-      t.toList(1).mkString should equal ("ggg")
+      val t2 = a.getColumns(a.toList)
+      t2.toList(1).mkString should equal ("ggg")
+      // and look for SNPs
+      def hasMultipleNucleotides(col: List[Symbol]) = {
+        val uniquelist = col.removeDuplicates.filter { _ != DNA.Gap }
+        // println(uniquelist.mkString,uniquelist.size>1)
+        uniquelist.size>1
+      }
+      val bools = t map {  hasMultipleNucleotides }
+
+      var idx = -1
+      val list = bools.map { b =>
+        idx += 1
+        if (b) {
+          // (taa,6)
+          // (aag,10)
+          // (agg,11)
+          // (cta,12)
+          // println(t(idx).mkString, idx) 
+          t(idx)
+        }
+        else Nil
+      }.filter( l =>  l.size > 0 ) 
+      list.toList(0).mkString should equal ("taa")
+      list.toList(3).mkString should equal ("cta")
+      val m1 = new Alignment(list).transpose(list)
+      m1.toList(0).mkString should equal ("taac")
+      m1.toList(2).mkString should equal ("agga")
     }
   }
 }

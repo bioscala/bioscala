@@ -26,6 +26,8 @@ package bio {
         if(m.head.isEmpty) Nil else m.map(_.head) :: transpose(m.map(_.tail))
     }
 
+    def getColumns(m: Ali) = transpose(m)
+
   }
 
   package DNA {

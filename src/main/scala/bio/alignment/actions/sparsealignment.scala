@@ -47,13 +47,6 @@ package bio {
       (transpose(tm), log)
     }
 
-    /**
-     * Return list of columns - an alias for transpose
-     */
-    def getColumns(in: Alignment) : List[List[T]] = {
-      transpose(in)
-    }
-    
   } // SparseAlignment
 
 } // bio

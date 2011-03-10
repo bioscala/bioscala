@@ -363,7 +363,7 @@ generic method is to visit every column and run a user defined
 function
 
   def hasMultipleNucleotides(col: List[Symbol]) {
-    val uniquelist = col.removeDuplicates.filter { _ != Gap }
+    val uniquelist = col.removeDuplicates.filter { _ != DNA.Gap }
     uniquelist.size > 1
   }
   val snp = SparseAlignment.columns.map { hasMultipleNucleotides }
