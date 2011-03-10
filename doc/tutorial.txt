@@ -1,6 +1,8 @@
 = BioScala Tutorial =
 
-''Copyright (C) 2010, Pjotr Prins''
+''Copyright (C) 2010-2011, Pjotr Prins''
+
+[http://thebird.nl/bioscala/bioscala-tutorial.html HTML version]
 
 == Introduction ==
 
@@ -282,5 +284,7 @@ BioJAVA in this document.
 
 
 
+== See also ==
 
-
+[http://thebird.nl/bioscala/bioscala-design.html BioScala Design]
+document

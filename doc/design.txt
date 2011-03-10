@@ -1,5 +1,10 @@
 = Designing the BioScala library =
 
+''Copyright (C) 2010-2011, Pjotr Prins''
+
+[http://thebird.nl/bioscala/bioscala-design.html HTML version]
+
+
 Scala is a strongly typed functional language, that allows for object
 oriented programming (OOP). Too functional purists this is something
 of a contradiction.  However, it does make sense for complex libraries
@@ -10,12 +15,12 @@ fundamental choices. OOP can easily be driven too far and can make
 hierarchies of objects hard to maintain. With BioScala we opt for a
 functional approach:
 
-  BioScala aims for functional programming
+* '''BioScala aims for functional programming'''
 
 OOP is used in the most minimalistic fashion to partition
 functionality.
 
-  BioScala uses OOP in a minimalistic fashion
+* '''BioScala uses OOP in a minimalistic fashion'''
 
 Maybe an example will help. With functional programming we emphasize
 immutable values and no side effects. We also design functions in a
@@ -39,8 +44,7 @@ delegates to the new function. Someone may wish to say
 least, when there is a reason to, for example a deeper copy happens
 of, for example, attributes. The rule is:
 
-  A function should return the minimum complexity of objects (without
-  losing information)
+* '''A function should return the minimum complexity of objects (without losing information)'''
 
 The main difference with a traditional OOP delegator pattern, like you
 would write in Ruby or JAVA, is that the list of nucleotides get
@@ -78,7 +82,7 @@ plug in a new implementation of a FastaReader.
 
 FastaReader does not load everything in memory.
 
-  BioScala does not read files in memory
+* '''BioScala does not read files in memory'''
 
 Reading files in RAM is a big NO, in this age of Big Data. 
 
@@ -208,8 +212,8 @@ method, or property for every object), and we can query the class name
 (Java style). My gut says there should be a better way.
 
 The solution is a class using generics, and som lower bound typing on
-functions. I blogged about the different options, starting at
-http://blog.thebird.nl/?p=37. 
+functions. I blogged about the different options, starting 
+[http://blog.thebird.nl/?p=37 here].
 
 The final solution reads something like
 
@@ -270,24 +274,24 @@ An alignment is a list of aligned sequences. To deal with empty space
 in sequences a 'Gap' object is inserted for every missing nucleotide
 or amino acid. In this edition of BioScala the Alignment operations
 are on the most simple data representation, often sequences
-represented by lists of Symbols or 
+represented by lists of Symbols. An Alignment is
 
   List[List[bio.Symbol]]
 
-For some operations List may be changed into Array - for constant time
-(fast) access to matrix elements. The Symbols may contain attributes -
-which migrate along - e.g. a Codon Symbol carries both amino acid and
-nucleotide representation. Any matrix operation retains the Codon
-information.
+For some operations List may be changed into Array, e.g. for constant
+time (fast) access of matrix elements. The Symbols may contain
+attributes - which transparently migrate along - e.g. a Codon Symbol
+carries both amino acid and nucleotide representation. That way, any
+matrix operation retains the Codon information.
 
-Matrix operations that require meta-Sequence information (like
-special features) are either explicit, or for that operation Sequence
-objects may be passed in, with their attributes.
+Matrix operations that require some form of meta-Sequence information, such as
+''special features'', either need to be explicit, or those operation Sequence
+objects may be passed in, with their meta attributes.
 
 For returning meta-information also explict return values may be used.
 This is preferred over modifying the attributes of Sequence objects
 internally. This, again, to provide a functional implementation. So
-use 
+use the 'lower' type
 
   List[Symbol] instead of Sequence[Symbol]
 
@@ -295,15 +299,16 @@ when possible.
 
 What does this mean for designing classes and traits?
 
-For example we may want to remove empty columns in a sparse alignment
+For example, we may want to remove empty columns in a sparse alignment
 matrix. This is a special action, which will have the matrix as input,
-and new matrix as output, accompanied with a 'log' of removed columns.
-As there is no state it does not need to be a class or object. This is
-a trait. Let's name it SparseAlignment. The trait performs an action,
-so we define a method named 'removeEmptyColumns', for example. The
-method removes columns, and we want to know which ones were removed.
-So it returns both the new alignment and a list of removed column
-numbers.
+and a new matrix as output, accompanied with a 'log' of removed columns.
+
+As there is no further state to track, the implementation does not
+need to be a class or object. So, make it a trait. Name it
+SparseAlignment. The trait performs an action, and we define a method
+named 'removeEmptyColumns'. The method removes columns, and we want to
+know which ones were removed (this is the log).  The minimal interface
+returns both the new alignment and a list of removed column numbers.
 
 Resulting in:
 
@@ -312,31 +317,36 @@ Resulting in:
     def removeEmptyColumns(in: Alignment) : (Alignment, List[Integer]) 
   }
 
-To facilitate use we can predefine for every Symbol a companion class
+We can predefine for every Symbol a companion class
 
   package bio.DNA
-
   object SparseAlignment extends SparseAlignment[NTSymbol]
 
-which allows for the following:
+which allows for the following example
 
+\begin{scala}
   val s1 = new GappedSequence("agc--taacg---")
   val s2 = new GappedSequence("agc---aaca---")
   val s3 = new GappedSequence("agc---aaca---")
   val m = List(s1.toList,s2.toList,s3.toList)
   val (m1,log) = SparseAlignment.removeSparseColumns(m,1)
+  # tests
+  m1.head.mkString should equal ("agctaacg")
+  log1 should equal (List(3,4,10,11,12))
+\end{scala}
 
-Resulting in:
+Whatever object you come up with, as long as it can be transformed to
+a simple list, it will work with this algorithm.
 
-      m1.head.mkString should equal ("agctaacg")
-      log1 should equal (List(3,4,10,11,12))
+=== Finding SNPs in an alignment ===
 
-Now we have the most 'simple' interface that matches the workings of
-the algorithm. This means that whatever object you come up with, as
-long as it can be transformed to a simple list, it will work with this
-algorithm.
+The next example is to look for SNPs in an alignment. This is fairly
+similar to removeSparseColumns, but now we want to return a list of 
+columns containing SNPs.
 
-To facilitate further funcationality you may want to create
+=== Tracking Sequence information in Alignment ===
+
+To facilitate further functationality you may want to create
 specialized versions of this trait. In above example the
 GappedSequence may contain an identifier 'id', which is now lost in
 the result. A specialized implementation for Sequence may want to put
@@ -350,5 +360,6 @@ content.
 
 
 
+== See also ==
 
-
+[http://thebird.nl/bioscala/bioscala-tutorial.html BioScala Tutorial]
