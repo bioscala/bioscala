@@ -77,10 +77,10 @@ Fetch ORFs from a sequence.
       case Some(l : List[String]) => 
                    l.reverse.map { infilen =>
                      if (verbose) println("Reading file ", infilen)
-                     #    File file = new File("tmp");
-#     if(!file.exists()) {
-#       file.mkdirs();
-#     }
+//    File file = new File("tmp");
+//    if(!file.exists()) {
+//      file.mkdirs();
+//    }
                      val f = new FastaReader(infilen) 
                      f.map { case (id, tag, dna) =>
                        println(id)

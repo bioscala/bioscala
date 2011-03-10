@@ -286,5 +286,5 @@ BioJAVA in this document.
 
 == See also ==
 
-[http://thebird.nl/bioscala/bioscala-design.html BioScala Design]
-document
+* [http://thebird.nl/bioscala/bioscala-design.html BioScala Design] document
+* [http://thebird.nl/bioscala/api/ BioScala API] docs
