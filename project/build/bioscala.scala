@@ -25,7 +25,6 @@ class BioScalaProject(info: ProjectInfo) extends DefaultProject(info)
   // override def includeTest(s: String) = { s == "bio.test.BioRubySpec" }
   val properties = System.getProperties()
 
-
   // This user only runs a subset of tests:
   val user = properties.get("user.name")
   override def includeTest(s: String) = { 
