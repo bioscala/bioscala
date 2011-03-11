@@ -10,22 +10,23 @@ The goal of the BioScala project is to create a scalable and functional
 bioinformatics library, building on existing libraries available on the JAVA
 Virtual Machine (JVM) - including BioJAVA and BioRuby.
 
-To try BioScala ascertain the bioscala.jar and biojava.jar are in the class
-path (jruby-complete-1.5.0.RC1.jar and scalatest-1.0.jar are optional). For
-example:
+== Install ==
 
-  scala -cp bioscala.jar:biojava.jar
+For installation and compilation of bioscala, follow the instructions in 
 
-or, the alternative if from the compiled source tree:
+  https://github.com/bioscala/bioscala/blob/master/INSTALL
 
-  scala -cp target/scala_2.7.7/classes/:biojava.jar
+== Run BioScala ==
 
-Which fires up the scala interpreter:
+Fire up Scala using the \file{bioscala} script with the -p switch,
+which makes sure the classpath is loaded:
+
+  ./bin/bioscala -p
 
   Welcome to Scala version 2.7.7 final 
   scala> _
 
-Next import BioScala
+Import BioScala
 
   scala> import bio._
 

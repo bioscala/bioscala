@@ -18,7 +18,8 @@ usage:
 
 options:
 
-    -l   List available application classes (from the source dir)
+    -l      List available application classes (from the source dir)
+    -p      Give Scala prompt
 
 examples:
 
@@ -49,6 +50,9 @@ shift
 if [ "$main" = "-l" ] ; then
   grep App -r $src/src/main/scala/main/|awk '{print $2}' 
   exit 0
+fi
+if [ "$main" = "-p" ] ; then
+  main=""
 fi
 
 jars=`find $src/lib_managed -name *.jar|xargs`

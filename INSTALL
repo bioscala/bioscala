@@ -1,39 +1,49 @@
 = INSTALL BioScala =
 
-Current versions and dependencies, see 
-
-  https://github.com/bioscala/bioscala/blob/master/project/build.properties
-  https://github.com/bioscala/bioscala/blob/master/project/build/bioscala.scala 
-
-To try BioScala build the class files and add them to the class path. A jar 
-file will be provided in the future.
+It is rather easy to install a working repository of BioScala. The JVM is
+needed, the Scala compiler and sbt (simple build tool).
 
 First download BioScala from github with:
 
   git clone http://github.com/bioscala/bioscala.git
 
-Install Java. On Debian:
+Install Java. On Debian, for example:
 
   apt-get install sun-java6-jdk 
 
 Install sbt (Simple build tool). Download sbt-launch.jar and 
-run on the command line:
+run it on the command line:
 
+  # go to base bioscala directory
   cd bioscala
-	java -Xmx512M -jar ../sbt-launch.jar
+  # launch sbt
+	java -Xmx512M -jar sbt-launch.jar
+  # inside sbt type
+  > update
+  > compile
 	> test
 
-sbt will download Scala and related jars. Then it will compile and run the
-supplied tests. When running sbt from the command line in the base dir:
+sbt will automatically download Scala and related jars. Then it will compile
+and run the supplied tests. When running sbt from the command line in the base
+dir:
 
-  update
-  test
+  > test
   [info] == test-finish ==
   [info] Passed: : Total 84, Failed 0, Errors 0, Passed 84, Skipped 0
   [success] Successful.
   [info] Total time: 2 s
 
-You also need to have:
+To check current versions and dependencies, see 
+
+  https://github.com/bioscala/bioscala/blob/master/project/build.properties
+  https://github.com/bioscala/bioscala/blob/master/project/build/bioscala.scala 
+
+To try BioScala from other code, build the class files and add them to the
+class path. A jar file will be provided in the future.
+
+= Dependencies =
+
+You need to have:
 
 * BioJAVA:   Add the biojava.jar file to the class path (automatic by sbt)
 
