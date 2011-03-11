@@ -57,7 +57,7 @@ package bio.test {
       val list = bools.zipWithIndex.map { 
                    case(true, i) => t(i)
                    case(false, _) => Nil
-                 }.filter( l =>  l.size > 0 ) 
+                 }.filter( _ != Nil ) 
       println(list)
 
       list.toList(0).mkString should equal ("taa")
