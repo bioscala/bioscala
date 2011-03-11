@@ -47,7 +47,7 @@ main=$1
 shift
 
 if [ "$main" = "-l" ] ; then
-  grep App -r src/main/scala/main/|awk '{print $2}' 
+  grep App -r $src/src/main/scala/main/|awk '{print $2}' 
   exit 0
 fi
 
