@@ -53,6 +53,7 @@ package bio.test {
         else Nil
       }.filter( l =>  l.size > 0 ) 
       */
+
       // functional approach
       val list = bools.zipWithIndex.map { 
                    case(true, i) => t(i)
@@ -64,6 +65,13 @@ package bio.test {
       val m1 = new Alignment(list).transpose(list)
       m1.toList(0).mkString should equal ("taac")
       m1.toList(2).mkString should equal ("agga")
+    }
+    "A SequenceAlignment" should "return columns" in {
+      val s1 = new DNA.GappedSequence("ag---ctaacaac")
+      val s2 = new DNA.GappedSequence("ag---caaacagt")
+      val s3 = new DNA.GappedSequence("ag--ccaaacgga")
+      val a = new SequenceAlignment(List(s1,s2,s3)) 
+      true
     }
   }
 }

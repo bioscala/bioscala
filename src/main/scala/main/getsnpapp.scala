@@ -87,12 +87,31 @@ Call SNPs from an alignment.
                    l.reverse.foreach { infilen =>
                      if (verbose) println("Reading " + infilen)
                      val f = new FastaReader(infilen)
-                     val aln = f.map { case(id, tag, symbols) =>
-                       println(id, tag, symbols)
-                       symbols
+                     val seqs = f.map { case(id, tag, symbols) =>
+                       new DNA.GappedSequence(id, tag, symbols)
+                     }.toList
+                     val ids = seqs.map { _.id }
+                     val slist = seqs.map { _.toList }
+                     val a = new Alignment(slist)
+                     val t = a.transpose(a.toList)
+                     // and look for SNPs
+                     def hasMultipleNucleotides(col: List[Symbol]) = {
+                       val uniquelist = col.removeDuplicates.filter { _ != DNA.Gap }
+                       uniquelist.size>1
                      }
-                     aln.foreach { s => println(s.mkString) }
-                     0
+                     val emptyColumn = List.make(ids.size,'.')
+                     val colkeep = t map {  hasMultipleNucleotides }
+                     val list = colkeep.zipWithIndex.map { 
+                                  case(true, i) => t(i)
+                                  case(false, _) => emptyColumn
+                                }
+                     // println(list)
+                     val m1 = new Alignment(list).transpose(list)
+                     m1.toList.zip(ids).foreach { case(s, id) =>
+                       println('>'+id)
+                       println(s.mkString.toUpperCase)
+                     }
+                     true 
                    }
       case None => 
                    println(usage)
