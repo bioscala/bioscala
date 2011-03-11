@@ -15,6 +15,7 @@ package bio.test {
       a.toList.head.mkString should equal ("agc--taacg---")
       a.toList(1).mkString should equal ("agc---aaca---")
     }
+
 /*
     "An Alignment" should "take attributes" in {
       val s1 = new DNA.GappedSequence("agc--taacg---")
@@ -44,19 +45,21 @@ package bio.test {
       }
       val bools = t map {  hasMultipleNucleotides }
 
+      /* iterative approach:
       var idx = -1
       val list = bools.map { b =>
         idx += 1
-        if (b) {
-          // (taa,6)
-          // (aag,10)
-          // (agg,11)
-          // (cta,12)
-          // println(t(idx).mkString, idx) 
-          t(idx)
-        }
+        if (b) { t(idx) }
         else Nil
       }.filter( l =>  l.size > 0 ) 
+      */
+      // functional approach
+      val list = bools.zipWithIndex.map { 
+                   case(true, i) => t(i)
+                   case(false, _) => Nil
+                 }.filter( l =>  l.size > 0 ) 
+      println(list)
+
       list.toList(0).mkString should equal ("taa")
       list.toList(3).mkString should equal ("cta")
       val m1 = new Alignment(list).transpose(list)
