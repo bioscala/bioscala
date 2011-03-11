@@ -1,5 +1,10 @@
 = INSTALL BioScala =
 
+Current versions and dependencies, see 
+
+  https://github.com/bioscala/bioscala/blob/master/project/build.properties
+  https://github.com/bioscala/bioscala/blob/master/project/build/bioscala.scala 
+
 To try BioScala build the class files and add them to the class path. A jar 
 file will be provided in the future.
 
@@ -19,18 +24,20 @@ run on the command line:
 	> test
 
 sbt will download Scala and related jars. Then it will compile and run the
-supplied tests. You should see:
+supplied tests. When running sbt from the command line in the base dir:
 
+  update
+  test
   [info] == test-finish ==
-  [info] Passed: : Total 83, Failed 0, Errors 0, Passed 83, Skipped 0
+  [info] Passed: : Total 84, Failed 0, Errors 0, Passed 84, Skipped 0
   [success] Successful.
   [info] Total time: 2 s
 
 You also need to have:
 
-* BioJAVA:   Add the biojava.jar file to the class path
+* BioJAVA:   Add the biojava.jar file to the class path (automatic by sbt)
 
-* scalatest: Add the scalatest.jar file to the class path
+* scalatest: Add the scalatest.jar file to the class path (automatic by sbt)
 
 Optional are:
 
@@ -43,19 +50,12 @@ Optional are:
              class path, like jruby-complete-1.5.0.RC1.jar (check the version
 						 of your JRuby with the -v switch: jruby -v)
 
-Currently the following jar files are in the class path (automatically
-found by sbt in bioscala/lib/scala):
-
-	scalatest-1.0.1.jar
-	biojava-1.7.1.jar
-
-and optionally
+* BioJava3:
 
 	biojava3-core-3.0-SNAPSHOT.jar       
 	biojava3-alignment-3.0-SNAPSHOT.jar  
 	biojava3-genome-3.0-SNAPSHOT.jar (optional)
   biojava3-phylo-3.0-SNAPSHOT.jar
-	jruby-complete-1.5.0.RC1.jar  (optional)
 
 if sbt has trouble finding jars, add them to the CLASSPATH, andOr check
 ./project/build/bioscala.scala, where the automatic load path is set.
@@ -64,13 +64,14 @@ if sbt has trouble finding jars, add them to the CLASSPATH, andOr check
 
 - Error: value biojava is not a member of package org
 
-biojava.jar is not in the class path.
+biojava.jar is not in the class path. Run 'sbt update'
 
 - Error: value should is not a member of java.lang.String
 [error] "SegmentizeGappedSequence" should "handle two"
 
-scalatest-ver.jar is not in the class path.
+scalatest-ver.jar is not in the class path. Run 'sbt update'
 
 - value ruby is not a member of package bio
 
-jruby-ver.jar is not in the class path
+jruby-ver.jar is not in the class path. Add the jar to the class path.
+

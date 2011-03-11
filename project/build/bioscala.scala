@@ -9,8 +9,17 @@ class BioScalaProject(info: ProjectInfo) extends DefaultProject(info)
   ("lib" / "scala" / "biojava-1.7.1.jar" ) +++
   ("lib" / "scala" / "jruby-complete-1.5.0.RC1.jar" ) 
   // ("lib" / "scala" / "biojava" / "core-3.0-SNAPSHOT.jar") +++ ("lib" / "scala" / "biojava" / "alignment-3.0-SNAPSHOT.jar") +++ ("lib" / "scala" / "biojava" / "biojava3-phylo-3.0-SNAPSHOT.jar")
+
+  // autoload with sbt update
   val scalaToolsSnapshots = "Scala-Tools Maven2 Snapshots Repository" at "http://scala-tools.org/repo-snapshots"                                                
-  val scalatest = "org.scalatest" % "scalatest" % "1.0.1"                                               
+  val scalatest = "org.scalatest" % "scalatest" % "1.0.1"
+  val biojava = "biojava" % "biojava" % "1.7.1" from "http://www.biojava.org/download/bj171/bin/biojava.jar"
+
+  // val scalaToolsSnapshots = ScalaToolsSnapshots
+  // val scalatest = "org.scalatest" % "scalatest" %
+  //  "1.0.1-for-scala-2.8.0.RC1-SNAPSHOT"
+
+
   override def testOptions = ExcludeTests("bio.test.FullBioTestSuite" :: Nil) :: super.testOptions.toList
   // Modify this line to run single tests
   // override def includeTest(s: String) = { s == "bio.test.BioRubySpec" }
