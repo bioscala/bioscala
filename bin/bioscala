@@ -1,0 +1,57 @@
+#! /bin/sh
+#
+#  This is a script for running bioscala programs, e.g.
+#
+#    runbioscala ApplicationClass [options] [file(s)]
+#
+#  by running the 'scala' command with class path
+
+if [ -z $1 ]; then
+  cat <<USAGE
+
+bioscala function runner
+
+usage:
+
+  bioscala ApplicationClass [options] [file(s)]
+  bioscala -l
+
+options:
+
+    -l   List available application classes (from the source dir)
+
+examples:
+
+  List existing application classes
+
+    ./bin/bioscala -l
+
+  Get help on an application
+
+    ./bin/bioscala GetSNPApp --help
+
+  Run GetSNPApp
+
+    ./bin/bioscala GetSNPApp test/data/fasta/nt_aln.fa
+
+USAGE
+
+  echo $usage
+  echo "Try again..."
+  exit 1
+fi
+
+src=`dirname $0`/..
+javaopts="-Xmx512M -Xms16M -Xss16M"
+main=$1
+shift
+
+if [ "$main" = "-l" ] ; then
+  grep App -r src/main/scala/main/|awk '{print $2}' 
+  exit 0
+fi
+
+jars=`find $src/lib_managed -name *.jar|xargs`
+CP=${jars/ /:/}
+
+env JAVA_OPTS="$javaopts" scala -cp $src/target/scala_2.7.7/classes/:$CP $main $*

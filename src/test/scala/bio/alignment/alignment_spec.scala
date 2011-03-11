@@ -58,7 +58,6 @@ package bio.test {
                    case(true, i) => t(i)
                    case(false, _) => Nil
                  }.filter( _ != Nil ) 
-      println(list)
 
       list.toList(0).mkString should equal ("taa")
       list.toList(3).mkString should equal ("cta")

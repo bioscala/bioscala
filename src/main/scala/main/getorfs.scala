@@ -17,7 +17,7 @@ object GetORFApp {
       println("GetORFs "+version)
       println("""
 
-Fetch ORFs from a sequence.
+Fetch ORFs from a sequence. Sorry, this script is non-functinal at the moment.
 
   Usage:
 
