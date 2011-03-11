@@ -1,7 +1,7 @@
 = INSTALL BioScala =
 
 It is rather easy to install a working repository of BioScala. The JVM is
-needed, the Scala compiler and sbt (simple build tool).
+needed and sbt (simple build tool).
 
 First download BioScala from github with:
 
@@ -11,17 +11,20 @@ Install Java. On Debian, for example:
 
   apt-get install sun-java6-jdk 
 
-Install sbt (Simple build tool). Download sbt-launch.jar and 
-run it on the command line:
+Install sbt (Simple build tool) from 
+
+  http://code.google.com/p/simple-build-tool/wiki/Setup. 
+
+Download sbt-launch.jar and run it on the command line, for example
 
   # go to base bioscala directory
   cd bioscala
   # launch sbt
-	java -Xmx512M -jar sbt-launch.jar
+  java -Xmx512M -jar sbt-launch.jar
   # inside sbt type
   > update
   > compile
-	> test
+  > test
 
 sbt will automatically download Scala and related jars. Then it will compile
 and run the supplied tests. When running sbt from the command line in the base
@@ -58,13 +61,13 @@ Optional are:
 
 * JRuby:     Install jruby and add the big jruby-complete.jar file to the 
              class path, like jruby-complete-1.5.0.RC1.jar (check the version
-						 of your JRuby with the -v switch: jruby -v)
+             of your JRuby with the -v switch: jruby -v)
 
 * BioJava3:
 
-	biojava3-core-3.0-SNAPSHOT.jar       
-	biojava3-alignment-3.0-SNAPSHOT.jar  
-	biojava3-genome-3.0-SNAPSHOT.jar (optional)
+  biojava3-core-3.0-SNAPSHOT.jar       
+  biojava3-alignment-3.0-SNAPSHOT.jar  
+  biojava3-genome-3.0-SNAPSHOT.jar (optional)
   biojava3-phylo-3.0-SNAPSHOT.jar
 
 if sbt has trouble finding jars, add them to the CLASSPATH, andOr check
