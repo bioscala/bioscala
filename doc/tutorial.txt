@@ -13,15 +13,17 @@ Virtual Machine (JVM) - including BioJAVA and BioRuby.
 == Install ==
 
 For installation and compilation of bioscala, follow the instructions in 
-
-  https://github.com/bioscala/bioscala/blob/master/INSTALL
+[https://github.com/bioscala/bioscala/blob/master/INSTALL ./INSTALL].
 
 == Run BioScala ==
 
 Fire up Scala using the \file{bioscala} script with the -p switch,
 which makes sure the classpath is loaded:
 
+\begin{shell}
+  cd bioscala
   ./bin/bioscala -p
+\end{shell}
 
   Welcome to Scala version 2.7.7 final 
   scala> _
