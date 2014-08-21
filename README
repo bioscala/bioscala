@@ -1,6 +1,6 @@
 The goal of the BioScala project is to create a scalable and functional
 bioinformatics library; which can be used from Scala, Java, JRuby,
-Jython and Clojur; building on existing libraries available on the JAVA
+Jython and Clojure; building on existing libraries available on the JAVA
 Virtual Machine (JVM), including BioJAVA and BioRuby.
 
 This is the place for the BioScala project under the liberal BSD license.
