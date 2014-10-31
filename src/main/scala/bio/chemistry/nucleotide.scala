@@ -22,7 +22,7 @@ package bio {
      *  like 'bio.Protein.X$'. The symbol is the character before last.
      */
     override def toString : String = {
-      getClass.getName.toList.takeRight(2).first.toString
+      getClass.getName.toList.takeRight(2).head.toString
     }
     lazy val toChar = toString.last
   }
@@ -56,7 +56,7 @@ package bio {
        * </pre>
        */
       def fromChar(c: Char): Nucleotide = { 
-        c.toLowerCase match {
+        c.toLower match {
           case 'a' => A
           case 'c' => C
           case 'g' => G
@@ -86,7 +86,7 @@ package bio {
        * </pre>
        */
       def fromChar(c: Char): NTSymbol = { 
-        c.toLowerCase match {
+        c.toLower match {
           case 'a' => A
           case 'c' => C
           case 'g' => G
@@ -129,7 +129,7 @@ package bio {
        * </pre>
        */
       def fromChar(c: Char): Nucleotide = { 
-        c.toLowerCase match {
+        c.toLower match {
           case 'a' => A
           case 'c' => C
           case 'g' => G
@@ -158,7 +158,7 @@ package bio {
        * </pre>
        */
       def fromChar(c: Char): NTSymbol = { 
-        c.toLowerCase match {
+        c.toLower match {
           case 'a' => A
           case 'c' => C
           case 'g' => G

@@ -43,3 +43,34 @@ Pjotr Prins
 Mailing list: http://lists.thebird.nl/listinfo.cgi/bioscala-thebird.nl
 
 
+= INSTALL BioScala =
+
+It is rather easy to install a working repository of BioScala. The JVM is
+needed and sbt (simple build tool).
+
+First download BioScala from github with:
+
+  git clone http://github.com/bioscala/bioscala.git
+
+Install Java. On Debian, for example:
+
+  apt-get install sun-java6-jdk
+
+Install sbt (Simple build tool) from
+
+  http://code.google.com/p/simple-build-tool/wiki/Setup.
+
+Install sbt and run it on the command line, for example
+
+  # go to base bioscala directory
+  cd bioscala
+  # launch sbt
+  java -Xmx512M -jar sbt-launch.jar
+  # inside sbt type
+  > update
+  > compile
+  > test
+
+sbt will automatically download Scala and related jars. Then it will compile
+and run the supplied tests. When running sbt from the command line in the base
+dir

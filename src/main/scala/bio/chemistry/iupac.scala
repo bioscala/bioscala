@@ -52,7 +52,7 @@ package bio {
        * Create a IUPAC object from its character representation.
        */
       def fromChar(c: Char): NTSymbol = { 
-        c.toLowerCase match {
+        c.toLower match {
           // case '-' => EmptyIUPAC
           case 'm' => M
           case 'r' => R
@@ -111,7 +111,7 @@ package bio {
        * Create a IUPAC object from its character representation.
        */
       def fromChar(c: Char): NTSymbol = { 
-        c.toLowerCase match {
+        c.toLower match {
           // case '-' => EmptyIUPAC
           case 'm' => M
           case 'r' => R

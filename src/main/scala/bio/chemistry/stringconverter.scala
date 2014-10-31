@@ -10,7 +10,7 @@ package bio {
      * Create an object from an object - fails on Tnknown type
      */
     def fromItem(i: T): T 
-    def fromString(s: String): List[T] = s.toList.map { fromChar(_) }
+    def fromString(s: String): List[T] = s.toList.map { fromChar }
     def fromList(list: List[T]): List[T] = list.map { fromItem }
   } // StringConverter
 } // bio

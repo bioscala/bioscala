@@ -1,11 +1,13 @@
+
+package bio.test
+
 import bio._
 
-import org.scalatest.FlatSpec
+import org.scalatest.{Matchers, FlatSpec}
 import org.scalatest.matchers.ShouldMatchers
 
-package bio.test {
 
-  class SequenceTranslateSpec extends FlatSpec with ShouldMatchers {
+  class SequenceTranslateSpec extends FlatSpec with Matchers {
     
     "Translate DNA sequence" should "translate to protein" in {
       new DNA.Sequence("agctaacga").translate.mkString should equal ("S*R")
@@ -32,4 +34,4 @@ package bio.test {
     }
 
   }    
-}
+

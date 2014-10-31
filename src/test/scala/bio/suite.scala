@@ -1,9 +1,8 @@
-
-
-import org.scalatest.SuperSuite
 import bio.test._
 
 package bio.test {
+
+import org.scalatest.Suites
 
 /*
  * class ReducedBioTestSuite extends SuperSuite(
@@ -15,15 +14,15 @@ package bio.test {
 )
  */
 
-class FullBioTestSuite extends SuperSuite(
-  List(
+class FullBioTestSuite extends Suites(
+
     new DNANucleotideSpec,
     new RNANucleotideSpec,
     new DNASequenceSpec,
     new RNASequenceSpec,
     // new BioRubySpec,
     new SequenceTranslateSpec
-  )
+
 )
 
 }
