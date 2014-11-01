@@ -136,8 +136,8 @@ package bio {
        *   val aa = AminoAcidConvert.fromChar('a')
        * </pre>
        */
-      def fromChar(c: Char): AminoAcid = { 
-        c.toUpperCase match {
+      def fromChar(c: Char): AminoAcid = {
+        c.toUpper  match {
           case 'R' => R
           case 'H' => H
           case 'K' => K
@@ -209,7 +209,7 @@ package bio {
 
     object SymbolConvert extends StringConverter[AASymbol] {
       def fromChar(c: Char): AASymbol = { 
-        c.toUpperCase match {
+        c.toUpper match {
           // case '-' => EmptyIUPAC
           case '-' => Gap
           case  _  => 
@@ -229,7 +229,7 @@ package bio {
        * Create a IUPAC object from its character representation.
        */
       def fromChar(c: Char): AminoAcid = { 
-        c.toUpperCase match {
+        c.toUpper match {
           case 'B' => B
           case 'Z' => Z
           case 'X' => X
@@ -251,7 +251,7 @@ package bio {
        * Create a IUPAC object from its character representation.
        */
       def fromChar(c: Char): AASymbol = { 
-        c.toUpperCase match {
+        c.toUpper match {
           case '-' => Gap
           case 'B' => B
           case 'Z' => Z

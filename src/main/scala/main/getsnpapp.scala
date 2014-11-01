@@ -38,7 +38,7 @@ Call SNPs from an alignment.
     if (args.length == 0) {
       println(cname+" "+version)
       println(usage)
-      exit(1)
+      sys.exit(1)
     }
 
     type OptionMap = Map[scala.Symbol, Any]
@@ -59,8 +59,8 @@ Call SNPs from an alignment.
         case string :: opt2 :: tail if switch(opt2) => 
                                 nextOption(map ++ infileOption(map, string), list.tail)
         case string :: Nil   => nextOption(map ++ infileOption(map, string), list.tail)
-        case option :: tail if switch(option) => println("Unknown option "+option) 
-                                                 exit(1) 
+        case option :: tail if switch(option) => println("Unknown option "+option)
+          sys.exit(1)
         case string :: tail  => nextOption(map ++ infileOption(map, string), tail)
       }
       // Map('type -> false)
@@ -96,10 +96,10 @@ Call SNPs from an alignment.
                      val t = a.transpose(a.toList)
                      // and look for SNPs
                      def hasMultipleNucleotides(col: List[Symbol]) = {
-                       val uniquelist = col.removeDuplicates.filter { _ != DNA.Gap }
+                       val uniquelist = col.toSet.filter { _ != DNA.Gap }
                        uniquelist.size>1
                      }
-                     val emptyColumn = List.make(ids.size,'.')
+                     val emptyColumn = List.tabulate(ids.size)(i=>'.')
                      val colkeep = t map {  hasMultipleNucleotides }
                      val list = colkeep.zipWithIndex.map { 
                                   case(true, i) => t(i)
@@ -116,7 +116,7 @@ Call SNPs from an alignment.
       case None => 
                    println(usage)
                    println("No input files")
-                   exit(1)
+                   sys.exit(1)
     }
     // if (verbose) println("Writing file")
     0

@@ -15,7 +15,7 @@ package bio {
     object ToDNA {
       def apply(str: String): List[NTSymbol] = {
         str.toList map { c =>
-          c.toLowerCase match {
+          c.toLower match {
             case 'u' => T
             case  _  => IUPACNucleotideConvert.fromChar(c)
           }
@@ -35,7 +35,7 @@ package bio {
     object ToGappedDNA {
       def apply(str: String): List[NTSymbol] = {
         str.toList map { c =>
-          c.toLowerCase match {
+          c.toLower match {
             case 'u' => T
             case  _  => IUPACGappedConvert.fromChar(c)
           }

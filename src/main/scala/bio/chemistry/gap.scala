@@ -10,7 +10,7 @@ package bio {
      * Create a Gap object from its character representation.
      */
     def fromChar(c: Char): T = { 
-      c.toLowerCase match {
+      c.toLower match {
         case '-' => Gap
         case  _  => 
           base.fromChar(c)

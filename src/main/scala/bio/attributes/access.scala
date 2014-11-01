@@ -1,5 +1,5 @@
 
-package bio {
+package bio
   package attribute {
 
     /**
@@ -11,14 +11,14 @@ package bio {
        * @return list of attributes matching message
        */
       def attribList(message: Message, attributes: List[Attribute]) : List[Attribute] = {
-        attributes.filter { a => 
+        attributes.filter { a =>
           a.send(message) match {
             case (Ok,_) => true
             case _ => false
           }
         }
       }
-      /** 
+      /**
        * @return the values of messages as a list
        */
       def attribValues(message: Message, attributes: List[Attribute]) : List[Any] = {
@@ -31,14 +31,14 @@ package bio {
        * @return the first attribute value matching message
        */
       def attribFirst(message: Message, attributes: List[Attribute]) : Option[Any] = {
-        val list = attribList(message,attributes)
+        val list: List[Attribute] = attribList(message,attributes)
         if (list.size > 0) {
-          val (Ok, msg) = list.first.send(message)
+          val (Ok, msg) = list.head.send(message)
           Some(msg)
         } else None
       }
     }
 
   }
-}
+
 

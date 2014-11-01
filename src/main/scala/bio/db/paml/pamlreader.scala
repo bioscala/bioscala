@@ -7,8 +7,7 @@ import java.io._
 // import org.biojava.bio.alignment._
 // import org.biojava.bio.symbol._
 // import org.biojava.bio.seq._
-import org.biojava.bio.seq.io._
-import org.biojavax.bio.phylo.io.phylip._
+//import org.biojavax.bio.phylo.io.phylip._
 
 package bio {
 
@@ -45,9 +44,9 @@ package bio {
       val line = reader.readLine.toList
       val (id,rest) = line.span { c => c != ' ' }
       // keep reading lines until we have the right sequence size 
-      var seq = rest
+      var seq: List[Char] = rest
       do {
-        seq = seq.remove{ c => c == ' ' || c == '\t' }
+        seq = seq.filterNot( c => c == ' ' || c == '\t' )
         if (seq.length == seq_size) {
           return (id.mkString,seq.mkString)
         }

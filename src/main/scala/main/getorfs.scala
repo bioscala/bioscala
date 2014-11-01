@@ -31,7 +31,7 @@ Fetch ORFs from a sequence. Sorry, this script is non-functinal at the moment.
   Examples:
 
       """)
-      exit(1)
+     sys.exit(1)
     }
 
     type OptionMap = Map[scala.Symbol, Any]
@@ -51,8 +51,8 @@ Fetch ORFs from a sequence. Sorry, this script is non-functinal at the moment.
         case string :: opt2 :: tail if switch(opt2) => 
                                 nextOption(map ++ infileOption(map, string), list.tail)
         case string :: Nil   => nextOption(map ++ infileOption(map, string), list.tail)
-        case option :: tail if switch(option) => println("Unknown option "+option) 
-                                                 exit(1) 
+        case option :: tail if switch(option) => println("Unknown option "+option)
+          sys.exit(1)
         case string :: tail  => nextOption(map ++ infileOption(map, string), tail)
       }
       // Map('type -> false)
@@ -87,7 +87,7 @@ Fetch ORFs from a sequence. Sorry, this script is non-functinal at the moment.
                      }
                    }
       case None => println("No input files")
-                   exit(1)
+        sys.exit(1)
     }
     if (verbose) println("Writing file")
     0

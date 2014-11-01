@@ -6,8 +6,9 @@ import org.scalatest.matchers.ShouldMatchers
 package bio.test {
 
   import bio.attribute._
+import org.scalatest.Matchers
 
-  class GappedSequenceSpec extends FlatSpec with ShouldMatchers {
+class GappedSequenceSpec extends FlatSpec with Matchers {
     import bio.DNA._
     "A DNA GappedSequence" should "instantiate from a String" in {
       val s = new GappedSequence("agc--taacg---")

@@ -1,13 +1,14 @@
+package bio.test
+
 import bio._
 
-import org.scalatest.FlatSpec
+import org.scalatest.{Matchers, FlatSpec}
 import org.scalatest.matchers.ShouldMatchers
 
-package bio.test {
 
   import bio.attribute._
 
-  class SequenceSpec extends FlatSpec with ShouldMatchers {
+  class SequenceSpec extends FlatSpec with Matchers {
     import bio.DNA._
     "A Sequence" should "instantiate from a String" in {
       val s = new Sequence("agctaacg")
@@ -15,7 +16,7 @@ package bio.test {
     }
     "A Sequence" should "generate a list of Nucleotides" in {
       val list = new Sequence("agctaacg").toList
-      list.first should equal (A)
+      list.head should equal (A)
     }
     "A Sequence" should "instantiate from a List[Nucleotide]" in {
       val list = new Sequence("agctaacg").toList
@@ -66,7 +67,7 @@ package bio.test {
         s.toString
       } should produce [IllegalArgumentException]
       // Just for fun, using a standard list with uppercase is not safe
-      val l = "acgtz".toList.map { nt => nt.toUpperCase }
+      val l = "acgtz".toList.map { nt => nt.toUpper }
       l.mkString should equal ("ACGTZ")
     }
 
@@ -113,7 +114,7 @@ package bio.test {
         s.toString
       } should produce [IllegalArgumentException]
       // Just for fun, using a standard list with uppercase is not safe
-      val l = "acgtz".toList.map { nt => nt.toUpperCase }
+      val l = "acgtz".toList.map { nt => nt.toUpper }
       l.mkString should equal ("ACGTZ")
     }
     "RNA Sequence" should "not be instantiated from DNA" in {
@@ -136,12 +137,12 @@ package bio.test {
     "A RNA Sequence" should "allow multiple IDs" in {
       val s = new RNA.Sequence("ID456","Gene 456","agcuaacg")
       val s2 = s.attrAdd(Id("Pubmed:456"))
-      s2.idList === (List("ID456","Pubmed:456"))
+      s2.idList === List("ID456", "Pubmed:456")
     }
     "A RNA Sequence" should "allow multiple Descriptions" in {
       val s = new RNA.Sequence("ID456","Gene 456","agcuaacg")
       val s2 = s.attrAdd(List(Description("Pubmed description")))
-      s2.descriptionList === (List("Gene 456","Pubmed description"))
+      s2.descriptionList === List("Gene 456", "Pubmed description")
     }
   }    
-}
+

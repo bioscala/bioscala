@@ -39,7 +39,7 @@ package bio.test {
       t2.toList(1).mkString should equal ("ggg")
       // and look for SNPs
       def hasMultipleNucleotides(col: List[Symbol]) = {
-        val uniquelist = col.removeDuplicates.filter { _ != DNA.Gap }
+        val uniquelist = col.toSet.filter { _ != DNA.Gap }
         // println(uniquelist.mkString,uniquelist.size>1)
         uniquelist.size>1
       }

@@ -4,10 +4,6 @@
  */
 
 import java.io._
-import org.biojava.bio.alignment._
-import org.biojava.bio.symbol._
-import org.biojava.bio.seq._
-import org.biojavax.bio.phylo.io.phylip._
 
 
 package bio {
