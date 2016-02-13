@@ -2,12 +2,13 @@
  * CodonSequence is really an AminoAcidSequence, where every AminoAcid has
  * a CodonAttribute containing the three letter DNA.
  *
- * @see AminoAcidSequence 
+ * @see AminoAcidSequence
  * @see IUPACSequence
  */
 
 import bio._
 import bio.attribute._
+import scala.annotation.tailrec
 
 package bio {
 
@@ -60,11 +61,12 @@ package bio {
          * a list of codons - gaps (triple dashes) are merely passed
          * on as codons
          */
-        def codons(seq : List[DNA.NTSymbol]) : List[List[DNA.NTSymbol]] = {
+        @tailrec
+        def codons(seq : List[DNA.NTSymbol], acc: List[List[DNA.NTSymbol]] = List()) : List[List[DNA.NTSymbol]] = {
           val (codon, rest) = seq.splitAt(3)
           codon match {
-            case Nil    => Nil
-            case _      => List(codon) ::: codons(rest)
+            case Nil    => acc
+            case _      => codons(rest, List(codon) ::: acc)
           }
         }
         // Amino acids and nucleotides
