@@ -4,7 +4,7 @@ name := "bioscala"
 
 version := "0.2"
 
-scalaVersion := "2.11.2"
+scalaVersion := "2.11.7"
 
 // Dependency at compilation-time only (not at runtime).
 libraryDependencies += "com.nativelibs4java" %% "scalaxy-streams" % "0.3.2" % "provided"
