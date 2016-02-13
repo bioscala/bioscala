@@ -8,7 +8,6 @@
 
 import bio._
 import bio.attribute._
-import scala.annotation.tailrec
 
 package bio {
 
@@ -29,7 +28,7 @@ package bio {
       }
     }
 
-    /** 
+    /**
      * Take a DNA or RNA string and convert it to a DNA nucleotide list -
      * allowing for ambiguous codes (IUPAC) and gaps
      */
@@ -61,14 +60,9 @@ package bio {
          * a list of codons - gaps (triple dashes) are merely passed
          * on as codons
          */
-        @tailrec
-        def codons(seq : List[DNA.NTSymbol], acc: List[List[DNA.NTSymbol]] = List()) : List[List[DNA.NTSymbol]] = {
-          val (codon, rest) = seq.splitAt(3)
-          codon match {
-            case Nil    => acc
-            case _      => codons(rest, List(codon) ::: acc)
-          }
-        }
+        def codons(seq : Seq[DNA.NTSymbol]) : Seq[Seq[DNA.NTSymbol]] =
+          seq.grouped(3).toSeq
+
         // Amino acids and nucleotides
         val aas = ToSequence(str).translate  // IUPAC Sequence
         val nts = ToDNA(str)
@@ -76,11 +70,11 @@ package bio {
         val codons2 = codons(nts)
         val zipped = aas.zip(codons2)
         // Return a list of Codon objects
-        zipped.map { z => 
+        zipped.map { z =>
           val (aa,seq3) = z
           // println(seq3)
           aa match {
-            case aa: AminoAcid => Codon(aa,seq3)
+            case aa: AminoAcid => Codon(aa,seq3.toList)
             case  _  => throw new IllegalArgumentException("Unexpected value "+aa)
           }
         }
@@ -108,7 +102,7 @@ package bio {
         val codons2 = codons(nts)
         val zipped = aas.zip(codons2)
         // Return a list of Codon objects
-        zipped.map { z => 
+        zipped.map { z =>
           val (aa,seq3) = z
           // println(seq3)
           aa match {
