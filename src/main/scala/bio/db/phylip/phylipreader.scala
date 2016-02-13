@@ -12,8 +12,8 @@ import org.biojavax.bio.phylo.io.phylip._
 
 package bio {
 
-  /** 
-   * PhylipReader opens a file and parses the Phylip contents using 
+  /**
+   * PhylipReader opens a file and parses the Phylip contents using
    * an iterator. This implementation is not ready - it may use the
    * BioJava PHYLIPFileListener as below, but one problem is that
    * ID names are restricted to 9 characters.
@@ -21,7 +21,7 @@ package bio {
    * Note: this is a hack. I am trying to get to grips with the BioJava
    * way of doing this - and it does not map easily to an iterator.
    */
-  class PhylipReader(val filename: String) extends Iterator[Tuple2[String,String]] {
+  class PhylipReader(val filename: String) extends Iterator[(String,String)] {
     private lazy val reader = new BufferedReader(new FileReader(filename))
 
     class PhylipReaderException(string: String) extends Exception(string)
@@ -44,7 +44,7 @@ package bio {
 
     def hasNext() = (pos < list.length)
 
-    def next(): Tuple2[String,String] = {
+    def next(): (String,String) = {
       val retval = list(pos)
       pos += 1
       retval
@@ -52,4 +52,3 @@ package bio {
   } // PhylipReader
 
 } // bio
-

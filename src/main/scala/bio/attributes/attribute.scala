@@ -18,7 +18,7 @@ package bio {
 
   /** Base class for all attributes */
   abstract class Attribute {
-    def send(msg: Message): Tuple2[StatusMessage,Any]
+    def send(msg: Message): (StatusMessage, Any)
   }
 
   package attribute {
@@ -26,7 +26,7 @@ package bio {
     // ==== Message
     case object GetId extends Message
     case object GetDescription extends Message
-    case object GetXML extends Message 
+    case object GetXML extends Message
     case object GetCodon extends Message
     case object GetDNA extends Message // NYI
     case object GetFeature extends Message // NYI
@@ -49,7 +49,7 @@ package bio {
         "<"+name+">"+data+"</"+name+">"
       }
 
-      override def send(msg: Message): Tuple2[StatusMessage,String] = {
+      override def send(msg: Message): (StatusMessage,String) = {
         msg match {
           case `respondMsg` => (Ok, data)
           case GetXML   => (Ok, toXML)
@@ -67,7 +67,7 @@ package bio {
     case class Codon(seq: List[DNA.NTSymbol]) extends Attribute {
 
       override def toString = seq.mkString
-      override def send(msg: Message): Tuple2[StatusMessage,List[DNA.NTSymbol]] = {
+      override def send(msg: Message): (StatusMessage,List[DNA.NTSymbol]) = {
         msg match {
           case `GetCodon` => (Ok, seq)
           case _ => (UnknownMessage, seq)
@@ -76,5 +76,3 @@ package bio {
     }
   }
 }
-
-

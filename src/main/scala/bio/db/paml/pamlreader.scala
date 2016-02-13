@@ -11,7 +11,7 @@ import java.io._
 
 package bio {
 
-  /** 
+  /**
    * PamlReader opens a file and parses the PAML Phylip CODON contents using an
    * iterator. Rather than using BioJava's PHYLIPReader, which only allows 9
    * char tags, we roll our own as PAML is more relaxed on the tag. PAML wants
@@ -20,7 +20,7 @@ package bio {
    *
    * Note: no support for interleaved files
    */
-  class PamlReader(val filename: String) extends Iterator[Tuple2[String,String]] {
+  class PamlReader(val filename: String) extends Iterator[(String,String)] {
     private val reader = new BufferedReader(new FileReader(filename))
 
     class PamlReadException(string: String) extends Exception(string)
@@ -28,7 +28,7 @@ package bio {
     def header() = {
       val firstline = reader.readLine
 
-      val Match = """^\s*(\d+)\s+(\d+)""".r 
+      val Match = """^\s*(\d+)\s+(\d+)""".r
       val (num,size) = firstline match {
         case Match(num1,size1) => (num1.toInt,size1.toInt)
       }
@@ -39,11 +39,11 @@ package bio {
 
     def hasNext() = reader.ready
 
-    def next(): Tuple2[String,String] = {
+    def next(): (String,String) = {
       // parse ID
       val line = reader.readLine.toList
       val (id,rest) = line.span { c => c != ' ' }
-      // keep reading lines until we have the right sequence size 
+      // keep reading lines until we have the right sequence size
       var seq: List[Char] = rest
       do {
         seq = seq.filterNot( c => c == ' ' || c == '\t' )
@@ -61,4 +61,3 @@ package bio {
   } // PamlReader
 
 } // bio
-

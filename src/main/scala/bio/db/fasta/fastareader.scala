@@ -16,13 +16,12 @@ import java.io._
 
 package bio {
 
-
-  class FastaReader(val filename: String) extends Iterator[Tuple3[String,String,String]] {
+  class FastaReader(val filename: String) extends Iterator[(String,String,String)] {
     private lazy val reader = new BufferedReader(new FileReader(filename))
 
     class FastaReadException(string: String) extends Exception(string)
     def hasNext() = reader.ready
-    def next(): Tuple3[String,String,String] = {
+    def next(): (String,String,String) = {
       // Read the tag line
       val tag = reader.readLine
       if (tag(0) != '>')
@@ -48,4 +47,3 @@ package bio {
   }
 
 }
-
