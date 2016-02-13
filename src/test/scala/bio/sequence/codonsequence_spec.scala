@@ -1,13 +1,13 @@
 import bio._
-
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 
 package bio.test {
 
   import bio.attribute._
 
-  class CodonSequenceSpec extends FlatSpec with ShouldMatchers {
+  class CodonSequenceSpec extends FlatSpec with Matchers {
     import bio.Protein._
     "A CodonSequence" should "instantiate from a DNA String" in {
       val s = new CodonSequence("agctaacgt")

@@ -5,7 +5,6 @@ import bio._
 import org.scalatest.{Matchers, FlatSpec}
 import org.scalatest.matchers.ShouldMatchers
 
-
   import bio.attribute._
 
   class SequenceSpec extends FlatSpec with Matchers {
@@ -47,7 +46,7 @@ import org.scalatest.matchers.ShouldMatchers
     }
   }
 
-  class DNASequenceSpec extends FlatSpec with ShouldMatchers {
+  class DNASequenceSpec extends FlatSpec with Matchers {
     import bio.DNA._
 
     "DNA sequences" should "print as characters" in {
@@ -58,14 +57,14 @@ import org.scalatest.matchers.ShouldMatchers
     }
 
     "DNA Sequence" should "not accept strange input" in {
-      evaluating { 
+      an [IllegalArgumentException] should be thrownBy {
         val s = new Sequence("acgtz") // fails
         s.toString
-      } should produce [IllegalArgumentException]
-      evaluating { 
+      }
+      an [IllegalArgumentException] should be thrownBy {
         val s = new Sequence("acgu") // RNA fails
         s.toString
-      } should produce [IllegalArgumentException]
+      }
       // Just for fun, using a standard list with uppercase is not safe
       val l = "acgtz".toList.map { nt => nt.toUpper }
       l.mkString should equal ("ACGTZ")
@@ -73,10 +72,9 @@ import org.scalatest.matchers.ShouldMatchers
 
     "DNA Sequence" should "not be instantiated from RNA" in {
       val rna = new RNA.Sequence("agucc")
-      evaluating {
+      an [IllegalArgumentException] should be thrownBy {
         val s = new DNA.Sequence(rna.toString)
-        true
-      } should produce [IllegalArgumentException]
+      }
     }
     "DNA Sequence" should "instantiate from a Sequence" in {
       val s1 = new Sequence("agctaacg")
@@ -100,7 +98,7 @@ import org.scalatest.matchers.ShouldMatchers
     }
   }
 
-  class RNASequenceSpec extends FlatSpec with ShouldMatchers {
+  class RNASequenceSpec extends FlatSpec with Matchers {
     import bio.RNA._
     "RNA sequences" should "print as characters" in {
       val s = new Sequence("agcuaacg")
@@ -109,20 +107,19 @@ import org.scalatest.matchers.ShouldMatchers
     }
 
     "RNA sequence" should "not accept strange input" in {
-      evaluating { 
+      an [IllegalArgumentException] should be thrownBy {
         val s = new Sequence("acgut") // fails on t
         s.toString
-      } should produce [IllegalArgumentException]
+      }
       // Just for fun, using a standard list with uppercase is not safe
       val l = "acgtz".toList.map { nt => nt.toUpper }
       l.mkString should equal ("ACGTZ")
     }
     "RNA Sequence" should "not be instantiated from DNA" in {
       val dna = new DNA.Sequence("agtcc")
-      evaluating {
+      an [IllegalArgumentException] should be thrownBy {
         val s = new RNA.Sequence(dna.toList.mkString)
-        true
-      } should produce [IllegalArgumentException]
+      }
     }
     "RNA Sequence" should "instantiate from a Sequence" in {
       val s1 = new Sequence("agcuaacg")
@@ -133,7 +130,7 @@ import org.scalatest.matchers.ShouldMatchers
       val s = new RNA.Sequence("ID456","Gene 456","agcuaacg")
       s.description should equal ("Gene 456")
     }
-      
+
     "A RNA Sequence" should "allow multiple IDs" in {
       val s = new RNA.Sequence("ID456","Gene 456","agcuaacg")
       val s2 = s.attrAdd(Id("Pubmed:456"))
@@ -144,5 +141,4 @@ import org.scalatest.matchers.ShouldMatchers
       val s2 = s.attrAdd(List(Description("Pubmed description")))
       s2.descriptionList === List("Gene 456", "Pubmed description")
     }
-  }    
-
+  }

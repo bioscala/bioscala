@@ -1,5 +1,5 @@
 /**
- * IUPAC Nucleotide Sequence represents a Sequence that uses the 
+ * IUPAC Nucleotide Sequence represents a Sequence that uses the
  * ambiguous code:
  *
  * Symbol       Meaning      Nucleic Acid
@@ -26,6 +26,7 @@
 
 import bio._
 import bio.attribute._
+import scala.language.postfixOps
 
 package bio {
 
@@ -43,11 +44,11 @@ package bio {
       /**
        * @return transcribed DNA.Sequence as RNA.Sequence
        */
-      def transcribe = { 
-        val transcribed = SymbolSequenceTranscription.transcribe(seq) 
+      def transcribe = {
+        val transcribed = SymbolSequenceTranscription.transcribe(seq)
         new RNA.IUPACSequence(transcribed)
       }
-   
+
       def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
 
     }
@@ -67,7 +68,7 @@ package bio {
        * @return transcribed DNA.Sequence as RNA.Sequence
        */
       def transcribe = { this }
-   
+
       def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
 
     }
@@ -99,4 +100,3 @@ package bio {
     }
   }
 }
-

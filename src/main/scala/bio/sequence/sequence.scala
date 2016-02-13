@@ -1,11 +1,12 @@
 /**
  * Sequence[T] is a generic sequence container with attributes. T is
  * strongly typed.
- * 
+ *
  * @see DNA.Sequence
  */
 import bio._
 import bio.attribute._
+import scala.language.postfixOps
 
 package bio {
 
@@ -18,13 +19,13 @@ package bio {
   }
 
   abstract class Sequence[T](seqlist: List[T], attributelist: List[Attribute]) extends AbstractSequence with AttributeAccess {
-    type SequenceType <: Sequence[T]  // Abstract type 
+    type SequenceType <: Sequence[T]  // Abstract type
 
     lazy val seq = seqlist
     lazy val attributes  = attributelist
 
-    /** 
-     * Every derived class should have a factory, so methods like 'delete', 
+    /**
+     * Every derived class should have a factory, so methods like 'delete',
      * defined in the abstract class, work in a type safe way.
      */
     def create(seqlist: List[T], attributelist: List[Attribute]): SequenceType
@@ -65,7 +66,7 @@ package bio {
      * Add an attribute to Sequence and return a new Sequence object
      */
     def attrAdd(attribute: Attribute) = {
-      val attrlist = attribute :: attributes 
+      val attrlist = attribute :: attributes
       create(seq, attrlist)
     }
     /**
@@ -78,4 +79,3 @@ package bio {
   }
 
 } // bio
-

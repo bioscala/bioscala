@@ -1,11 +1,11 @@
 import bio._
-
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 
 package bio.test {
 
-  class SegmentizeSpec extends FlatSpec with ShouldMatchers {
+  class SegmentizeSpec extends FlatSpec with Matchers {
     import bio.DNA._
 
     "SegmentizeGappedSequence" should "split on Nucleotide" in {
@@ -31,7 +31,6 @@ package bio.test {
     "SegmentizeGappedSequence" should "handle two gaps" in {
       SegmentizeGappedSequence.split(List(Gap,Gap)) should equal (List(List(Gap,Gap)))
     }
-
 
     "SegmentizeGappedSequence" should "handle one gap" in {
       SegmentizeGappedSequence.split(List(Gap)) should equal (List(List(Gap)))

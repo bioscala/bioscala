@@ -3,11 +3,11 @@ package bio.test
 import bio._
 import org.scalatest.{FlatSpec, WordSpec, FreeSpec, Matchers}
 import scala.collection.mutable.Stack
+import scala.language.postfixOps
 
 class DNANucleotideSpec extends FlatSpec with Matchers
 {
   import bio.DNA._
-
 
   "DNA nucleotides" should "print as characters" in {
     val a = A
@@ -26,7 +26,7 @@ class DNANucleotideSpec extends FlatSpec with Matchers
     val a = A
     (a) should equal (A)
     (a == A) should equal (true)
-    (a.toString == C.toString) should be === false
+    (a.toString == C.toString) should be(false)
     val m = a match {
        case A => true
        case _ => false
@@ -37,12 +37,12 @@ class DNANucleotideSpec extends FlatSpec with Matchers
   "Nucleotides" should "be listable" in {
     val seq = List[Nucleotide](A,G,C,T,T,A)
     seq(0) should equal (A)
-    (seq mkString) should be === "agctta"
+    (seq mkString) should equal("agctta")
     val seq2 = A :: seq
-    (seq2 mkString) should be === "aagctta"
+    (seq2 mkString) should equal("aagctta")
     // Introducing a widened type
     val seq3 = "z" :: seq
-    (seq3 mkString) should be === "zagctta"
+    (seq3 mkString) should equal("zagctta")
   }
 }
 
@@ -60,5 +60,3 @@ class RNANucleotideSpec extends FlatSpec with Matchers{
     u.toString should equal ("u")
   }
 }
-
-

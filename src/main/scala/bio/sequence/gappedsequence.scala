@@ -1,7 +1,7 @@
 /**
  * A gapped Sequence represents a Sequence with stretches of 'emptiness', like
  * used in an alignment.  GappedSequence contains a list of mixed Nucleotides +
- * Gaps.  
+ * Gaps.
  * <p>
  * When a part of a Sequence has unknown nucleotides/amino acids use
  * IUPACSequence.
@@ -9,6 +9,7 @@
 
 import bio._
 import bio.attribute._
+import scala.language.postfixOps
 
 package bio {
 
@@ -29,8 +30,8 @@ package bio {
       /**
        * @return transcribed DNA.Sequence as RNA.Sequence
        */
-      def transcribe = { 
-        val transcribed = SymbolSequenceTranscription.transcribe(seq) 
+      def transcribe = {
+        val transcribed = SymbolSequenceTranscription.transcribe(seq)
         val list = RNA.SymbolConvert.fromList(transcribed)
         new RNA.GappedSequence(list)
       }
@@ -52,8 +53,8 @@ package bio {
       /**
        * @return transcribed DNA.Sequence as RNA.Sequence
        */
-      def transcribe = { 
-        val transcribed = SymbolSequenceTranscription.transcribe(seq) 
+      def transcribe = {
+        val transcribed = SymbolSequenceTranscription.transcribe(seq)
         val list = RNA.SymbolConvert.fromList(transcribed)
         new RNA.GappedSequence(list)
       }
@@ -94,4 +95,3 @@ package bio {
     }
   }
 }
-

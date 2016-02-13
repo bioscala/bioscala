@@ -89,8 +89,7 @@ Fetch ORFs from a sequence. Sorry, this script is non-functinal at the moment.
       case None => println("No input files")
         sys.exit(1)
     }
-    if (verbose) println("Writing file")
-    0
+    if (verbose) println("Writing file")    
   } // main
 } // object
 

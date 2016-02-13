@@ -12,17 +12,18 @@
  * <p>
  * For gapped and ambiguous sequences see the relevant traits.
  *
- * @see GappedSequence 
+ * @see GappedSequence
  * @see IUPACSequence
  */
 
 import bio._
 import bio.attribute._
+import scala.language.postfixOps
 
 package bio {
 
   package DNA {
-    /** 
+    /**
      * A DNA Sequence contains a List of Nucleotide.
      */
     class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
@@ -40,8 +41,8 @@ package bio {
       /**
        * @return transcribed DNA.Sequence as RNA.Sequence
        */
-      def transcribe = { 
-        val transcribed = SequenceTranscription.transcribe(seq) 
+      def transcribe = {
+        val transcribed = SequenceTranscription.transcribe(seq)
         val list = RNA.NucleotideConvert.fromList(transcribed)
         new RNA.Sequence(list)
       }

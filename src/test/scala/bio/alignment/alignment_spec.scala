@@ -1,13 +1,13 @@
 import bio._
-
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 
 package bio.test {
 
   import bio.attribute._
 
-  class AlignmentSpec extends FlatSpec with ShouldMatchers {
+  class AlignmentSpec extends FlatSpec with Matchers {
     "An Alignment" should "instantiate from a list" in {
       val s1 = new DNA.GappedSequence("agc--taacg---")
       val s2 = new DNA.GappedSequence("agc---aaca---")
@@ -32,7 +32,7 @@ package bio.test {
       val s1 = new DNA.GappedSequence("ag---ctaacaac")
       val s2 = new DNA.GappedSequence("ag---caaacagt")
       val s3 = new DNA.GappedSequence("ag--ccaaacgga")
-      val a = new Alignment(List(s1.toList,s2.toList,s3.toList)) 
+      val a = new Alignment(List(s1.toList,s2.toList,s3.toList))
       val t = a.transpose(a.toList)
       t.toList.head.mkString should equal ("aaa")
       val t2 = a.getColumns(a.toList)
@@ -51,14 +51,14 @@ package bio.test {
         idx += 1
         if (b) { t(idx) }
         else Nil
-      }.filter( l =>  l.size > 0 ) 
+      }.filter( l =>  l.size > 0 )
       */
 
       // functional approach
-      val list = bools.zipWithIndex.map { 
+      val list = bools.zipWithIndex.map {
                    case(true, i) => t(i)
                    case(false, _) => Nil
-                 }.filter( _ != Nil ) 
+                 }.filter( _ != Nil )
 
       list.toList(0).mkString should equal ("taa")
       list.toList(3).mkString should equal ("cta")
@@ -70,8 +70,7 @@ package bio.test {
       val s1 = new DNA.GappedSequence("ag---ctaacaac")
       val s2 = new DNA.GappedSequence("ag---caaacagt")
       val s3 = new DNA.GappedSequence("ag--ccaaacgga")
-      val a = new SequenceAlignment(List(s1,s2,s3)) 
-      true
+      val a = new SequenceAlignment(List(s1,s2,s3))
     }
   }
 }

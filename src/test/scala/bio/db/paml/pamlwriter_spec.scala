@@ -1,18 +1,18 @@
 import bio._
-
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 
 package bio.test {
 
-  class PamlWriterSpec extends FlatSpec with ShouldMatchers {
+  class PamlWriterSpec extends FlatSpec with Matchers {
     import bio._
     import bio.DNA._
     import java.io._
 
     "PamlWriter" should "write PAML file" in {
       val f = new FastaReader("./test/data/fasta/nt_aln.fa")
-      val seqlist = f.map { res => 
+      val seqlist = f.map { res =>
         val (id,tag,dna) = res
         val seq = new GappedSequence(id,tag,dna)
         seq

@@ -1,11 +1,11 @@
 import bio._
-
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 
 package bio.test {
 
-  class PamlReaderSpec extends FlatSpec with ShouldMatchers {
+  class PamlReaderSpec extends FlatSpec with Matchers {
     import bio._
     import bio.DNA._
 
