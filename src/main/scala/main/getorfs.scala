@@ -37,9 +37,9 @@ Fetch ORFs from a sequence. Sorry, this script is non-functional at the moment.
     type OptionMap = Map[scala.Symbol, Any]
 
     def infileOption(xmap: OptionMap, s: String) : OptionMap = {
-      val infiles = xmap.get( 'infiles ) match {
-        case Some(l : List[String]) => s :: l
-        case None => List(s)
+      val infiles = xmap.get('infiles) match {
+        case Some(l: List[String]) => s :: l
+        case _                     => List(s)
       }
       Map('infiles -> infiles)
     }
@@ -86,7 +86,7 @@ Fetch ORFs from a sequence. Sorry, this script is non-functional at the moment.
                        println(id)
                      }
                    }
-      case None => println("No input files")
+      case _ => println("No input files")
         sys.exit(1)
     }
     if (verbose) println("Writing file")

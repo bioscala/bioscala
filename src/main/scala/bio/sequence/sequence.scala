@@ -50,15 +50,15 @@ package bio {
         create(seq.take(pos) ::: seq.takeRight(seq.size-pos-num), attributes)
       }
     def hasDescription = attribFirst(GetDescription, attributes) match {
-          case None => false
-          case Some(s : String) => true
-      }
+      case Some(s: String) => true
+      case _               => false
+    }
     /**
      * @return first (primary) Description in attribute list
      */
     def description = { attribFirst(GetDescription, attributes) match {
-          case None => "No description"
-          case Some(s : String) => s
+        case Some(s: String) => s
+        case _               => "No description"
       }
     }
 

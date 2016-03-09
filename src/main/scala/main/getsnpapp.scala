@@ -46,7 +46,7 @@ Call SNPs from an alignment.
     def infileOption(xmap: OptionMap, s: String) : OptionMap = {
       val infiles = xmap.get( 'infiles ) match {
         case Some(l : List[String]) => s :: l
-        case None => List(s)
+        case _ => List(s)
       }
       Map('infiles -> infiles)
     }
@@ -113,7 +113,7 @@ Call SNPs from an alignment.
                      }
                      true
                    }
-      case None =>
+      case _ =>
                    println(usage)
                    println("No input files")
                    sys.exit(1)
