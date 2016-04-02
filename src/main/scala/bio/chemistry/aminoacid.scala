@@ -20,7 +20,7 @@
  *
  * B.................Asx.................Aspartic acid or Asparagine
  * Z.................Glx.................Glutamine or Glutamic acid
- * X.................Xaa.................Any amino acid 
+ * X.................Xaa.................Any amino acid
  * </pre>
  */
 
@@ -30,104 +30,50 @@ package bio {
   package Protein {
 
     abstract class AASymbol extends Symbol
-    sealed abstract class AminoAcid extends AASymbol
-    abstract class PositiveAminoAcid extends AminoAcid
-    abstract class NegativeAminoAcid extends AminoAcid
-    abstract class UnchargedAminoAcid extends AminoAcid
-    abstract class SpecialAminoAcid extends AminoAcid
-    abstract class HydrophobicAminoAcid extends AminoAcid
 
-    case object R extends PositiveAminoAcid {
-      val name="Arg"
-      val fullname="Arginine"
-    }
-    case object H extends PositiveAminoAcid {
-      val name="His"
-      val fullname="Histidine"
-    }
-    case object K extends PositiveAminoAcid {
-      val name="Lys"
-      val fullname="Lysine"
-    }
-    case object D extends NegativeAminoAcid {
-      val name="Asp"
-      val fullname="Aspartic Acid"
-    }
-    case object E extends NegativeAminoAcid {
-      val name="Glu"
-      val fullname="Glutamic Acid"
-    }
-    case object S extends UnchargedAminoAcid {
-      val name="Ser"
-      val fullname="Serine"
-    }
-    case object T extends UnchargedAminoAcid {
-      val name="Thr"
-      val fullname="Threonine"
-    }
-    case object N extends UnchargedAminoAcid {
-      val name="Asn"
-      val fullname="Asparagine"
-    }
-    case object Q extends UnchargedAminoAcid {
-      val name="Gln"
-      val fullname="Glutamine"
-    }
-    case object C extends UnchargedAminoAcid {
-      val name="Cys"
-      val fullname="Cysteine"
-    }
-    case object U extends UnchargedAminoAcid {
-      val name="Sec"
-      val fullname="Selenocysteine"
-    }
-    case object G extends UnchargedAminoAcid {
-      val name="Gly"
-      val fullname="Glycine"
-    }
-    case object P extends UnchargedAminoAcid {
-      val name="Pro"
-      val fullname="Proline"
-    }
-    case object A extends HydrophobicAminoAcid {
-      val name="Ala"
-      val fullname="Alanine"
-    }
-    case object I extends HydrophobicAminoAcid {
-      val name="Ile"
-      val fullname="Isoleucine"
-    }
-    case object L extends HydrophobicAminoAcid {
-      val name="Leu"
-      val fullname="Leucine"
-    }
-    case object M extends HydrophobicAminoAcid {
-      val name="Met"
-      val fullname="Methionine"
-    }
-    case object F extends HydrophobicAminoAcid {
-      val name="Phe"
-      val fullname="Phenylalanine"
-    }
-    case object W extends HydrophobicAminoAcid {
-      val name="Trp"
-      val fullname="Tryptophan"
-    }
-    case object Y extends HydrophobicAminoAcid {
-      val name="Tyr"
-      val fullname="Tyrosine"
-    }
-    case object V extends HydrophobicAminoAcid {
-      val name="Val"
-      val fullname="Valine"
-    }
-    case object * extends AminoAcid {
-      val name="*"
-      val fullname="Stop"
+    sealed abstract class AminoAcid(val name: String, val fullname: String) extends AASymbol
+    abstract class PositiveAminoAcid(name: String, fullname: String)
+      extends AminoAcid(name, fullname)
+    abstract class NegativeAminoAcid(name: String, fullname: String)
+      extends AminoAcid(name, fullname)
+    abstract class UnchargedAminoAcid(name: String, fullname: String)
+      extends AminoAcid(name, fullname)
+    abstract class SpecialAminoAcid(name: String, fullname: String)
+      extends AminoAcid(name, fullname)
+    abstract class HydrophobicAminoAcid(name: String, fullname: String)
+      extends AminoAcid(name, fullname)
+
+    case object R extends PositiveAminoAcid("Arg", "Arginine")
+    case object H extends PositiveAminoAcid("His", "Histidine")
+    case object K extends PositiveAminoAcid("Lys", "Lysine")
+
+    case object D extends NegativeAminoAcid("Asp", "Aspartic Acid")
+    case object E extends NegativeAminoAcid("Glu", "Glutamic Acid")
+
+    case object S extends UnchargedAminoAcid("Ser", "Serine")
+    case object T extends UnchargedAminoAcid("Thr", "Threonine")
+    case object N extends UnchargedAminoAcid("Asn", "Asparagine")
+    case object Q extends UnchargedAminoAcid("Gln", "Glutamine")
+    case object C extends UnchargedAminoAcid("Cys", "Cysteine")
+    case object U extends UnchargedAminoAcid("Sec", "Selenocysteine")
+    case object G extends UnchargedAminoAcid("Gly", "Glycine")
+    case object P extends UnchargedAminoAcid("Pro", "Proline")
+
+    case object A extends HydrophobicAminoAcid("Ala", "Alanine")
+    case object I extends HydrophobicAminoAcid("Ile", "Isoleucine")
+    case object L extends HydrophobicAminoAcid("Leu", "Leucine")
+    case object M extends HydrophobicAminoAcid("Met", "Methionine")
+    case object F extends HydrophobicAminoAcid("Phe", "Phenylalanine")
+    case object W extends HydrophobicAminoAcid("Trp", "Tryptophan")
+    case object Y extends HydrophobicAminoAcid("Tyr", "Tyrosine")
+    case object V extends HydrophobicAminoAcid("Val", "Valine")
+
+    case object * extends AminoAcid("*", "Stop") {
       override def toString = "*"
     }
+
     object AminoAcidConvert extends StringConverter[AminoAcid] {
-      /** 
+      /**
        * AminoAcid factory: create a AminoAcid object from its
        * character representation. For example:
        *
@@ -193,26 +139,17 @@ package bio {
     }
 
     /* IUPAC */
-    sealed abstract class IUPAC extends AminoAcid
-    case object B extends IUPAC {
-      val name="Asx"
-      val fullname="Aspartic acid or Asparagine"
-    }
-    case object Z extends IUPAC {
-      val name="Glx"
-      val fullname="Glutamine or Glutamic acid"
-    }
-    case object X extends IUPAC {
-      val name="Xaa"
-      val fullname="Any amino acid"
-    }
+    sealed abstract class IUPAC(name: String, fullname: String) extends AminoAcid(name, fullname)
+    case object B extends IUPAC("Asx", "Aspartic acid or Asparagine")
+    case object Z extends IUPAC("Glx", "Glutamine or Glutamic acid")
+    case object X extends IUPAC("Xaa", "Any amino acid")
 
     object SymbolConvert extends StringConverter[AASymbol] {
-      def fromChar(c: Char): AASymbol = { 
+      def fromChar(c: Char): AASymbol = {
         c.toUpper match {
           // case '-' => EmptyIUPAC
           case '-' => Gap
-          case  _  => 
+          case  _  =>
             AminoAcidConvert.fromChar(c)
         }
       }
@@ -225,15 +162,15 @@ package bio {
     }
 
     object IUPACAminoAcidConvert extends StringConverter[AminoAcid] {
-      /** 
+      /**
        * Create a IUPAC object from its character representation.
        */
-      def fromChar(c: Char): AminoAcid = { 
+      def fromChar(c: Char): AminoAcid = {
         c.toUpper match {
           case 'B' => B
           case 'Z' => Z
           case 'X' => X
-          case  _  => 
+          case  _  =>
             AminoAcidConvert.fromChar(c)
         }
       }
@@ -247,16 +184,16 @@ package bio {
       }
     }
     object IUPACGappedAminoAcidConvert extends StringConverter[AASymbol] {
-      /** 
+      /**
        * Create a IUPAC object from its character representation.
        */
-      def fromChar(c: Char): AASymbol = { 
+      def fromChar(c: Char): AASymbol = {
         c.toUpper match {
           case '-' => Gap
           case 'B' => B
           case 'Z' => Z
           case 'X' => X
-          case  _  => 
+          case  _  =>
             AminoAcidConvert.fromChar(c)
         }
       }
@@ -272,4 +209,3 @@ package bio {
     }
   }
 }
-
