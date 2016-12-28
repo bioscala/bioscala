@@ -11,6 +11,8 @@
  * return value is also a Tuple with status and object(s).
  */
 
+import scala.language.postfixOps
+
 package bio {
 
   abstract class Message
