@@ -12,26 +12,24 @@
  * <p>
  * For gapped and ambiguous sequences see the relevant traits.
  *
- * @see GappedSequence 
+ * @see GappedSequence
  * @see IUPACSequence
  */
 
-import bio._
-import bio.attribute._
+package bio
 
-package bio {
+import attribute._
 
-  package Protein {
+package Protein {
 
-    class Sequence(aalist: List[AminoAcid], attributelist: List[Attribute]) extends bio.Sequence[AminoAcid](aalist, attributelist) {
-      type SequenceType = Sequence
-      def create(seqlist: List[AminoAcid], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
+  class Sequence(aalist: List[AminoAcid], attributelist: List[Attribute]) extends bio.Sequence[AminoAcid](aalist, attributelist) {
+    type SequenceType = Sequence
+    def create(seqlist: List[AminoAcid], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
 
-      def this(list: List[AminoAcid]) = this(AminoAcidConvert.fromList(list),Nil)
-      def this(str: String) = this(AminoAcidConvert.fromString(str),Nil)
-      def this(id: String, str: String) = this(AminoAcidConvert.fromString(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(AminoAcidConvert.fromString(str),List(Id(id),Description(descr)))
-      def this(sequence: Sequence) = this(sequence.seq, Nil)
-    } // Sequence
-  } // Protein
-} // bio
+    def this(list: List[AminoAcid]) = this(AminoAcidConvert.fromList(list), Nil)
+    def this(str: String) = this(AminoAcidConvert.fromString(str), Nil)
+    def this(id: String, str: String) = this(AminoAcidConvert.fromString(str), List(Id(id)))
+    def this(id: String, descr: String, str: String) = this(AminoAcidConvert.fromString(str), List(Id(id), Description(descr)))
+    def this(sequence: Sequence) = this(sequence.seq, Nil)
+  } // Sequence
+} // Protein

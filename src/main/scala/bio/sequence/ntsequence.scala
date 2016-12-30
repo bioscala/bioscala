@@ -16,63 +16,61 @@
  * @see IUPACSequence
  */
 
-import bio._
-import bio.attribute._
+package bio
+
+import attribute._
 import scala.language.postfixOps
 
-package bio {
+package DNA {
+  /**
+   * A DNA Sequence contains a List of Nucleotide.
+   */
+  class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
+    type SequenceType = Sequence
+    def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
 
-  package DNA {
+    def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list), Nil)
+    def this(str: String) = this(NucleotideConvert.fromString(str), Nil)
+    def this(id: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id)))
+    def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id), Description(descr)))
+    def this(sequence: Sequence) = this(sequence.seq, Nil)
+
+    def translate() = { SequenceTranslation.translate(transcribe seq) }
+
     /**
-     * A DNA Sequence contains a List of Nucleotide.
+     * @return transcribed DNA.Sequence as RNA.Sequence
      */
-    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
-      type SequenceType = Sequence
-      def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
-
-      def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
-      def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
-      def this(id: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str),List(Id(id),Description(descr)))
-      def this(sequence: Sequence) = this(sequence.seq, Nil)
-
-      def translate() = { SequenceTranslation.translate(transcribe seq) }
-
-      /**
-       * @return transcribed DNA.Sequence as RNA.Sequence
-       */
-      def transcribe = {
-        val transcribed = SequenceTranscription.transcribe(seq)
-        val list = RNA.NucleotideConvert.fromList(transcribed)
-        new RNA.Sequence(list)
-      }
-      /**
-       * @return complementary DNA.Sequence
-       */
-      def complement = SequenceTranscription.complement(seq)
+    def transcribe = {
+      val transcribed = SequenceTranscription.transcribe(seq)
+      val list = RNA.NucleotideConvert.fromList(transcribed)
+      new RNA.Sequence(list)
     }
+    /**
+     * @return complementary DNA.Sequence
+     */
+    def complement = SequenceTranscription.complement(seq)
   }
+}
 
-  package RNA {
-    class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
+package RNA {
+  class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
 
-      type SequenceType = Sequence
-      def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
+    type SequenceType = Sequence
+    def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
 
-      def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list),Nil)
-      // def this(list: List[NTSymbol]) = this(NucleotideConvert.fromList(list),Nil)
-      def this(str: String) = this(NucleotideConvert.fromString(str),Nil)
-      def this(sequence: Sequence) = this(sequence.seq, Nil)
-      def this(id: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str),List(Id(id),Description(descr)))
+    def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list), Nil)
+    // def this(list: List[NTSymbol]) = this(NucleotideConvert.fromList(list),Nil)
+    def this(str: String) = this(NucleotideConvert.fromString(str), Nil)
+    def this(sequence: Sequence) = this(sequence.seq, Nil)
+    def this(id: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id)))
+    def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id), Description(descr)))
 
-      def translate() = { SequenceTranslation.translate(transcribe seq) }
+    def translate() = { SequenceTranslation.translate(transcribe seq) }
 
-      /**
-       * @return itself (source is immutable)
-       */
-      def transcribe = { this }
+    /**
+     * @return itself (source is immutable)
+     */
+    def transcribe = { this }
 
-    }
   }
 }

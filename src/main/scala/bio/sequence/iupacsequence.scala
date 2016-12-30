@@ -24,79 +24,77 @@
  *
  */
 
-import bio._
-import bio.attribute._
+package bio
+
+import attribute._
 import scala.language.postfixOps
 
-package bio {
+package DNA {
+  class IUPACSequence(seqlist: List[NTSymbol], attributelist: List[Attribute]) extends bio.Sequence[NTSymbol](seqlist, attributelist) {
+    type SequenceType = IUPACSequence
+    def create(seqlist: List[NTSymbol], attributelist: List[Attribute]) = new IUPACSequence(seqlist, attributelist)
 
-  package DNA {
-    class IUPACSequence (seqlist: List[NTSymbol], attributelist: List[Attribute]) extends bio.Sequence[NTSymbol](seqlist,attributelist) {
-      type SequenceType = IUPACSequence
-      def create(seqlist: List[NTSymbol], attributelist: List[Attribute]) = new IUPACSequence(seqlist, attributelist)
+    def this(list: List[NTSymbol]) = this(IUPACNucleotideConvert.fromList(list), Nil)
+    def this(str: String) = this(IUPACNucleotideConvert.fromString(str), Nil)
+    def this(id: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id)))
+    def this(id: String, descr: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id), Description(descr)))
+    def this(sequence: Sequence) = this(sequence.seq, Nil)
 
-      def this(list: List[NTSymbol]) = this(IUPACNucleotideConvert.fromList(list),Nil)
-      def this(str: String) = this(IUPACNucleotideConvert.fromString(str),Nil)
-      def this(id: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(IUPACNucleotideConvert.fromString(str),List(Id(id),Description(descr)))
-      def this(sequence: Sequence) = this(sequence.seq, Nil)
-
-      /**
-       * @return transcribed DNA.Sequence as RNA.Sequence
-       */
-      def transcribe = {
-        val transcribed = SymbolSequenceTranscription.transcribe(seq)
-        new RNA.IUPACSequence(transcribed)
-      }
-
-      def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
-
+    /**
+     * @return transcribed DNA.Sequence as RNA.Sequence
+     */
+    def transcribe = {
+      val transcribed = SymbolSequenceTranscription.transcribe(seq)
+      new RNA.IUPACSequence(transcribed)
     }
+
+    def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
+
   }
-  package RNA {
-    class IUPACSequence (seqlist: List[NTSymbol], attributelist: List[Attribute]) extends bio.Sequence[NTSymbol](seqlist,attributelist) {
-      type SequenceType = IUPACSequence
-      def create(seqlist: List[NTSymbol], attributelist: List[Attribute]) = new IUPACSequence(seqlist, attributelist)
+}
+package RNA {
+  class IUPACSequence(seqlist: List[NTSymbol], attributelist: List[Attribute]) extends bio.Sequence[NTSymbol](seqlist, attributelist) {
+    type SequenceType = IUPACSequence
+    def create(seqlist: List[NTSymbol], attributelist: List[Attribute]) = new IUPACSequence(seqlist, attributelist)
 
-      def this(list: List[NTSymbol]) = this(IUPACNucleotideConvert.fromList(list),Nil)
-      def this(str: String) = this(IUPACNucleotideConvert.fromString(str),Nil)
-      def this(id: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(IUPACNucleotideConvert.fromString(str),List(Id(id),Description(descr)))
-      def this(sequence: Sequence) = this(sequence.seq, Nil)
+    def this(list: List[NTSymbol]) = this(IUPACNucleotideConvert.fromList(list), Nil)
+    def this(str: String) = this(IUPACNucleotideConvert.fromString(str), Nil)
+    def this(id: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id)))
+    def this(id: String, descr: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id), Description(descr)))
+    def this(sequence: Sequence) = this(sequence.seq, Nil)
 
-      /**
-       * @return transcribed DNA.Sequence as RNA.Sequence
-       */
-      def transcribe = { this }
+    /**
+     * @return transcribed DNA.Sequence as RNA.Sequence
+     */
+    def transcribe = { this }
 
-      def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
+    def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
 
-    }
   }
-  package Protein {
-    /*
+}
+package Protein {
+  /*
      * AminoAcid Sequence supporting ambiguous IUPAC symbols
      */
-    class IUPACSequence (seqlist: List[AminoAcid], attributelist: List[Attribute]) extends bio.Sequence[AminoAcid](seqlist,attributelist) {
-      type SequenceType = IUPACSequence
-      def create(seqlist: List[AminoAcid], attributelist: List[Attribute]) = new IUPACSequence(seqlist, attributelist)
+  class IUPACSequence(seqlist: List[AminoAcid], attributelist: List[Attribute]) extends bio.Sequence[AminoAcid](seqlist, attributelist) {
+    type SequenceType = IUPACSequence
+    def create(seqlist: List[AminoAcid], attributelist: List[Attribute]) = new IUPACSequence(seqlist, attributelist)
 
-      def this(list: List[AminoAcid]) = this(IUPACAminoAcidConvert.fromList(list),Nil)
-      def this(str: String) = this(IUPACAminoAcidConvert.fromString(str),Nil)
-      def this(id: String, str: String) = this(IUPACAminoAcidConvert.fromString(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(IUPACAminoAcidConvert.fromString(str),List(Id(id),Description(descr)))
-      def this(sequence: Sequence) = this(sequence.seq, Nil)
-    }
+    def this(list: List[AminoAcid]) = this(IUPACAminoAcidConvert.fromList(list), Nil)
+    def this(str: String) = this(IUPACAminoAcidConvert.fromString(str), Nil)
+    def this(id: String, str: String) = this(IUPACAminoAcidConvert.fromString(str), List(Id(id)))
+    def this(id: String, descr: String, str: String) = this(IUPACAminoAcidConvert.fromString(str), List(Id(id), Description(descr)))
+    def this(sequence: Sequence) = this(sequence.seq, Nil)
+  }
 
-    class IUPACGappedSequence (seqlist: List[AASymbol], attributelist: List[Attribute]) extends bio.Sequence[AASymbol](seqlist,attributelist) {
-      type SequenceType = IUPACGappedSequence
-      def create(seqlist: List[AASymbol], attributelist: List[Attribute]) = new IUPACGappedSequence(seqlist, attributelist)
+  class IUPACGappedSequence(seqlist: List[AASymbol], attributelist: List[Attribute]) extends bio.Sequence[AASymbol](seqlist, attributelist) {
+    type SequenceType = IUPACGappedSequence
+    def create(seqlist: List[AASymbol], attributelist: List[Attribute]) = new IUPACGappedSequence(seqlist, attributelist)
 
-      def this(list: List[AASymbol]) = this(IUPACGappedAminoAcidConvert.fromList(list),Nil)
-      def this(str: String) = this(IUPACGappedAminoAcidConvert.fromString(str),Nil)
-      def this(id: String, str: String) = this(IUPACGappedAminoAcidConvert.fromString(str), List(Id(id)))
-      def this(id: String, descr: String, str: String) = this(IUPACGappedAminoAcidConvert.fromString(str),List(Id(id),Description(descr)))
-      def this(sequence: Sequence) = this(sequence.seq, Nil)
-    }
+    def this(list: List[AASymbol]) = this(IUPACGappedAminoAcidConvert.fromList(list), Nil)
+    def this(str: String) = this(IUPACGappedAminoAcidConvert.fromString(str), Nil)
+    def this(id: String, str: String) = this(IUPACGappedAminoAcidConvert.fromString(str), List(Id(id)))
+    def this(id: String, descr: String, str: String) = this(IUPACGappedAminoAcidConvert.fromString(str), List(Id(id), Description(descr)))
+    def this(sequence: Sequence) = this(sequence.seq, Nil)
   }
 }
