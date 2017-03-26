@@ -393,6 +393,6 @@ content.
 
 == See also ==
 
-* [http://thebird.nl/bioscala/bioscala-tutorial.html BioScala Tutorial]
-* [http://thebird.nl/bioscala/api/ BioScala API] docs
-* [http://github.com/pjotrp/bioscala BioScala source tree]
+* [http://monomorphic.org/bioscala/bioscala-tutorial.html BioScala Tutorial]
+* [http://monomorphic.org/bioscala/api/ BioScala API] docs
+* [http://github.com/bioscala/bioscala BioScala source tree]
