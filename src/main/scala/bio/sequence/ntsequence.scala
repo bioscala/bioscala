@@ -25,15 +25,15 @@ package DNA {
   /**
    * A DNA Sequence contains a List of Nucleotide.
    */
-  class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
-    type SequenceType = Sequence
-    def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
+  class DNASequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
+    type SequenceType = DNASequence
+    def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new DNASequence(seqlist, attributelist)
 
     def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list), Nil)
     def this(str: String) = this(NucleotideConvert.fromString(str), Nil)
     def this(id: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id)))
     def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id), Description(descr)))
-    def this(sequence: Sequence) = this(sequence.seq, Nil)
+    def this(sequence: DNASequence) = this(sequence.seq, Nil)
 
     def translate() = { SequenceTranslation.translate(transcribe seq) }
 
@@ -43,7 +43,7 @@ package DNA {
     def transcribe = {
       val transcribed = SequenceTranscription.transcribe(seq)
       val list = RNA.NucleotideConvert.fromList(transcribed)
-      new RNA.Sequence(list)
+      new RNA.RNASequence(list)
     }
     /**
      * @return complementary DNA.Sequence
@@ -53,15 +53,15 @@ package DNA {
 }
 
 package RNA {
-  class Sequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
+  class RNASequence(nucleotidelist: List[Nucleotide], attributelist: List[Attribute]) extends bio.Sequence[Nucleotide](nucleotidelist, attributelist) {
 
-    type SequenceType = Sequence
-    def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new Sequence(seqlist, attributelist)
+    type SequenceType = RNASequence
+    def create(seqlist: List[Nucleotide], attributelist: List[Attribute]) = new RNASequence(seqlist, attributelist)
 
     def this(list: List[Nucleotide]) = this(NucleotideConvert.fromList(list), Nil)
     // def this(list: List[NTSymbol]) = this(NucleotideConvert.fromList(list),Nil)
     def this(str: String) = this(NucleotideConvert.fromString(str), Nil)
-    def this(sequence: Sequence) = this(sequence.seq, Nil)
+    def this(sequence: RNASequence) = this(sequence.seq, Nil)
     def this(id: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id)))
     def this(id: String, descr: String, str: String) = this(NucleotideConvert.fromString(str), List(Id(id), Description(descr)))
 

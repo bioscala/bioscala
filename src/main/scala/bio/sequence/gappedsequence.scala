@@ -22,7 +22,7 @@ package DNA {
     def this(str: String) = this(GappedConvert.fromString(str), Nil)
     def this(id: String, str: String) = this(GappedConvert.fromString(str), List(Id(id)))
     def this(id: String, descr: String, str: String) = this(GappedConvert.fromString(str), List(Id(id), Description(descr)))
-    def this(sequence: Sequence) = this(sequence.seq, Nil)
+    def this(sequence: DNASequence) = this(sequence.seq, Nil)
 
     def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
 
@@ -45,7 +45,7 @@ package DNA {
     def this(str: String) = this(IUPACGappedConvert.fromString(str), Nil)
     def this(id: String, str: String) = this(IUPACGappedConvert.fromString(str), List(Id(id)))
     def this(id: String, descr: String, str: String) = this(IUPACGappedConvert.fromString(str), List(Id(id), Description(descr)))
-    def this(sequence: Sequence) = this(sequence.seq, Nil)
+    def this(sequence: DNASequence) = this(sequence.seq, Nil)
 
     def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
 
@@ -69,7 +69,7 @@ package RNA {
     def this(str: String) = this(GappedConvert.fromString(str), Nil)
     def this(id: String, str: String) = this(GappedConvert.fromString(str), List(Id(id)))
     def this(id: String, descr: String, str: String) = this(GappedConvert.fromString(str), List(Id(id), Description(descr)))
-    def this(sequence: Sequence) = this(sequence.seq, Nil)
+    def this(sequence: RNASequence) = this(sequence.seq, Nil)
 
     def translate() = { SymbolSequenceTranslation.translate(transcribe seq) }
 

@@ -38,7 +38,7 @@ package DNA {
     def this(str: String) = this(IUPACNucleotideConvert.fromString(str), Nil)
     def this(id: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id)))
     def this(id: String, descr: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id), Description(descr)))
-    def this(sequence: Sequence) = this(sequence.seq, Nil)
+    def this(sequence: DNASequence) = this(sequence.seq, Nil)
 
     /**
      * @return transcribed DNA.Sequence as RNA.Sequence
@@ -61,7 +61,7 @@ package RNA {
     def this(str: String) = this(IUPACNucleotideConvert.fromString(str), Nil)
     def this(id: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id)))
     def this(id: String, descr: String, str: String) = this(IUPACNucleotideConvert.fromString(str), List(Id(id), Description(descr)))
-    def this(sequence: Sequence) = this(sequence.seq, Nil)
+    def this(sequence: RNASequence) = this(sequence.seq, Nil)
 
     /**
      * @return transcribed DNA.Sequence as RNA.Sequence
