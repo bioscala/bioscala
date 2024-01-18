@@ -9,14 +9,14 @@ import org.scalatest.matchers.should.Matchers
 
 class RNASequenceSpec extends AnyFlatSpec with Matchers {
   "RNA sequences" should "print as characters" in {
-    val s = new DNASequence("agcuaacg")
+    val s = new RNASequence("agcuaacg")
     s.toString should equal("agcuaacg")
-    new DNASequence("agUA").toString should equal("agua")
+    new RNASequence("agUA").toString should equal("agua")
   }
 
   "RNA sequence" should "not accept strange input" in {
     an[IllegalArgumentException] should be thrownBy {
-      val s = new DNASequence("acgut") // fails on t
+      val s = new RNASequence("acgut") // fails on t
       s.toString
     }
 
@@ -33,8 +33,8 @@ class RNASequenceSpec extends AnyFlatSpec with Matchers {
   }
 
   "RNA Sequence" should "instantiate from a Sequence" in {
-    val s1 = new DNASequence("agcuaacg")
-    val s2 = new DNASequence(s1)
+    val s1 = new RNASequence("agcuaacg")
+    val s2 = new RNASequence(s1)
     s2.toString should equal("agcuaacg")
   }
 
