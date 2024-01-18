@@ -3,7 +3,7 @@
  */
 
 package bio
-import org.biojava.bio.symbol._
+
 import org.biojava.bio.seq._
 
 class SequenceTranslation[T] {
@@ -22,8 +22,8 @@ class SequenceTranslation[T] {
    * gap. In fact, anything with a gap gets to be a gap. When
    * an unknown character is introduced the AA becomes X. So:
    *
-   *   "agc---a-n" translates to "S--"
-   *   "agc---agn" translates to "S-X"
+   * "agc---a-n" translates to "S--"
+   * "agc---agn" translates to "S-X"
    */
   def translate(nucleotides: List[T]): List[Protein.AASymbol] = {
     val remove = nucleotides.size % 3
@@ -36,10 +36,13 @@ class SequenceTranslation[T] {
 package DNA {
 
   object SequenceTranslation extends SequenceTranslation[RNA.Nucleotide]
+
   object SymbolSequenceTranslation extends SequenceTranslation[RNA.NTSymbol]
 }
+
 package RNA {
 
   object SequenceTranslation extends SequenceTranslation[RNA.Nucleotide]
+
   object SymbolSequenceTranslation extends SequenceTranslation[RNA.NTSymbol]
 }

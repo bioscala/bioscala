@@ -15,7 +15,8 @@ object GetORFApp {
     val arglist = args.toList
     if (args.length == 0) {
       println("GetORFs " + version)
-      println("""
+      println(
+        """
 
 Fetch ORFs from a sequence. Sorry, this script is non-functional at the moment.
 
@@ -39,14 +40,16 @@ Fetch ORFs from a sequence. Sorry, this script is non-functional at the moment.
     def infileOption(xmap: OptionMap, s: String): OptionMap = {
       val infiles = xmap.get('infiles) match {
         case Some(l: List[String]) => s :: l
-        case _                     => List(s)
+        case _ => List(s)
       }
       Map('infiles -> infiles)
     }
+
     def nextOption(map: OptionMap, list: List[String]): OptionMap = {
       def switch(s: String) = (s(0) == '-')
+
       list match {
-        case Nil          => map
+        case Nil => map
         case "-v" :: tail => nextOption(map ++ Map('verbose -> true), tail)
         case string :: opt2 :: tail if switch(opt2) =>
           nextOption(map ++ infileOption(map, string), list.tail)
@@ -58,17 +61,19 @@ Fetch ORFs from a sequence. Sorry, this script is non-functional at the moment.
       }
       // Map('type -> false)
     }
+
     val options = nextOption(Map(), arglist)
 
     def getInt(name: scala.Symbol, default: Int): Int =
       options.get(name) match {
         case Some(v) => v.toString.toInt
-        case None    => default
+        case None => default
       }
+
     def getBool(name: scala.Symbol): Boolean =
       options.get(name) match {
         case Some(_) => true
-        case None    => false
+        case None => false
       }
 
     val verbose = getBool('verbose)

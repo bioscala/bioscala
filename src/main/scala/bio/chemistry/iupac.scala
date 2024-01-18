@@ -35,17 +35,50 @@ package bio
 
 package DNA {
   sealed abstract class IUPAC extends NTSymbol
-  case object M extends IUPAC { override def toString = "m" }
-  case object R extends IUPAC { override def toString = "r" }
-  case object W extends IUPAC { override def toString = "w" }
-  case object S extends IUPAC { override def toString = "s" }
-  case object Y extends IUPAC { override def toString = "y" }
-  case object K extends IUPAC { override def toString = "k" }
-  case object V extends IUPAC { override def toString = "v" }
-  case object H extends IUPAC { override def toString = "h" }
-  case object D extends IUPAC { override def toString = "d" }
-  case object B extends IUPAC { override def toString = "b" }
-  case object N extends IUPAC { override def toString = "n" }
+
+  case object M extends IUPAC {
+    override def toString = "m"
+  }
+
+  case object R extends IUPAC {
+    override def toString = "r"
+  }
+
+  case object W extends IUPAC {
+    override def toString = "w"
+  }
+
+  case object S extends IUPAC {
+    override def toString = "s"
+  }
+
+  case object Y extends IUPAC {
+    override def toString = "y"
+  }
+
+  case object K extends IUPAC {
+    override def toString = "k"
+  }
+
+  case object V extends IUPAC {
+    override def toString = "v"
+  }
+
+  case object H extends IUPAC {
+    override def toString = "h"
+  }
+
+  case object D extends IUPAC {
+    override def toString = "d"
+  }
+
+  case object B extends IUPAC {
+    override def toString = "b"
+  }
+
+  case object N extends IUPAC {
+    override def toString = "n"
+  }
 
   object IUPACNucleotideConvert extends StringConverter[NTSymbol] {
     /**
@@ -70,6 +103,7 @@ package DNA {
           NucleotideConvert.fromChar(c)
       }
     }
+
     def fromItem(i: NTSymbol): NTSymbol = {
       i match {
         case A => A
@@ -92,19 +126,53 @@ package DNA {
     }
   } // Converter
 } // DNA
+
 package RNA {
   sealed abstract class IUPAC extends NTSymbol
-  case object M extends IUPAC { override def toString = "m" }
-  case object R extends IUPAC { override def toString = "r" }
-  case object W extends IUPAC { override def toString = "w" }
-  case object S extends IUPAC { override def toString = "s" }
-  case object Y extends IUPAC { override def toString = "y" }
-  case object K extends IUPAC { override def toString = "k" }
-  case object V extends IUPAC { override def toString = "v" }
-  case object H extends IUPAC { override def toString = "h" }
-  case object D extends IUPAC { override def toString = "d" }
-  case object B extends IUPAC { override def toString = "b" }
-  case object N extends IUPAC { override def toString = "n" }
+
+  case object M extends IUPAC {
+    override def toString = "m"
+  }
+
+  case object R extends IUPAC {
+    override def toString = "r"
+  }
+
+  case object W extends IUPAC {
+    override def toString = "w"
+  }
+
+  case object S extends IUPAC {
+    override def toString = "s"
+  }
+
+  case object Y extends IUPAC {
+    override def toString = "y"
+  }
+
+  case object K extends IUPAC {
+    override def toString = "k"
+  }
+
+  case object V extends IUPAC {
+    override def toString = "v"
+  }
+
+  case object H extends IUPAC {
+    override def toString = "h"
+  }
+
+  case object D extends IUPAC {
+    override def toString = "d"
+  }
+
+  case object B extends IUPAC {
+    override def toString = "b"
+  }
+
+  case object N extends IUPAC {
+    override def toString = "n"
+  }
 
   object IUPACNucleotideConvert extends StringConverter[NTSymbol] {
     /**
@@ -129,6 +197,7 @@ package RNA {
           NucleotideConvert.fromChar(c)
       }
     }
+
     def fromItem(i: NTSymbol): NTSymbol = {
       i match {
         case A => A

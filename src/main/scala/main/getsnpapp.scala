@@ -20,7 +20,8 @@ Call SNPs from an alignment.
 
   Usage:
 
-    bioscala """ + cname + """ infile
+    bioscala """ + cname +
+      """ infile
 
   Where:
 
@@ -29,7 +30,8 @@ Call SNPs from an alignment.
 
   Examples:
 
-    ./bin/bioscala """ + cname + """ test/data/fasta/nt_aln.fa
+    ./bin/bioscala """ + cname +
+      """ test/data/fasta/nt_aln.fa
 
 """
 
@@ -46,37 +48,41 @@ Call SNPs from an alignment.
     def infileOption(xmap: OptionMap, s: String): OptionMap = {
       val infiles = xmap.get('infiles) match {
         case Some(l: List[String]) => s :: l
-        case _                     => List(s)
+        case _ => List(s)
       }
       Map('infiles -> infiles)
     }
+
     def nextOption(map: OptionMap, list: List[String]): OptionMap = {
       def switch(s: String) = (s(0) == '-')
+
       list match {
-        case Nil              => map
+        case Nil => map
         case "--help" :: tail => nextOption(map, tail)
-        case "-v" :: tail     => nextOption(map ++ Map('verbose -> true), tail)
-        case string :: opt2 :: tail if switch(opt2) =>
+        case "-v" :: tail => nextOption(map ++ Map('verbose -> true), tail)
+        case string :: opt2 :: _ if switch(opt2) =>
           nextOption(map ++ infileOption(map, string), list.tail)
         case string :: Nil => nextOption(map ++ infileOption(map, string), list.tail)
-        case option :: tail if switch(option) =>
+        case option :: _ if switch(option) =>
           println("Unknown option " + option)
           sys.exit(1)
         case string :: tail => nextOption(map ++ infileOption(map, string), tail)
       }
       // Map('type -> false)
     }
+
     val options = nextOption(Map(), arglist)
 
     def getInt(name: scala.Symbol, default: Int): Int =
       options.get(name) match {
         case Some(v) => v.toString.toInt
-        case None    => default
+        case None => default
       }
+
     def getBool(name: scala.Symbol): Boolean =
       options.get(name) match {
         case Some(_) => true
-        case None    => false
+        case None => false
       }
 
     val verbose = getBool('verbose)
@@ -92,19 +98,29 @@ Call SNPs from an alignment.
             case (id, tag, symbols) =>
               new DNA.GappedSequence(id, tag, symbols)
           }.toList
-          val ids = seqs.map { _.id }
-          val slist = seqs.map { _.toList }
+          val ids = seqs.map {
+            _.id
+          }
+          val slist = seqs.map {
+            _.toList
+          }
           val a = new Alignment(slist)
           val t = a.transpose(a.toList)
+
           // and look for SNPs
           def hasMultipleNucleotides(col: List[Symbol]) = {
-            val uniquelist = col.toSet.filter { _ != DNA.Gap }
+            val uniquelist = col.toSet.filter {
+              _ != DNA.Gap
+            }
             uniquelist.size > 1
           }
+
           val emptyColumn = List.tabulate(ids.size)(i => '.')
-          val colkeep = t map { hasMultipleNucleotides }
+          val colkeep = t map {
+            hasMultipleNucleotides
+          }
           val list = colkeep.zipWithIndex.map {
-            case (true, i)  => t(i)
+            case (true, i) => t(i)
             case (false, _) => emptyColumn
           }
           // println(list)
