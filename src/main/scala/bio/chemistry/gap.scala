@@ -16,6 +16,7 @@ class GappedConvert[T](Gap: T, base: StringConverter[T]) extends StringConverter
         base.fromChar(c)
     }
   }
+
   def fromItem(i: T): T = {
     i match {
       case Gap => Gap
@@ -28,6 +29,7 @@ class GappedConvert[T](Gap: T, base: StringConverter[T]) extends StringConverter
 package DNA {
 
   sealed abstract class Gap extends NTSymbol
+
   case object Gap extends Gap {
     override def toString = "-"
   }
@@ -41,9 +43,11 @@ package DNA {
 
 package RNA {
   sealed abstract class Gap extends NTSymbol
+
   case object Gap extends Gap {
     override def toString = "-"
   }
+
   object GappedConvert extends bio.GappedConvert[NTSymbol](Gap,
     SymbolConvert)
 
@@ -53,12 +57,14 @@ package RNA {
 
 package Protein {
   sealed abstract class Gap extends AASymbol
+
   case object Gap extends Gap {
     override def toString = "-"
   }
 
   object GappedConvert extends bio.GappedConvert[AASymbol](Gap,
     SymbolConvert)
+
   object IUPACGappedConvert extends bio.GappedConvert[AASymbol](Gap,
     IUPACGappedAminoAcidConvert)
 }

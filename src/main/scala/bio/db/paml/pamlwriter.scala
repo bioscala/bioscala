@@ -6,12 +6,15 @@
 package bio
 
 import java.io._
+import scala.annotation.tailrec
 
 class PamlWriter(val fout: FileOutputStream) {
   class PamlWriterException(string: String) extends Exception(string)
+
   var sequence_width = 50
 
   def this(f: File) = this(new FileOutputStream(f))
+
   def this(filen: String) = this(new FileOutputStream(filen))
 
   /**
@@ -21,11 +24,11 @@ class PamlWriter(val fout: FileOutputStream) {
    *
    * Example:
    *
-   *   import bio.io.Control._
-   *   val tmpfn = File.createTempFile("BioScala-PAML-",".phy")
-   *   using(new FileOutputStream(tmpfn)) { stream =>
-   *     new PamlWriter(stream).write(seqlist)
-   *   }
+   * import bio.io.Control._
+   * val tmpfn = File.createTempFile("BioScala-PAML-",".phy")
+   * using(new FileOutputStream(tmpfn)) { stream =>
+   * new PamlWriter(stream).write(seqlist)
+   * }
    */
   def write[T <: AbstractSequence](list: List[T]): Unit = {
     val size = list.head.length
@@ -34,6 +37,8 @@ class PamlWriter(val fout: FileOutputStream) {
     list.foreach { seq =>
       if (seq.length != size)
         throw new PamlWriterException("Sequence not same size: " + seq.id)
+
+      @tailrec
       def write_seq(list: List[Any]): Unit = {
         val (w, rest) = list.splitAt(sequence_width)
         writer.write(w.mkString + "\n")
@@ -44,6 +49,7 @@ class PamlWriter(val fout: FileOutputStream) {
             write_seq(rest)
         }
       }
+
       if (sequence_width > 0) {
         writer.write(seq.id + "  ")
         write_seq(seq.toList)
@@ -51,6 +57,6 @@ class PamlWriter(val fout: FileOutputStream) {
         writer.write(seq.id + "  " + seq.toString + "\n")
       }
     }
-    writer.flush // expected before close(!)
+    writer.flush() // expected before close(!)
   }
 } // PamlWriter

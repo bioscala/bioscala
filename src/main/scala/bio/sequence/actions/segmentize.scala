@@ -3,8 +3,6 @@
  */
 
 package bio
-import org.biojava.bio.symbol._
-import org.biojava.bio.seq._
 
 class SegmentizeGappedSequence[T](val gap: T) {
   /**
@@ -12,11 +10,17 @@ class SegmentizeGappedSequence[T](val gap: T) {
    */
   def split(seq: List[T]): List[List[T]] = {
     def isGapType[Q >: T](c: Q) = (c == gap)
-    def isMatch(c: T) = { if (isGapType(seq(0))) isGapType(c) else !isGapType(c) }
-    val (s, tail) = seq.span { isMatch }
+
+    def isMatch(c: T) = {
+      if (isGapType(seq.head)) isGapType(c) else !isGapType(c)
+    }
+
+    val (s, tail) = seq.span {
+      isMatch
+    }
     tail match {
       case Nil => s :: Nil
-      case _   => s :: split(tail)
+      case _ => s :: split(tail)
     }
   }
 } // class
