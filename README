@@ -9,7 +9,6 @@ See also the Tutorial
 
   http://monomorphic.org/bioscala/bioscala-tutorial.html 
 
-
 design docs
 
   http://monomorphic.org/bioscala/bioscala-design.html 
@@ -54,23 +53,20 @@ First download BioScala from github with:
 
 Install Java. On Debian, for example:
 
-  apt-get install sun-java6-jdk
+  apt-get install openjdk-17-jdk
 
 Install sbt (Simple build tool) from
 
-  http://code.google.com/p/simple-build-tool/wiki/Setup.
+  https://www.scala-sbt.org/
 
 Install sbt and run it on the command line, for example
 
   # go to base bioscala directory
   cd bioscala
-  # launch sbt
-  java -Xmx512M -jar sbt-launch.jar
-  # inside sbt type
-  > update
-  > compile
-  > test
+  # compile
+  sbt compile
+  # test
+  sbt test
 
 sbt will automatically download Scala and related jars. Then it will compile
-and run the supplied tests. When running sbt from the command line in the base
-dir
+and run the supplied tests.
