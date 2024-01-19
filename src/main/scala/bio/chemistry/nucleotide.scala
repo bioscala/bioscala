@@ -21,30 +21,35 @@ package bio
 abstract class Symbol {
   /**
    * Get the Symbol name by parsing the class name, which looks
-   *  like 'bio.Protein.X$'. The symbol is the character before last.
+   * like 'bio.Protein.X$'. The symbol is the character before last.
    */
   override def toString: String = {
     getClass.getName.toList.takeRight(2).head.toString
   }
+
   lazy val toChar = toString.last
 }
 
 package DNA {
 
   abstract class NTSymbol extends Symbol
+
   sealed abstract class Nucleotide extends NTSymbol
 
   case object A extends Nucleotide {
-    override def toString() = "a"
+    override def toString = "a"
   }
+
   case object G extends Nucleotide {
-    override def toString() = "g"
+    override def toString = "g"
   }
+
   case object T extends Nucleotide {
-    override def toString() = "t"
+    override def toString = "t"
   }
+
   case object C extends Nucleotide {
-    override def toString() = "c"
+    override def toString = "c"
   }
 
   object NucleotideConvert extends StringConverter[Nucleotide] {
@@ -53,8 +58,8 @@ package DNA {
      * character representation. For example:
      *
      * <pre>
-     *   import bio.DNA._
-     *   val nt = NucleotideConvert.fromChar('a')
+     * import bio.DNA._
+     * val nt = NucleotideConvert.fromChar('a')
      * </pre>
      */
     def fromChar(c: Char): Nucleotide = {
@@ -63,9 +68,10 @@ package DNA {
         case 'c' => C
         case 'g' => G
         case 't' => T
-        case _   => throw new IllegalArgumentException("Unexpected value for nucleotide " + c)
+        case _ => throw new IllegalArgumentException("Unexpected value for nucleotide " + c)
       }
     }
+
     def fromItem(i: Nucleotide): Nucleotide = {
       i match {
         case A => A
@@ -83,8 +89,8 @@ package DNA {
      * character representation. For example:
      *
      * <pre>
-     *   import bio.DNA._
-     *   val nt = NucleotideConvert.fromChar('a')
+     * import bio.DNA._
+     * val nt = NucleotideConvert.fromChar('a')
      * </pre>
      */
     def fromChar(c: Char): NTSymbol = {
@@ -95,9 +101,10 @@ package DNA {
         case 't' => T
         case 'n' => N
         case '-' => Gap
-        case _   => throw new IllegalArgumentException("Unexpected value for nucleotide " + c)
+        case _ => throw new IllegalArgumentException("Unexpected value for nucleotide " + c)
       }
     }
+
     def fromItem(i: NTSymbol): NTSymbol = i
   } // NucleotideConvert
 
@@ -105,19 +112,23 @@ package DNA {
 
 package RNA {
   abstract class NTSymbol extends Symbol
+
   sealed abstract class Nucleotide extends NTSymbol
 
   case object A extends Nucleotide {
-    override def toString() = "a"
+    override def toString = "a"
   }
+
   case object G extends Nucleotide {
-    override def toString() = "g"
+    override def toString = "g"
   }
+
   case object U extends Nucleotide {
-    override def toString() = "u"
+    override def toString = "u"
   }
+
   case object C extends Nucleotide {
-    override def toString() = "c"
+    override def toString = "c"
   }
 
   object NucleotideConvert extends StringConverter[Nucleotide] {
@@ -126,8 +137,8 @@ package RNA {
      * character representation. For example:
      *
      * <pre>
-     *   import bio.RNA._
-     *   val nt = NucleotideConvert.fromChar('a')
+     * import bio.RNA._
+     * val nt = NucleotideConvert.fromChar('a')
      * </pre>
      */
     def fromChar(c: Char): Nucleotide = {
@@ -136,9 +147,10 @@ package RNA {
         case 'c' => C
         case 'g' => G
         case 'u' => U
-        case _   => throw new IllegalArgumentException("Unexpected value for nucleotide " + c)
+        case _ => throw new IllegalArgumentException("Unexpected value for nucleotide " + c)
       }
     }
+
     def fromItem(i: Nucleotide): Nucleotide = {
       i match {
         case A => A
@@ -149,14 +161,15 @@ package RNA {
       }
     }
   } // NucleotideConvert
+
   object SymbolConvert extends StringConverter[NTSymbol] {
     /**
      * Nucleotide factory: create a Nucleotide object from its
      * character representation. For example:
      *
      * <pre>
-     *   import bio.DNA._
-     *   val nt = NucleotideConvert.fromChar('a')
+     * import bio.DNA._
+     * val nt = NucleotideConvert.fromChar('a')
      * </pre>
      */
     def fromChar(c: Char): NTSymbol = {
@@ -167,9 +180,10 @@ package RNA {
         case 'u' => U
         case 'n' => N
         case '-' => Gap
-        case _   => throw new IllegalArgumentException("Unexpected value for nucleotide " + c)
+        case _ => throw new IllegalArgumentException("Unexpected value for nucleotide " + c)
       }
     }
+
     def fromItem(i: NTSymbol): NTSymbol = i
   } // NucleotideConvert
 

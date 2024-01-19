@@ -5,11 +5,12 @@
 
 package bio
 
-import java.io._
 import org.biojava.bio.alignment._
-import org.biojava.bio.symbol._
 import org.biojava.bio.seq._
+import org.biojava.bio.symbol._
 import org.biojavax.bio.phylo.io.phylip._
+
+import java.io._
 
 object PhylipWriter {
   class PhylipWriterException(string: String) extends Exception(string)

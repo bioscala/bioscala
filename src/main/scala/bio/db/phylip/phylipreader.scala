@@ -9,7 +9,6 @@ import java.io._
 // import org.biojava.bio.alignment._
 // import org.biojava.bio.symbol._
 // import org.biojava.bio.seq._
-import org.biojava.bio.seq.io._
 import org.biojavax.bio.phylo.io.phylip._
 
 /**
@@ -30,19 +29,29 @@ class PhylipReader(val filename: String) extends Iterator[(String, String)] {
   var seq_list: List[String] = Nil
 
   object PhylipListener extends PHYLIPFileListener {
-    def receiveSequence(s: String) = { seq_list ::= s }
-    def setCurrentSequenceName(s: String) = { id_list ::= s }
+    def receiveSequence(s: String) = {
+      seq_list ::= s
+    }
+
+    def setCurrentSequenceName(s: String) = {
+      id_list ::= s
+    }
+
     def setSitesCount(i: Int) = {}
+
     def setSequenceCount(i: Int) = {}
+
     def endFile() = {}
+
     def startFile() = {}
   }
+
   lazy val listener = PhylipListener
-  private val x = PHYLIPFileFormat.parse(listener, reader)
+  private val x: Unit = PHYLIPFileFormat.parse(listener, reader)
   val list = id_list.zip(seq_list).reverse
   var pos = 0
 
-  def hasNext() = (pos < list.length)
+  def hasNext(): Boolean = pos < list.length
 
   def next(): (String, String) = {
     val retval = list(pos)

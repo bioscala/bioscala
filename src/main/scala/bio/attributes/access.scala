@@ -14,10 +14,11 @@ trait AttributeAccess {
     attributes.filter { a =>
       a.send(message) match {
         case (Ok, _) => true
-        case _       => false
+        case _ => false
       }
     }
   }
+
   /**
    * @return the values of messages as a list
    */
@@ -27,12 +28,13 @@ trait AttributeAccess {
       value
     }
   }
+
   /**
    * @return the first attribute value matching message
    */
   def attribFirst(message: Message, attributes: List[Attribute]): Option[Any] = {
     val list: List[Attribute] = attribList(message, attributes)
-    if (list.size > 0) {
+    if (list.nonEmpty) {
       val (Ok, msg) = list.head.send(message)
       Some(msg)
     } else None

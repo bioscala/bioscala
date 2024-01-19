@@ -13,13 +13,16 @@
  */
 
 package bio
+
 import java.io._
 
 class FastaReader(val filename: String) extends Iterator[(String, String, String)] {
   private lazy val reader = new BufferedReader(new FileReader(filename))
 
   class FastaReadException(string: String) extends Exception(string)
-  def hasNext() = reader.ready
+
+  def hasNext(): Boolean = reader.ready
+
   def next(): (String, String, String) = {
     // Read the tag line
     val tag = reader.readLine
@@ -33,7 +36,7 @@ class FastaReader(val filename: String) extends Iterator[(String, String, String
       if (line(0) != '>') sequencelist += line
       if (!reader.ready || line(0) == '>') {
         // Reached the end of the sequence
-        if (reader.ready) reader.reset
+        if (reader.ready) reader.reset()
         // Remove prepending '>'
         val tag2 = tag.drop(1).trim
         val id = tag2.split(Array(' ', '\t'))(0)

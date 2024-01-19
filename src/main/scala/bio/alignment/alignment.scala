@@ -12,6 +12,7 @@ class Alignment[T](sequencelist: List[List[T]]) {
   // val attributes = attributelist
 
   type Aln = List[List[T]]
+
   // def this(list: Ali) = this(list,Nil)
   def toList: Aln = list
 
@@ -21,7 +22,7 @@ class Alignment[T](sequencelist: List[List[T]]) {
     else if (m.head.isEmpty) Nil else m.map(_.head) :: transpose(m.map(_.tail))
   }
 
-  def getColumns(m: Aln) = transpose(m)
+  def getColumns(m: Aln): Aln = transpose(m)
 }
 
 /**
@@ -30,9 +31,10 @@ class Alignment[T](sequencelist: List[List[T]]) {
  * the functions that update columns. (NYI)
  */
 class SequenceAlignment[Sequence](sequencelist: List[Sequence]) {
-  val list = sequencelist
+  val list: List[Sequence] = sequencelist
 
   type Aln = List[Sequence]
+
   def toList: Aln = list
 
   // def blankColumnIf(f : (_) => _ ) = { f(_) }
@@ -49,7 +51,7 @@ package DNA {
 /**
  * Trait contains methods for modifying sparse alignments
  */
-abstract trait SparseAlignment[T] {
+trait SparseAlignment[T] {
   type GapType // Abstract type
   val gap: GapType
 
@@ -76,7 +78,7 @@ abstract trait SparseAlignment[T] {
     }
     // and put it all back together again
     val (ret, idx) = filtered.unzip
-    val origidx = (0 to in.length - 1).toList
+    val origidx = in.indices.toList
     (ret, origidx.diff(idx))
   }
 

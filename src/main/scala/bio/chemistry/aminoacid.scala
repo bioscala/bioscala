@@ -25,47 +25,68 @@
  */
 
 package bio
-import bio.attribute._
 
 package Protein {
 
   abstract class AASymbol extends Symbol
 
   sealed abstract class AminoAcid(val name: String, val fullname: String) extends AASymbol
+
   abstract class PositiveAminoAcid(name: String, fullname: String)
     extends AminoAcid(name, fullname)
+
   abstract class NegativeAminoAcid(name: String, fullname: String)
     extends AminoAcid(name, fullname)
+
   abstract class UnchargedAminoAcid(name: String, fullname: String)
     extends AminoAcid(name, fullname)
+
   abstract class SpecialAminoAcid(name: String, fullname: String)
     extends AminoAcid(name, fullname)
+
   abstract class HydrophobicAminoAcid(name: String, fullname: String)
     extends AminoAcid(name, fullname)
 
   case object R extends PositiveAminoAcid("Arg", "Arginine")
+
   case object H extends PositiveAminoAcid("His", "Histidine")
+
   case object K extends PositiveAminoAcid("Lys", "Lysine")
 
   case object D extends NegativeAminoAcid("Asp", "Aspartic Acid")
+
   case object E extends NegativeAminoAcid("Glu", "Glutamic Acid")
 
   case object S extends UnchargedAminoAcid("Ser", "Serine")
+
   case object T extends UnchargedAminoAcid("Thr", "Threonine")
+
   case object N extends UnchargedAminoAcid("Asn", "Asparagine")
+
   case object Q extends UnchargedAminoAcid("Gln", "Glutamine")
+
   case object C extends UnchargedAminoAcid("Cys", "Cysteine")
+
   case object U extends UnchargedAminoAcid("Sec", "Selenocysteine")
+
   case object G extends UnchargedAminoAcid("Gly", "Glycine")
+
   case object P extends UnchargedAminoAcid("Pro", "Proline")
 
   case object A extends HydrophobicAminoAcid("Ala", "Alanine")
+
   case object I extends HydrophobicAminoAcid("Ile", "Isoleucine")
+
   case object L extends HydrophobicAminoAcid("Leu", "Leucine")
+
   case object M extends HydrophobicAminoAcid("Met", "Methionine")
+
   case object F extends HydrophobicAminoAcid("Phe", "Phenylalanine")
+
   case object W extends HydrophobicAminoAcid("Trp", "Tryptophan")
+
   case object Y extends HydrophobicAminoAcid("Tyr", "Tyrosine")
+
   case object V extends HydrophobicAminoAcid("Val", "Valine")
 
   case object * extends AminoAcid("*", "Stop") {
@@ -78,8 +99,8 @@ package Protein {
      * character representation. For example:
      *
      * <pre>
-     *   import bio._
-     *   val aa = AminoAcidConvert.fromChar('a')
+     * import bio._
+     * val aa = AminoAcidConvert.fromChar('a')
      * </pre>
      */
     def fromChar(c: Char): AminoAcid = {
@@ -106,9 +127,10 @@ package Protein {
         case 'Y' => Y
         case 'V' => V
         case '*' => *
-        case _   => throw new IllegalArgumentException("Unexpected value for AminoAcid " + c)
+        case _ => throw new IllegalArgumentException("Unexpected value for AminoAcid " + c)
       }
     }
+
     def fromItem(i: AminoAcid): AminoAcid = {
       i match {
         case R => R
@@ -140,8 +162,11 @@ package Protein {
 
   /* IUPAC */
   sealed abstract class IUPAC(name: String, fullname: String) extends AminoAcid(name, fullname)
+
   case object B extends IUPAC("Asx", "Aspartic acid or Asparagine")
+
   case object Z extends IUPAC("Glx", "Glutamine or Glutamic acid")
+
   case object X extends IUPAC("Xaa", "Any amino acid")
 
   object SymbolConvert extends StringConverter[AASymbol] {
@@ -153,10 +178,11 @@ package Protein {
           AminoAcidConvert.fromChar(c)
       }
     }
+
     def fromItem(i: AASymbol): AASymbol = {
       i match {
         case Gap => Gap
-        case _   => throw new IllegalArgumentException("Unexpected type " + i + " type " + i.getClass.getName)
+        case _ => throw new IllegalArgumentException("Unexpected type " + i + " type " + i.getClass.getName)
       }
     }
   }
@@ -174,6 +200,7 @@ package Protein {
           AminoAcidConvert.fromChar(c)
       }
     }
+
     def fromItem(i: AminoAcid): AminoAcid = {
       i match {
         case B => B
@@ -183,6 +210,7 @@ package Protein {
       }
     }
   }
+
   object IUPACGappedAminoAcidConvert extends StringConverter[AASymbol] {
     /**
      * Create a IUPAC object from its character representation.
@@ -197,13 +225,14 @@ package Protein {
           AminoAcidConvert.fromChar(c)
       }
     }
+
     def fromItem(i: AASymbol): AASymbol = {
       i match {
         case Gap => Gap
-        case B   => B
-        case Z   => Z
-        case X   => X
-        case _   => throw new IllegalArgumentException("Unexpected type " + i + " type " + i.getClass.getName)
+        case B => B
+        case Z => Z
+        case X => X
+        case _ => throw new IllegalArgumentException("Unexpected type " + i + " type " + i.getClass.getName)
       }
     }
   }
