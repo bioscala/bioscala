@@ -56,7 +56,7 @@ package Protein {
 
   object DNAtoCodon {
     /* Return the Codons */
-    def apply(str: String): List[Codon] = {
+    def apply(str: String): List[Protein.Codon] = {
       /* Helper method, takes the NT list and splits it into
          * a list of codons - gaps (triple dashes) are merely passed
          * on as codons
@@ -75,7 +75,7 @@ package Protein {
         val (aa, seq3) = z
         // println(seq3)
         aa match {
-          case aa: AminoAcid => Codon(aa, seq3.toList)
+          case aa: AminoAcid => Protein.Codon(aa, seq3.toList)
           case _ => throw new IllegalArgumentException("Unexpected value " + aa)
         }
       }
@@ -108,8 +108,8 @@ package Protein {
         val (aa, seq3) = z
         // println(seq3)
         aa match {
-          case Gap => CodonGap
-          case aa: AminoAcid => Codon(aa, seq3)
+          case Protein.Gap => CodonGap
+          case aa: AminoAcid => Protein.Codon(aa, seq3)
           case _ => throw new IllegalArgumentException("Unexpected value " + aa)
         }
       }
@@ -124,11 +124,12 @@ package Protein {
    * s(2) should equal (R)
    * s(2).getCodon should equal (List(C,G,T))
    */
-  class CodonSequence(codonlist: List[Codon], attributelist: List[Attribute]) extends bio.Sequence[Codon](codonlist, attributelist) {
+  class CodonSequence(codonlist: List[Protein.Codon], attributelist: List[Attribute])
+    extends bio.Sequence[Protein.Codon](codonlist, attributelist) {
 
     type SequenceType = CodonSequence
 
-    def create(seqlist: List[Codon], attributelist: List[Attribute]) = new CodonSequence(seqlist, attributelist)
+    def create(seqlist: List[Protein.Codon], attributelist: List[Attribute]) = new CodonSequence(seqlist, attributelist)
 
     def this(str: String) = {
       this(DNAtoCodon(str), Nil)
