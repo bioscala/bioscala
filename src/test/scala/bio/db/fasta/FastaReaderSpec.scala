@@ -28,7 +28,7 @@ class FastaReaderSpec extends AnyFlatSpec with Matchers {
       val (id, tag, dna) = res
       new DNA.IUPACSequence(id, tag, dna)
     }.toList
-    seqs.head.id.toString should equal("PUT-157a-Arabidopsis_thaliana-1")
+    seqs.head.id should equal("PUT-157a-Arabidopsis_thaliana-1")
   }
   // ---- AminoAcid's
   "FastaReader" should "read from AA file" in {
@@ -54,7 +54,7 @@ class FastaReaderSpec extends AnyFlatSpec with Matchers {
       val (id, tag, dna) = res
       new Protein.IUPACSequence(id, tag, dna)
     }.toList
-    seqs.head.id.toString should equal("BAHG_VITSP")
+    seqs.head.id should equal("BAHG_VITSP")
   }
   // ---- Codons
   "FastaReader" should "be able to convert NT to CodonSequence" in {

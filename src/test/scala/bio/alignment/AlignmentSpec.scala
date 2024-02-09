@@ -17,24 +17,16 @@ class AlignmentSpec extends AnyFlatSpec with Matchers {
     val s1 = new DNA.GappedSequence("ag---ctaacaac")
     val s2 = new DNA.GappedSequence("ag---caaacagt")
     val s3 = new DNA.GappedSequence("ag--ccaaacgga")
-    val a = new Alignment(List(s1.toList, s2.toList, s3.toList))
-    val t = a.transpose(a.toList)
-    t.toList.head.mkString should equal("aaa")
+    val a = new Alignment[Symbol](List(s1.toList, s2.toList, s3.toList).asInstanceOf[List[List[Symbol]]])
+    val t: List[List[Symbol]] = a.transpose(a.toList)
+    t.head.mkString should equal("aaa")
     val t2 = a.getColumns(a.toList)
-    t2.toList(1).mkString should equal("ggg")
+    t2(1).mkString should equal("ggg")
 
     // and look for SNPs
-    def hasMultipleNucleotides(col: List[Symbol]) = {
-      val uniquelist = col.toSet.filter {
-        _ != DNA.Gap
-      }
-      // println(uniquelist.mkString,uniquelist.size>1)
-      uniquelist.size > 1
-    }
+    def hasMultipleNucleotides(col: List[Symbol]) = col.toSet.count(_ != DNA.Gap) > 1
 
-    val bools = t map {
-      hasMultipleNucleotides
-    }
+    val bools = t map hasMultipleNucleotides
 
     // functional approach
     val list = bools.zipWithIndex.map {

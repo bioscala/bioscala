@@ -52,13 +52,14 @@ package attribute {
   // ==== Attributes
 
   /** StringAttribute stores a typical String value */
+  //noinspection ScalaWeakerAccess
   class StringAttribute(str: String, respondTo: Message) extends Attribute {
     lazy val data = str
-    lazy val respondMsg = respondTo
+    lazy val respondMsg: Message = respondTo
 
     override def toString = data
 
-    def toXML = {
+    def toXML: String = {
       val name = (getClass getName).split('.').last
       "<" + name + ">" + data + "</" + name + ">"
     }

@@ -9,7 +9,7 @@ class SegmentizeGappedSequence[T](val gap: T) {
    * Split a sequence into gapped/non-gapped segments
    */
   def split(seq: List[T]): List[List[T]] = {
-    def isGapType[Q >: T](c: Q) = (c == gap)
+    def isGapType[Q >: T](c: Q) = c == gap
 
     def isMatch(c: T) = {
       if (isGapType(seq.head)) isGapType(c) else !isGapType(c)

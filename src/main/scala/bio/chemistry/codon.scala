@@ -9,6 +9,8 @@ package bio
 
 package Protein {
 
+  import bio.DNA.NTSymbol
+
   sealed abstract class CodonSymbol {
     def getAminoAcid: AASymbol
 
@@ -18,8 +20,8 @@ package Protein {
   sealed abstract class CodonGap extends CodonSymbol
 
   case object CodonGap extends CodonGap {
-    val getAminoAcid = Protein.Gap
-    val getCodon = List(DNA.Gap, DNA.Gap, DNA.Gap)
+    val getAminoAcid: AASymbol = Protein.Gap
+    val getCodon: List[NTSymbol] = List(DNA.Gap, DNA.Gap, DNA.Gap)
 
     override def toString = "-"
   }
@@ -31,7 +33,7 @@ package Protein {
    * amino acids in matching alignments.
    */
   case class Codon(aa: AminoAcid, codon: List[DNA.NTSymbol]) extends CodonSymbol {
-    val getAminoAcid = aa
-    val getCodon = codon
+    val getAminoAcid: AASymbol = aa
+    val getCodon: List[NTSymbol] = codon
   }
 }

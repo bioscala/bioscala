@@ -27,8 +27,8 @@ class SequenceTranslation[T] {
    */
   def translate(nucleotides: List[T]): List[Protein.AASymbol] = {
     val remove = nucleotides.size % 3
-    val rna = RNATools.createRNA(nucleotides.dropRight(remove).mkString);
-    val aa = RNATools.translate(rna);
+    val rna = RNATools.createRNA(nucleotides.dropRight(remove).mkString)
+    val aa = RNATools.translate(rna)
     Protein.IUPACGappedConvert.fromString(aa.seqString)
   }
 }

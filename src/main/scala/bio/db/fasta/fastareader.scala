@@ -19,6 +19,7 @@ import java.io._
 class FastaReader(val filename: String) extends Iterator[(String, String, String)] {
   private lazy val reader = new BufferedReader(new FileReader(filename))
 
+  //noinspection ScalaWeakerAccess
   class FastaReadException(string: String) extends Exception(string)
 
   def hasNext(): Boolean = reader.ready

@@ -20,6 +20,7 @@ import org.biojavax.bio.phylo.io.phylip._
  * Note: this is a hack. I am trying to get to grips with the BioJava
  * way of doing this - and it does not map easily to an iterator.
  */
+//noinspection ScalaWeakerAccess
 class PhylipReader(val filename: String) extends Iterator[(String, String)] {
   private lazy val reader = new BufferedReader(new FileReader(filename))
 
@@ -29,26 +30,22 @@ class PhylipReader(val filename: String) extends Iterator[(String, String)] {
   var seq_list: List[String] = Nil
 
   object PhylipListener extends PHYLIPFileListener {
-    def receiveSequence(s: String) = {
-      seq_list ::= s
-    }
+    def receiveSequence(s: String): Unit = seq_list ::= s
 
-    def setCurrentSequenceName(s: String) = {
-      id_list ::= s
-    }
+    def setCurrentSequenceName(s: String): Unit = id_list ::= s
 
-    def setSitesCount(i: Int) = {}
+    def setSitesCount(i: Int): Unit = {}
 
-    def setSequenceCount(i: Int) = {}
+    def setSequenceCount(i: Int): Unit = {}
 
-    def endFile() = {}
+    def endFile(): Unit = {}
 
-    def startFile() = {}
+    def startFile(): Unit = {}
   }
 
   lazy val listener = PhylipListener
   private val x: Unit = PHYLIPFileFormat.parse(listener, reader)
-  val list = id_list.zip(seq_list).reverse
+  val list: List[(String, String)] = id_list.zip(seq_list).reverse
   var pos = 0
 
   def hasNext(): Boolean = pos < list.length
