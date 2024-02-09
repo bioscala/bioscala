@@ -9,6 +9,7 @@ import java.io._
 import scala.annotation.tailrec
 
 class PamlWriter(val fout: FileOutputStream) {
+  //noinspection ScalaWeakerAccess
   class PamlWriterException(string: String) extends Exception(string)
 
   var sequence_width = 50

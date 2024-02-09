@@ -6,7 +6,7 @@
 #
 #  by running the 'scala' command with class path
 
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
   cat <<USAGE
 
 bioscala function runner
@@ -37,6 +37,7 @@ examples:
 
 USAGE
 
+  # shellcheck disable=SC2154
   echo $usage
   echo "Try again..."
   exit 1

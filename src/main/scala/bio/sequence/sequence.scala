@@ -26,7 +26,7 @@ abstract class Sequence[T](seqlist: List[T], attributelist: List[Attribute]) ext
   type SequenceType <: Sequence[T] // Abstract type
 
   lazy val seq = seqlist
-  lazy val attributes = attributelist
+  lazy val attributes: List[Attribute] = attributelist
 
   /**
    * Every derived class should have a factory, so methods like 'delete',
@@ -41,7 +41,7 @@ abstract class Sequence[T](seqlist: List[T], attributelist: List[Attribute]) ext
   override def toString: String = seq mkString
 
   /** @return Nucleotide List */
-  def toList = seq
+  def toList: List[T] = seq
 
   def idList: List[Attribute] = attribList(GetId, attributes)
 

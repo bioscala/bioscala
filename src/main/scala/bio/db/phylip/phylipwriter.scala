@@ -13,6 +13,7 @@ import org.biojavax.bio.phylo.io.phylip._
 import java.io._
 
 object PhylipWriter {
+  //noinspection ScalaWeakerAccess
   class PhylipWriterException(string: String) extends Exception(string)
 
   /**
@@ -34,8 +35,8 @@ object PhylipWriter {
     list.foreach { seq =>
       if (seq.length != size)
         throw new PhylipWriterException("Sequence not same size: " + seq.id)
-      val dna = DNATools.createDNA(seq.toString);
-      val id = seq.id.take(8).toString
+      val dna = DNATools.createDNA(seq.toString)
+      val id = seq.id.take(8)
       val ref = new SimpleAlignmentElement(id, dna, new RangeLocation(1, dna.length))
       reflist.add(ref)
     }

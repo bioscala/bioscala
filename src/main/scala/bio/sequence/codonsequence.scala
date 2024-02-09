@@ -48,7 +48,7 @@ package DNA {
       new IUPACGappedSequence(ToGappedDNA(str))
     }
   }
-} // DNA
+}
 
 package Protein {
 
@@ -65,15 +65,13 @@ package Protein {
         seq.grouped(3).toSeq
 
       // Amino acids and nucleotides
-      val aas = ToSequence(str).translate() // IUPAC Sequence
+      val aas = ToSequence(str).translate()
       val nts = ToDNA(str)
-      // split into codons and zip them with AA's
       val codons2 = codons(nts)
       val zipped = aas.zip(codons2)
       // Return a list of Codon objects
       zipped.map { z =>
         val (aa, seq3) = z
-        // println(seq3)
         aa match {
           case aa: AminoAcid => Protein.Codon(aa, seq3.toList)
           case _ => throw new IllegalArgumentException("Unexpected value " + aa)
@@ -98,15 +96,13 @@ package Protein {
       }
 
       // Amino acids and nucleotides
-      val aas = ToGappedSequence(str).translate() // IUPAC Sequence
+      val aas = ToGappedSequence(str).translate()
       val nts = ToGappedDNA(str)
-      // split into codons and zip them with AA's
       val codons2 = codons(nts)
       val zipped = aas.zip(codons2)
       // Return a list of Codon objects
       zipped.map { z =>
         val (aa, seq3) = z
-        // println(seq3)
         aa match {
           case Protein.Gap => CodonGap
           case aa: AminoAcid => Protein.Codon(aa, seq3)
@@ -124,6 +120,7 @@ package Protein {
    * s(2) should equal (R)
    * s(2).getCodon should equal (List(C,G,T))
    */
+  //noinspection ScalaWeakerAccess
   class CodonSequence(codonlist: List[Protein.Codon], attributelist: List[Attribute])
     extends bio.Sequence[Protein.Codon](codonlist, attributelist) {
 
@@ -145,11 +142,13 @@ package Protein {
 
     def toDNA: List[DNA.NTSymbol] = seq.flatMap { codon => codon.getCodon }
 
-    def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACSequence(toDNA)).transcribe.toList
+    def toRNA: List[RNA.NTSymbol] =
+      new DNA.IUPACSequence(toDNA).transcribe.toList.asInstanceOf[List[RNA.NTSymbol]]
 
     override def toString: String = toAminoAcid.mkString
-  } // CodonSequence
+  }
 
+  //noinspection ScalaWeakerAccess
   class GappedCodonSequence(codonlist: List[CodonSymbol], attributelist: List[Attribute]) extends bio.Sequence[CodonSymbol](codonlist, attributelist) {
 
     type SequenceType = GappedCodonSequence
@@ -172,8 +171,9 @@ package Protein {
 
     def toDNA: List[DNA.NTSymbol] = seq.flatMap { codon => codon.getCodon }
 
-    def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACGappedSequence(toDNA)).transcribe.toList
+    def toRNA: List[RNA.NTSymbol] =
+      new DNA.IUPACGappedSequence(toDNA).transcribe.toList.asInstanceOf[List[RNA.NTSymbol]]
 
     override def toString: String = toAminoAcid.mkString
-  } // GappedCodonSequence
-} // Protein
+  }
+}

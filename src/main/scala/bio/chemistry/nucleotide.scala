@@ -27,7 +27,7 @@ abstract class Symbol {
     getClass.getName.toList.takeRight(2).head.toString
   }
 
-  lazy val toChar = toString.last
+  lazy val toChar: Char = toString.last
 }
 
 package DNA {
