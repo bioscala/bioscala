@@ -48,7 +48,7 @@ package DNA {
       new IUPACGappedSequence(ToGappedDNA(str))
     }
   }
-} // DNA
+}
 
 package Protein {
 
@@ -56,7 +56,7 @@ package Protein {
 
   object DNAtoCodon {
     /* Return the Codons */
-    def apply(str: String): List[Codon] = {
+    def apply(str: String): List[Protein.Codon] = {
       /* Helper method, takes the NT list and splits it into
          * a list of codons - gaps (triple dashes) are merely passed
          * on as codons
@@ -73,9 +73,8 @@ package Protein {
       // Return a list of Codon objects
       zipped.map { z =>
         val (aa, seq3) = z
-        // println(seq3)
         aa match {
-          case aa: AminoAcid => Codon(aa, seq3.toList)
+          case aa: AminoAcid => Protein.Codon(aa, seq3.toList)
           case _ => throw new IllegalArgumentException("Unexpected value " + aa)
         }
       }
@@ -106,10 +105,9 @@ package Protein {
       // Return a list of Codon objects
       zipped.map { z =>
         val (aa, seq3) = z
-        // println(seq3)
         aa match {
-          case Gap => CodonGap
-          case aa: AminoAcid => Codon(aa, seq3)
+          case Protein.Gap => CodonGap
+          case aa: AminoAcid => Protein.Codon(aa, seq3)
           case _ => throw new IllegalArgumentException("Unexpected value " + aa)
         }
       }
@@ -124,11 +122,12 @@ package Protein {
    * s(2) should equal (R)
    * s(2).getCodon should equal (List(C,G,T))
    */
-  class CodonSequence(codonlist: List[Codon], attributelist: List[Attribute]) extends bio.Sequence[Codon](codonlist, attributelist) {
+  class CodonSequence(codonlist: List[Protein.Codon], attributelist: List[Attribute])
+    extends bio.Sequence[Protein.Codon](codonlist, attributelist) {
 
     type SequenceType = CodonSequence
 
-    def create(seqlist: List[Codon], attributelist: List[Attribute]) = new CodonSequence(seqlist, attributelist)
+    def create(seqlist: List[Protein.Codon], attributelist: List[Attribute]) = new CodonSequence(seqlist, attributelist)
 
     def this(str: String) = {
       this(DNAtoCodon(str), Nil)
@@ -144,10 +143,11 @@ package Protein {
 
     def toDNA: List[DNA.NTSymbol] = seq.flatMap { codon => codon.getCodon }
 
-    def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACSequence(toDNA)).transcribe.toList
+    def toRNA: List[RNA.NTSymbol] =
+      new DNA.IUPACSequence(toDNA).transcribe.toList
 
     override def toString: String = toAminoAcid.mkString
-  } // CodonSequence
+  }
 
   class GappedCodonSequence(codonlist: List[CodonSymbol], attributelist: List[Attribute]) extends bio.Sequence[CodonSymbol](codonlist, attributelist) {
 
@@ -171,8 +171,9 @@ package Protein {
 
     def toDNA: List[DNA.NTSymbol] = seq.flatMap { codon => codon.getCodon }
 
-    def toRNA: List[RNA.NTSymbol] = (new DNA.IUPACGappedSequence(toDNA)).transcribe.toList
+    def toRNA: List[RNA.NTSymbol] =
+      new DNA.IUPACGappedSequence(toDNA).transcribe.toList
 
     override def toString: String = toAminoAcid.mkString
-  } // GappedCodonSequence
-} // Protein
+  }
+}

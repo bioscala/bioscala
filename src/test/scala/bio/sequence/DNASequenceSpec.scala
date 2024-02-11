@@ -46,13 +46,13 @@ class DNASequenceSpec extends AnyFlatSpec with Matchers {
   "A DNA Sequence" should "allow two IDs" in {
     val s = new DNA.DNASequence("ID456", "Gene 456", "agctaacg")
     val s2 = s.attrAdd(Id("Pubmed:456"))
-    s2.idList === (List("ID456", "Pubmed:456"))
+    s2.idList === List("ID456", "Pubmed:456")
   }
 
   "A DNA Sequence" should "allow multiple IDs" in {
     val s = new DNA.DNASequence("ID456", "Gene 456", "agctaacg")
     val s2 = s.attrAdd(List(Id("GEO:456"), Id("Pubmed:456")))
-    s2.idList === (List("ID456", "Geo:456", "Pubmed:456"))
+    s2.idList === List("ID456", "Geo:456", "Pubmed:456")
   }
 
   "A DNA Sequence" should "allow multiple Descriptions" in {

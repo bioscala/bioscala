@@ -1,6 +1,7 @@
 package bio.sequence
 
-import bio.DNA.{DNASequence, A}
+import bio.DNA.{A, DNASequence}
+import bio.RNA.Nucleotide
 import bio.attribute._
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers

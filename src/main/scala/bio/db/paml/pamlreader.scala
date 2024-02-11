@@ -20,12 +20,14 @@ package bio {
    *
    * Note: no support for interleaved files
    */
+  //noinspection ScalaWeakerAccess
   class PamlReader(val filename: String) extends Iterator[(String, String)] {
     private val reader = new BufferedReader(new FileReader(filename))
 
+    //noinspection ScalaWeakerAccess
     class PamlReadException(string: String) extends Exception(string)
 
-    def header() = {
+    def header(): (Int, Int) = {
       val firstline = reader.readLine
 
       val Match = """^\s*(\d+)\s+(\d+)""".r

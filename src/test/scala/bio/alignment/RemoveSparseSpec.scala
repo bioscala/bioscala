@@ -2,6 +2,7 @@ package bio.alignment
 
 import org.scalatest.flatspec.AnyFlatSpec
 import bio.DNA._
+import bio.Symbol
 import org.scalatest.matchers.should.Matchers
 
 

@@ -6,14 +6,11 @@ package bio
  * attributes, sequences can have attributes and the Alignment can have
  * attributes.
  */
-
 class Alignment[T](sequencelist: List[List[T]]) {
-  val list = sequencelist
-  // val attributes = attributelist
+  val list: List[List[T]] = sequencelist
 
   type Aln = List[List[T]]
 
-  // def this(list: Ali) = this(list,Nil)
   def toList: Aln = list
 
   def transpose(m: Aln): Aln = {
@@ -36,17 +33,14 @@ class SequenceAlignment[Sequence](sequencelist: List[Sequence]) {
   type Aln = List[Sequence]
 
   def toList: Aln = list
-
-  // def blankColumnIf(f : (_) => _ ) = { f(_) }
-
 }
 
 package DNA {
   object SparseAlignment extends SparseAlignment[NTSymbol] {
     type GapType = Gap
-    val gap = Gap
+    val gap: Gap = Gap
   }
-} // DNA
+}
 
 /**
  * Trait contains methods for modifying sparse alignments
@@ -90,5 +84,4 @@ trait SparseAlignment[T] {
     val (tm, log) = removeSparseRows(transpose(in), min_symbols)
     (transpose(tm), log)
   }
-
-} // SparseAlignment
+}

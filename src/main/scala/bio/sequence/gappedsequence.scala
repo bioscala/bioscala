@@ -33,14 +33,14 @@ package DNA {
 
     def this(sequence: DNASequence) = this(sequence.seq, Nil)
 
-    def translate() = {
-      SymbolSequenceTranslation.translate(transcribe seq)
+    def translate(): List[AASymbol] = {
+      SymbolSequenceTranslation.translate(transcribe.seq)
     }
 
     /**
      * @return transcribed DNA.Sequence as RNA.Sequence
      */
-    def transcribe = {
+    def transcribe: RNA.GappedSequence = {
       val transcribed = SymbolSequenceTranscription.transcribe(seq)
       val list = RNA.SymbolConvert.fromList(transcribed)
       new RNA.GappedSequence(list)
@@ -66,7 +66,7 @@ package DNA {
     def this(sequence: DNASequence) = this(sequence.seq, Nil)
 
     def translate(): List[AASymbol] = {
-      SymbolSequenceTranslation.translate(transcribe seq)
+      SymbolSequenceTranslation.translate(transcribe.seq)
     }
 
     /**
@@ -101,7 +101,7 @@ package RNA {
     def this(sequence: RNASequence) = this(sequence.seq, Nil)
 
     def translate(): List[AASymbol] = {
-      SymbolSequenceTranslation.translate(transcribe seq)
+      SymbolSequenceTranslation.translate(transcribe.seq)
     }
 
     /**
