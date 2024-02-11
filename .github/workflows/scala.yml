@@ -7,9 +7,9 @@ name: Scala CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "scala-2.13" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "scala-2.13" ]
 
 permissions:
   contents: read
