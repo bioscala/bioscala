@@ -22,7 +22,7 @@ class FastaReader(val filename: String) extends Iterator[(String, String, String
   //noinspection ScalaWeakerAccess
   class FastaReadException(string: String) extends Exception(string)
 
-  def hasNext(): Boolean = reader.ready
+  def hasNext: Boolean = reader.ready
 
   def next(): (String, String, String) = {
     // Read the tag line

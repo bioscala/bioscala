@@ -39,7 +39,7 @@ package bio {
 
     val (seq_num, seq_size) = header()
 
-    def hasNext(): Boolean = reader.ready
+    def hasNext: Boolean = reader.ready
 
     def next(): (String, String) = {
       // parse ID

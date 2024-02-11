@@ -48,7 +48,7 @@ class PhylipReader(val filename: String) extends Iterator[(String, String)] {
   val list: List[(String, String)] = id_list.zip(seq_list).reverse
   var pos = 0
 
-  def hasNext(): Boolean = pos < list.length
+  def hasNext: Boolean = pos < list.length
 
   def next(): (String, String) = {
     val retval = list(pos)
