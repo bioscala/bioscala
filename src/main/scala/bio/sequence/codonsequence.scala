@@ -65,8 +65,9 @@ package Protein {
         seq.grouped(3).toSeq
 
       // Amino acids and nucleotides
-      val aas = ToSequence(str).translate()
+      val aas = ToSequence(str).translate() // IUPAC Sequence
       val nts = ToDNA(str)
+      // split into codons and zip them with AA's
       val codons2 = codons(nts)
       val zipped = aas.zip(codons2)
       // Return a list of Codon objects
@@ -96,8 +97,9 @@ package Protein {
       }
 
       // Amino acids and nucleotides
-      val aas = ToGappedSequence(str).translate()
+      val aas = ToGappedSequence(str).translate() // IUPAC Sequence
       val nts = ToGappedDNA(str)
+      // split into codons and zip them with AA's
       val codons2 = codons(nts)
       val zipped = aas.zip(codons2)
       // Return a list of Codon objects
@@ -120,7 +122,6 @@ package Protein {
    * s(2) should equal (R)
    * s(2).getCodon should equal (List(C,G,T))
    */
-  //noinspection ScalaWeakerAccess
   class CodonSequence(codonlist: List[Protein.Codon], attributelist: List[Attribute])
     extends bio.Sequence[Protein.Codon](codonlist, attributelist) {
 
@@ -143,12 +144,11 @@ package Protein {
     def toDNA: List[DNA.NTSymbol] = seq.flatMap { codon => codon.getCodon }
 
     def toRNA: List[RNA.NTSymbol] =
-      new DNA.IUPACSequence(toDNA).transcribe.toList.asInstanceOf[List[RNA.NTSymbol]]
+      new DNA.IUPACSequence(toDNA).transcribe.toList
 
     override def toString: String = toAminoAcid.mkString
   }
 
-  //noinspection ScalaWeakerAccess
   class GappedCodonSequence(codonlist: List[CodonSymbol], attributelist: List[Attribute]) extends bio.Sequence[CodonSymbol](codonlist, attributelist) {
 
     type SequenceType = GappedCodonSequence
@@ -172,7 +172,7 @@ package Protein {
     def toDNA: List[DNA.NTSymbol] = seq.flatMap { codon => codon.getCodon }
 
     def toRNA: List[RNA.NTSymbol] =
-      new DNA.IUPACGappedSequence(toDNA).transcribe.toList.asInstanceOf[List[RNA.NTSymbol]]
+      new DNA.IUPACGappedSequence(toDNA).transcribe.toList
 
     override def toString: String = toAminoAcid.mkString
   }

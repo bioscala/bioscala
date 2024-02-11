@@ -6,15 +6,11 @@ package bio
  * attributes, sequences can have attributes and the Alignment can have
  * attributes.
  */
-//noinspection ScalaWeakerAccess
-
 class Alignment[T](sequencelist: List[List[T]]) {
   val list: List[List[T]] = sequencelist
 
-
   type Aln = List[List[T]]
 
-  // def this(list: Ali) = this(list,Nil)
   def toList: Aln = list
 
   def transpose(m: Aln): Aln = {
@@ -31,16 +27,12 @@ class Alignment[T](sequencelist: List[List[T]]) {
  * ID that can not be lost. The reason for this class are
  * the functions that update columns. (NYI)
  */
-//noinspection ScalaWeakerAccess
 class SequenceAlignment[Sequence](sequencelist: List[Sequence]) {
   val list: List[Sequence] = sequencelist
 
   type Aln = List[Sequence]
 
   def toList: Aln = list
-
-  // def blankColumnIf(f : (_) => _ ) = { f(_) }
-
 }
 
 package DNA {
@@ -53,7 +45,6 @@ package DNA {
 /**
  * Trait contains methods for modifying sparse alignments
  */
-//noinspection ScalaWeakerAccess
 trait SparseAlignment[T] {
   type GapType // Abstract type
   val gap: GapType
@@ -88,10 +79,9 @@ trait SparseAlignment[T] {
   /**
    * Remove columns, i.e. columns that contain less than min_symbols
    */
-  def removeSparseColumns(in: List[List[T]], min_symbols: Int): (Alignment, List[Int]) = {
+  def removeSparseColumns(in: Alignment, min_symbols: Int): (Alignment, List[Int]) = {
     // transpose matrix for optimal list performance
     val (tm, log) = removeSparseRows(transpose(in), min_symbols)
     (transpose(tm), log)
   }
-
 }
