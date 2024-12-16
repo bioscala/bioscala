@@ -2,10 +2,9 @@ package bio.chemistry
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import bio.nucleotide.RNA.{A, C, G, U}
 
 class RNANucleotideSpec extends AnyFlatSpec with Matchers {
-  import bio.RNA._
-
   "RNA nucleotides" should "act as DNA nucleotides and print as characters" in {
     val a = A
     val c = C

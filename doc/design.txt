@@ -103,7 +103,7 @@ pure (AGCT only), gapped (adds '-'), or has ambigous data like IUPAC.
 If you use DNA.IUPACSequence over DNA.Sequence, you'll get type
 checking for IUPAC. 
 
-bio.Sequence[T] is the abstract base class for all Sequences.
+bio.sequence.Sequence[T] is the abstract base class for all Sequences.
 DNA.Sequence supports Nucleotide - so only AGCT values.
 DNA.IPACSequence supports IUPAC. And IUPACGappedSequence adds gaps. 
 The design is similar for RNA and Protein sequences. Protein contains
@@ -123,7 +123,7 @@ Aligned sequences contain 'gaps'. Each Sequence stores a list of:
   AminoAcid | Gap
   Codon | Gap
 
-Where Gap is a bio.Symbol and Codon is an amino acid with matching
+Where Gap is a bio.nucleotide.Symbol and Codon is an amino acid with matching
 codon sequence. One way to handle it is to store a List[Symbol] that
 supports a Gap and one of the other types in, for example,
 GappedSequence[Codon]. The type safety is not really maintained at the
@@ -144,7 +144,7 @@ and also
   Protein.GappedAminoAcid for Protein.Sequence
 
 are type safe. This implies that for these symbols we can safely use
-the base abstract class bio.Sequence[T], rather than having a
+the base abstract class bio.sequence.Sequence[T], rather than having a
 specialised class.
 
 Gapped Sequences share traits. One of them is to split the Sequence
@@ -264,8 +264,8 @@ The way it is implemented you can write sequentially:
 
      import bio.io.Control._
       using(new FileOutputStream(tmpfn)) { stream =>
-        new PamlWriter(stream).write(seqlist)
-        new PamlWriter(stream).write(seqlist)
+        new PamlWriter(stream).write(seqList)
+        new PamlWriter(stream).write(seqList)
       }
 
 == On Alignments ==
@@ -276,7 +276,7 @@ or amino acid. In this edition of BioScala the Alignment operations
 are on the most simple data representation, often sequences
 represented by lists of Symbols. An Alignment is
 
-  List[List[bio.Symbol]]
+  List[List[bio.nucleotide.Symbol]]
 
 For some operations List may be changed into Array, e.g. for constant
 time (fast) access of matrix elements. The Symbols may contain
@@ -313,7 +313,7 @@ returns both the new alignment and a list of removed column numbers.
 Resulting in:
 
   trait SparseAlignment[T] {
-    type Alignment = List[List[T]]  // where T is a bio.Symbol
+    type Alignment = List[List[T]]  // where T is a bio.nucleotide.Symbol
     def removeEmptyColumns(in: Alignment) : (Alignment, List[Integer]) 
   }
 

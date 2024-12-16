@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 import scala.language.postfixOps
 
 class DNANucleotideSpec extends AnyFlatSpec with Matchers {
-  import bio.DNA._
+  import bio.nucleotide.DNA._
 
   "DNA nucleotides" should "print as characters" in {
     val a = A

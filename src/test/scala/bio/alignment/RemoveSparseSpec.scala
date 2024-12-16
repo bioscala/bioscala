@@ -1,16 +1,16 @@
 package bio.alignment
 
 import org.scalatest.flatspec.AnyFlatSpec
-import bio.DNA._
+import bio.sequence.DNA.GappedSequence
 import org.scalatest.matchers.should.Matchers
-
+import bio.alignment.DNA.SparseAlignment
 
 class RemoveSparseSpec extends AnyFlatSpec with Matchers {
   "An alignment" should "remove sparse columns" in {
     // this also tests removeSparseRows and transpose
-    val s1 = new GappedSequence("agc--taacg---")
-    val s2 = new GappedSequence("agc---aaca---")
-    val s3 = new GappedSequence("agc----aca---")
+    val s1 = GappedSequence("agc--taacg---")
+    val s2 = GappedSequence("agc---aaca---")
+    val s3 = GappedSequence("agc----aca---")
     val m = List(s1.toList,s2.toList,s3.toList)
     val (m1,log1) = SparseAlignment.removeSparseColumns(m,1)
     log1 should equal (List(3,4,10,11,12))
