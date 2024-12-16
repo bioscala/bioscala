@@ -13,5 +13,5 @@ javac -cp $classpath RbSequence.java
 mv RbSequence.class ../../../bio/ruby/
 
 echo "Compile Scala library"
-fsc -deprecation src/bio/chemistry/nucleotide.scala src/bio/sequence/*.scala
+fsc -deprecation src/bio/chemistry/nucleotide.scala src/bio/sequence/Star.scala
 
