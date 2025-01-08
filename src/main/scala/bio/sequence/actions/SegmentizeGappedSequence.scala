@@ -1,9 +1,8 @@
+package bio.sequence.actions
+
 /**
  * Segmentize Sequence
  */
-
-package bio
-
 class SegmentizeGappedSequence[T](val gap: T) {
   /**
    * Split a sequence into gapped/non-gapped segments
@@ -23,8 +22,4 @@ class SegmentizeGappedSequence[T](val gap: T) {
       case _ => s :: split(tail)
     }
   }
-} // class
-
-package DNA {
-  object SegmentizeGappedSequence extends SegmentizeGappedSequence[NTSymbol](Gap)
 }

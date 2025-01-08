@@ -2,13 +2,15 @@ package bio.sequence.actions
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import bio.DNA._
+import bio.DNA.{A, G, Gap, C, T}
+import bio.sequence.DNA.SegmentizeGappedSequence
 
 class SegmentizeSpec extends AnyFlatSpec with Matchers {
 
 
   "SegmentizeGappedSequence" should "split on Nucleotide" in {
-    SegmentizeGappedSequence.split(List(A, G, Gap, Gap, C, T, Gap, T)) should equal(List(List(A, G), List(Gap, Gap), List(C, T), List(Gap), List(T)))
+    SegmentizeGappedSequence.split(List(A, G, Gap, Gap, C, T, Gap, T)) should
+      equal(List(List(A, G), List(Gap, Gap), List(C, T), List(Gap), List(T)))
   }
 
   "SegmentizeGappedSequence" should "handle three" in {

@@ -4,6 +4,7 @@
  */
 
 import bio._
+import bio.sequence.DNA.GappedSequence
 
 import scala.annotation.tailrec
 
@@ -95,9 +96,9 @@ Call SNPs from an alignment.
         l.reverse.foreach { infilen =>
           if (verbose) println("Reading " + infilen)
           val f = new FastaReader(infilen)
-          val seqs: List[DNA.GappedSequence] = f.map {
+          val seqs: List[GappedSequence] = f.map {
             case (id, tag, symbols) =>
-              new DNA.GappedSequence(id, tag, symbols)
+              GappedSequence(id, tag, symbols)
           }.toList
           val ids = seqs.map(_.id)
           val slist: List[List[Symbol]] = seqs.map(_.toList.asInstanceOf[List[Symbol]])

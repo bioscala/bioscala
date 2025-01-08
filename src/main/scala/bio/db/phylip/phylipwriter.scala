@@ -5,10 +5,11 @@
 
 package bio
 
-import org.biojava.bio.alignment._
-import org.biojava.bio.seq._
-import org.biojava.bio.symbol._
-import org.biojavax.bio.phylo.io.phylip._
+import bio.sequence.AbstractSequence
+import org.biojava.bio.alignment.{SimpleAlignmentElement, FlexibleAlignment}
+import org.biojava.bio.seq.DNATools
+import org.biojava.bio.symbol.RangeLocation
+import org.biojavax.bio.phylo.io.phylip.PHYLIPFileFormat
 
 import java.io._
 

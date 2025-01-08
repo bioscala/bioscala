@@ -5,7 +5,9 @@
 
 package bio
 
-import java.io._
+import bio.sequence.AbstractSequence
+
+import java.io.{FileOutputStream, File, OutputStreamWriter}
 import scala.annotation.tailrec
 
 class PamlWriter(val fout: FileOutputStream) {
