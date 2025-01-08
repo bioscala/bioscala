@@ -4,8 +4,8 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import bio.{FastaReader, PamlWriter}
 import bio.sequence.DNA.GappedSequence
-
 import java.io.{File, FileOutputStream}
+import scala.util.Using
 
 class PamlWriterSpec extends AnyFlatSpec with Matchers {
 
@@ -17,8 +17,7 @@ class PamlWriterSpec extends AnyFlatSpec with Matchers {
       seq
     }.toList
     val tmpfn = File.createTempFile("BioScala-PAML-", ".phy")
-    import bio.io.Control._
-    using(new FileOutputStream(tmpfn)) { stream =>
+    Using(new FileOutputStream(tmpfn)) { stream =>
       // 2x write
       new PamlWriter(stream).write(seqlist)
       new PamlWriter(stream).write(seqlist)
