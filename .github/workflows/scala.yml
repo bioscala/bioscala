@@ -7,16 +7,15 @@ name: Scala CI
 
 on:
   push:
-    branches: [ "master", "scala-2.12" ]
+    branches: [ "master", "scala-2.13" ]
   pull_request:
-    branches: [ "master", "scala-2.12" ]
+    branches: [ "master", "scala-2.13" ]
 
 permissions:
   contents: read
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
