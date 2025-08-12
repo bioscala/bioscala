@@ -65,11 +65,7 @@ libraryDependencies += "org.bioscala" %% "bioscala-core" % "0.2.0"
 
 #### Example: DNA to RNA Transcription
 ```scala
-import bio.nucleotide.DNA._
-import bio.sequence.DNA.DNASequence
-import bio.sequence.actions.SequenceTranscription._
-
-val dnaSequence = DNASequence("ATGGCCATTGTAATGGGCCGCTGAA")
+val dnaSequence = new DNASequence("ATGGCCATTGTAATGGGCCGCTGAA")
 val rnaSequence = dnaSequence.transcribe()
 
 println(rnaSequence)  // Output: AUGGCCAUUGUAAUGGGCCGCUGAA
@@ -77,10 +73,7 @@ println(rnaSequence)  // Output: AUGGCCAUUGUAAUGGGCCGCUGAA
 
 #### Example: Protein Translation
 ```scala
-import bio.sequence.RNA.RNASequence
-import bio.sequence.actions.SequenceTranslation._
-
-val rnaSequence = RNASequence("AUGGCCAUUGUAAUGGGCCGCUGAA")
+val rnaSequence = new RNASequence("AUGGCCAUUGUAAUGGGCCGCUGAA")
 val proteinSequence = SequenceTranslation.translate(rnaSequence.seq)
 
 println(proteinSequence)  // Output: MAIVMGR*
@@ -88,9 +81,6 @@ println(proteinSequence)  // Output: MAIVMGR*
 
 #### Example: Sparse Alignment
 ```scala
-import bio.alignment.SparseAlignment
-import bio.nucleotide.DNA.NTSymbol
-
 val alignment: List[List[NTSymbol]] = List(
   List(A, C, G, T, Gap),
   List(A, Gap, G, T, C)
