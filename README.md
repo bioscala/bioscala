@@ -1,8 +1,22 @@
-## BioScala: A Functional Bioinformatics Library
-Welcome to BioScala, a lightweight yet powerful bioinformatics library designed for functional programming enthusiasts and bioinformatics researchers. Built in Scala, BioScala provides immutable, type-safe abstractions for working with DNA, RNA, and protein sequences, alignments, and more.
+# BioScala
+_Scalable, functional bioinformatics on the JVM — written in Scala, usable from Scala/Java and friends._
 
-Whether you're analyzing sequences, performing alignments, or translating DNA to proteins, BioScala offers a clean, modular API to simplify your workflows.
+> This is a community-driven fork focused on code clarity, small safe refactors, and contributor experience.  
+> This a functional bioinformatics library.
 
+---
+
+## ✨ What’s inside (today)
+- Strongly-typed **DNA/RNA/Protein** sequences (with IUPAC ambiguity & gapped variants)
+- **Transcription** (DNA → RNA)
+- **Translation** (RNA → amino acids) with BioJava interop
+- Parsers/Writers:
+  - Iterator-based **FASTA** reader/writer
+  - Iterator-based **PAML (PHY)** reader
+  - **Phylip** reader/writer (via BioJava)
+- Early alignment utilities and attribute system (immutable, WIP)
+
+> Some APIs reflect “classic BioScala” semantics; modernization happens behind shims first to keep PRs tiny.
 ### Why BioScala?
 **🧬 Functional Design:** Immutable data structures and pure functions for reliable, reproducible analysis.
 
@@ -24,18 +38,6 @@ Whether you're analyzing sequences, performing alignments, or translating DNA to
 - **Transcription & Translation:** Convert DNA to RNA and RNA to protein sequences.
 
 - **Attributes:** Attach metadata (e.g., IDs, descriptions) to sequences and alignments.
-
-#### Current Modules
-
-- **Alignment:** Tools for working with sequence alignments, including sparse alignments.
-
-- **Attribute:** Manage metadata and properties for sequences and alignments.
-
-- **Chemistry:** Represent nucleotides, amino acids, and codons with strong typing.
-
-- **Nucleotide:** Core DNA and RNA sequence handling.
-
-- **Sequence:** High-level abstractions for working with biological sequences.
 
 ### Quick Start
 
@@ -124,18 +126,16 @@ BioScala is an open-source project, and we welcome contributions from the commun
 
 - 👩‍💻 Contribute Code: [Contributing Guide](https://github.com/bioscala/bioscala/blob/master/CONTRIBUTING.md)
 
+- 💬 Join our [Discord](https://discord.gg/RFwVD3FQ) to participate in discussions.
+
 ---
 
-### Roadmap
-BioScala is a work in progress, and we’re actively working to improve it. Here’s what we’re focusing on next:
+### Credits & license
+Original author/maintainer: Pjotr Prins
 
-- **v0.3.0**: Improved IUPAC support and codon table integration.
+Interop: BioJava for translation and IO helpers
 
-- **v0.4.0**: Enhanced alignment algorithms and performance optimizations.
-
-- **v1.0.0**: Stable API and comprehensive documentation.
-
-Check out our Roadmap for more details.
+License: BSD (see [LICENSE](https://github.com/bioscala/bioscala/blob/master/LICENSE)).
 
 ---
 
@@ -184,4 +184,4 @@ Let’s build the future of bioinformatics, together.
 
 **BioScala Team**
 
-[GitHub](https://github.com/bioscala)
+On [GitHub](https://github.com/bioscala) and [Discord](https://discord.gg/RFwVD3FQ)

@@ -34,10 +34,10 @@ You can contribute to BioScala in many ways:
     sbt compile
     ```
 
-   4. **Run Tests**:
+   4. **Format Code and Run Tests**:
     Ensure all tests pass before making changes:
     ```bash
-    sbt test
+    sbt scalafmtAll && sbt test
     ```
 
 2. #### Choose an Issue
@@ -59,14 +59,20 @@ You can contribute to BioScala in many ways:
 
    3. Write Tests:
    Add unit tests for new features or bug fixes.
+   
+   4. Format Code and Run Tests:
+   Ensure all tests pass before making changes:
+    ```bash
+    sbt scalafmtAll && sbt test
+    ```
 
-   4. Commit Your Changes:
+   5. Commit Your Changes:
    Write clear, concise commit messages:
     ```bash
     git commit -m "Add feature: your feature description"
     ```
 
-   5. Push Your Changes:
+   6. Push Your Changes:
    Push your branch to your fork:
     ```bash
     git push origin feature/your-feature-name
@@ -129,5 +135,6 @@ Your contributions help make BioScala better for everyone. We appreciate your ti
 
 ---
 
-BioScala Team
-[GitHub](https://github.com/bioscala)
+**BioScala Team**
+
+On [GitHub](https://github.com/bioscala) and [Discord](https://discord.gg/RFwVD3FQ)
