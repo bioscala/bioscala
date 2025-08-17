@@ -20,7 +20,7 @@ class SequenceTranslateSpec extends AnyFlatSpec with Matchers {
     new RNA.IUPACSequence("ancuaacgn").translate().mkString should equal("X*R")
   }
   "Translate ambiguous DNA sequences from nt.fa" should "succeed" in {
-    val f = new FastaReader("./test/data/fasta/nt.fa")
+    val f = new FastaReader("modules/legacy/src/test/resources/fasta/nt.fa")
     val seqs = f.map { res =>
       val (id, tag, dna) = res
       // println(dna)
