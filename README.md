@@ -115,6 +115,14 @@ println(filteredAlignment)  // Output: List(List(A, C, G, T, Gap), List(A, Gap, 
 
 - **Sequence**: High-level sequence abstractions.
 
+Please refer to these links for a richer documentation:
+
+- [The tutorial](http://monomorphic.org/bioscala/bioscala-tutorial.html) 
+
+- [Design docs](http://monomorphic.org/bioscala/bioscala-design.html) 
+
+- [API docs](http://monomorphic.org/bioscala/api/)
+
 ---
 
 ### Community
