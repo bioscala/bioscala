@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 
 class FastaReaderSpec extends AnyFlatSpec with Matchers {
   "FastaReader" should "read from NT file" in {
-    val f = new FastaReader("./test/data/fasta/nt.fa")
+    val f = new FastaReader("modules/legacy/src/test/resources/fasta/nt.fa")
     val ids = f.map { res =>
       val (id, tag, dna) = res
       id
@@ -14,7 +14,7 @@ class FastaReaderSpec extends AnyFlatSpec with Matchers {
     ids.head should equal("PUT-157a-Arabidopsis_thaliana-1")
   }
   "FastaReader" should "balk on nucleotide N with standard Sequence" in {
-    val f = new FastaReader("./test/data/fasta/nt.fa")
+    val f = new FastaReader("modules/legacy/src/test/resources/fasta/nt.fa")
     an[IllegalArgumentException] should be thrownBy {
       val seqs = f.map { res =>
         val (id, tag, dna) = res
@@ -23,7 +23,7 @@ class FastaReaderSpec extends AnyFlatSpec with Matchers {
     }
   }
   "FastaReader" should "be able to convert NT to IUPACSequence" in {
-    val f = new FastaReader("./test/data/fasta/nt.fa")
+    val f = new FastaReader("modules/legacy/src/test/resources/fasta/nt.fa")
     val seqs = f.map { res =>
       val (id, tag, dna) = res
       new DNA.IUPACSequence(id, tag, dna)
@@ -32,7 +32,7 @@ class FastaReaderSpec extends AnyFlatSpec with Matchers {
   }
   // ---- AminoAcid's
   "FastaReader" should "read from AA file" in {
-    val f = new FastaReader("./test/data/fasta/aa.fa")
+    val f = new FastaReader("modules/legacy/src/test/resources/fasta/aa.fa")
     val ids = f.map { res =>
       val (id, tag, dna) = res
       id
@@ -40,7 +40,7 @@ class FastaReaderSpec extends AnyFlatSpec with Matchers {
     ids.head should equal("BAHG_VITSP")
   }
   "FastaReader" should "balk on standard Sequence: Unexpected value for AminoAcid X" in {
-    val f = new FastaReader("./test/data/fasta/aa.fa")
+    val f = new FastaReader("modules/legacy/src/test/resources/fasta/aa.fa")
     an[IllegalArgumentException] should be thrownBy {
       val seqs = f.map { res =>
         val (id, tag, dna) = res
@@ -49,7 +49,7 @@ class FastaReaderSpec extends AnyFlatSpec with Matchers {
     }
   }
   "FastaReader" should "be able to convert AA to IUPACSequence" in {
-    val f = new FastaReader("./test/data/fasta/aa.fa")
+    val f = new FastaReader("modules/legacy/src/test/resources/fasta/aa.fa")
     val seqs = f.map { res =>
       val (id, tag, dna) = res
       new Protein.IUPACSequence(id, tag, dna)
@@ -58,7 +58,7 @@ class FastaReaderSpec extends AnyFlatSpec with Matchers {
   }
   // ---- Codons
   "FastaReader" should "be able to convert NT to CodonSequence" in {
-    val f = new FastaReader("./test/data/fasta/nt.fa")
+    val f = new FastaReader("modules/legacy/src/test/resources/fasta/nt.fa")
     val seqs = f.map { res =>
       val (id, tag, dna) = res
       new Protein.CodonSequence(id, tag, dna)

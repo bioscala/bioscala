@@ -21,4 +21,4 @@ dist
 /project/*-shim.sbt
 /activator-sbt-atmos-akka-shim.sbt
 /~*
-src/test/learn.sc
+modules/legacy/src/test/learn.sc

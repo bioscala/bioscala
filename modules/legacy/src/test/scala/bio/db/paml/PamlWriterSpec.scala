@@ -10,7 +10,7 @@ import java.io._
 class PamlWriterSpec extends AnyFlatSpec with Matchers {
 
   "PamlWriter" should "write PAML file" in {
-    val f = new FastaReader("./test/data/fasta/nt_aln.fa")
+    val f = new FastaReader("modules/legacy/src/test/resources/fasta/nt_aln.fa")
     val seqlist = f.map { res =>
       val (id, tag, dna) = res
       val seq = new GappedSequence(id, tag, dna)
